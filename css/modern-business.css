@@ -25,9 +25,9 @@ body {
 
 /* Home Page Carousel */
 
-header.carousel {
-    height: 50%;
-}
+/*header.carousel {
+    height: 94%;
+}*/
 
 header.carousel .item,
 header.carousel .item.active,
@@ -35,9 +35,9 @@ header.carousel .carousel-inner {
     height: 100%;
 }
 
+
 header.carousel .fill {
     width: 100%;
-    height: 100%;
     background-position: center;
     background-size: cover;
 }
@@ -87,9 +87,6 @@ footer {
         margin-bottom: 15px;
     }
 
-    header.carousel .carousel {
-        height: 70%;
-    }
 }
 /*Overlay for portfolio images*/
 .overlay {
@@ -113,7 +110,6 @@ footer {
 
 #myCarousel {
   width:100%;
-  height:75%;
   position:center-block;
   margin: 0 auto;
 }
@@ -132,32 +128,31 @@ a.black-text {
   content:"nyu.edu"
 }
 
-.panel-body{
+.card-body{
   height:100%;
   overflow-y:scroll;
 }
 
-.panel-body-tall {
+.card-body-tall {
   height:600px;
   overflow-y:scroll;
-}
-.panel-body-tall{
   padding:15px;
 }
+
 .column-container{
   display:flex;
   overflow-y:scroll;
   height: 600px;
 }
 
-/* The sticky class is added to the navbar with JS when it reaches its scroll position */
-.sticky {
-  position: fixed;
-  top: 0px;
-  width: 100%;
+.card {
+  margin-top: 10px;
 }
 
-/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
-.sticky + .container {
-  padding-top: 180px;
+.thumb-post img {
+  object-fit: none; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 100%;
+  max-height: 250px;
+  margin-bottom: 1rem;
 }
