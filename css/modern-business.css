@@ -163,6 +163,6 @@ a.black-text {
 }
 
 .card-body img {
-    height: 200px;
-    witdth:300px;
+    height: 100%;
+    witdth: 100%;
 }
