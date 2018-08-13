@@ -19,6 +19,9 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -120,16 +123,6 @@
         </div>
     </header>
 
-        <!-- Controls -->
-<!--         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a> -->
-    <!-- </header> -->
-
-
         <!-- Boats Icons Section -->
     <div class="span-12">
         <!-- Navigation -->
@@ -144,7 +137,7 @@
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Blog</a>
+                        <a class="nav-link" href="https://mikecgreenblog.wordpress.com/" target="_blank">Blog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="papers/Resume4.0.pdf" target="_blank">CV</a>
@@ -216,12 +209,12 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a class="black-text" href="#" target="_blank">
-                                        <h4>DATA Agent</h4>
+                                        <h4>Data Agent</h4>
                                         <h5 class="card-subtitle mb-2 text-muted">an open-data, murder mystery generator</h5>
                                     </a>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">DATA Agent was the culmination of a massive research undertaking started by <a href="https://gabbbarros.com/">Gabriella Barros</a>. Given a person on Wikipedia, the system automatically generates an entire murder mystery adventure to play using evolutionary algorithms. The game client can then load up this game for you to play! TO BE RELEASED SOON!</p>
+                                    <p class="card-text">Data Agent was the culmination of a massive research undertaking started by <a href="https://gabbbarros.com/">Gabriella Barros</a>. Given a person on Wikipedia, the system automatically generates an entire murder mystery adventure to play using evolutionary algorithms. The game client can then load up this game for you to play! TO BE RELEASED SOON!</p>
                                     <a href="#"><img class = "img-responsive img-rounded img-hover" src="images/dataagent.png"/></a>
                                 </div>
                             </div>
@@ -283,8 +276,12 @@
                                     <h5 class="card-subtitle mb-2 text-muted">hi, I'm Mike Green</h5>
                                 </div>
                                 <div class="card-body" style="height:100%">
-                                    <p class="card-text">Born in Poughkeepsie, NY and raised in Cary, NC, I've lived in Memphis, Tennessee for the last 15 years. I studied abroad in Rome, Italy for a semester to obtain global experience. I've studied the past four years in Bethlehem, PA. I'm now based in New York, NY.</p>
+                                    <p class="card-text">We often think of AI as something that plays chess, identifies faces, auto-completes search results, or drives cars, among a multitude of other things. AI is all around us, constantly being used to study patterns and then use that knowledge to benefit us in some direct way.
+                                    </p>
+                                    <p>We ask: What is possible for this <b>AI TO LEARN?</b>
+                                    <br>But rarely do we ask: What can <b>WE LEARN</b> from this AI?</p>
                                     <p class="card-text">I am currently pursuing a PhD in Video Game Design and Artificial Intelligence at New York University. Right now my research is focused around A.I. and Video Games, and how they can be applied to learning. I love video games, coffee, code, dogs, and sailing.</p>
+                                    <p><a href="https://mikecgreenblog.wordpress.com/2018/07/18/artificial-intelligence-game-design-and-education-how-it-all-fits/">Read my motivations for my research here.</a></p>
                                 </div>
                             </div>
                         </div>
@@ -343,7 +340,7 @@
                                     </a>
                                 </div>
                                 <div class="card-body" style="height:120%">
-                                    <p class="card-text">The Stay Alive series was one of my very first video games, originally made for mobiLehigh 2014. It is currently not found online, but I'm working on putting it up on itch.io!</p>
+                                    <p class="card-text">The Stay Alive series was one of my very first video games, originally made for mobiLehigh 2014. It is a visually-overwhelming, 2D, space-ship shooter game. It is currently not found online, but I'm working on putting it up on itch.io!</p>
                                     <!-- <a href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.StayAlive" target="_blank"> -->
                                         <img class = "img-responsive img-rounded img-hover" src="images/stayalive.jpg"/>
                                     <!-- </a> -->
@@ -408,7 +405,7 @@
                                     </a>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">I made this game with a team for my final project in my Narrative Game Design class in Spring 2018.</p>
+                                    <p class="card-text">I made this game with a team for my final project in my Narrative Game Design class in Spring 2018. The idea was to create a cyberpunk detective game using design techniques learned in class. I was the sole programmer on the team and thus was in charge of all programming and game mechanic related content. It's not much, but this was made in only 4 weeks!</p>
                                     <a href="https://champchampchamp.itch.io/2118-corruption" target="_blank"><img class="img-responsive img-rounded img-hover" src="images/2118Game.jpg" /></a>
                                 </div>
                             </div>
@@ -505,7 +502,8 @@
     <!-- Script to Activate the Carousel -->
     <script>
     $('.carousel').carousel({
-        interval: 6000 //changes the speed
+        pause: false,
+        interval: 6000 //changes the speed    
     })
     </script>
 

@@ -11,8 +11,14 @@ body {
     height: 100%;
 }
 
+body .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Arvo', serif;
+}
+
 body {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+/*   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; */
+/*     font-family: 'Arvo', serif; */
+    font-family: 'Dosis', sans-serif;
     /*padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */*/
 }
 
@@ -160,4 +166,9 @@ a.black-text {
 .smol-gutters >[class*="col-"] {
   padding-right: 10px;
   padding-left: 10px;
+}
+
+.card-body img {
+    height: 100%;
+    width: 100%;
 }
