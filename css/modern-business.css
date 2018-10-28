@@ -39,15 +39,19 @@ body {
 header.carousel .item,
 header.carousel .item.active,
 header.carousel .carousel-inner {
-    height: 100%;
+    /*height: 100%;*/
+}
+
+.carousel-inner > .item > img {
+    margin: 0 auto;
 }
 
 
-header.carousel .fill {
+/*header.carousel .fill {
     width: 100%;
     background-position: center;
     background-size: cover;
-}
+}*/
 
 /* 404 Page Styles */
 
