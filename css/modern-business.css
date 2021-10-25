@@ -141,7 +141,7 @@ a.black-text {
 
 .card-body{
   height:100%;
-  overflow-y:scroll;
+  /* overflow-y:scroll; */
 }
 
 .card-body-tall {
@@ -175,4 +175,27 @@ a.black-text {
 .card-body img {
     height: 100%;
     width: 100%;
+}
+.shadowed {
+  text-shadow: 
+    0.05em 0 black,
+    0 0.05em black,
+    -0.05em 0 black,
+    0 -0.05em black,
+    -0.05em -0.05em black,
+    -0.05em 0.05em black,
+    0.05em -0.05em black,
+    0.05em 0.05em black;
+}
+
+.supershadowed {
+  text-shadow: 
+    0.10em 0 black,
+    0 0.10em black,
+    -0.10em 0 black,
+    0 -0.10em black,
+    -0.10em -0.10em black,
+    -0.10em 0.10em black,
+    0.10em -0.10em black,
+    0.10em 0.10em black;
 }

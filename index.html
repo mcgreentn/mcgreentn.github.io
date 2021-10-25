@@ -22,14 +22,6 @@
   <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
 
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   
@@ -47,43 +39,51 @@
 
 <body>
   <!-- Navigation -->
-  <div class="span-12">
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Michael Cerny Green</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mikecgreenblog.wordpress.com/" target="_blank">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="papers/Current.pdf" target="_blank">CV</a>
-          </li>
-        </ul>
-        <span class="navbar-text">
-          AI-Games-Learning
-        </span>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Michael Cerny Green</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html" aria-current="page">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="research.html">Research</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="media.html">Media</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://mikecgreenblog.wordpress.com/" target="_blank">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="papers/Current.pdf" target="_blank">CV</a>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            AI-Games-Learning
+          </span>
+        </div>
       </div>
     </nav>
     <header id="myCarousel" class="carousel slide">
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
+      <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img class="d-block w-100" src="images/tutorial_photo.png">
             <div class="carousel-caption d-none d-md-block">
-              <h5 style="text-shadow: 2px 2px 0px #000000;">The AtDelfi System</h5>
-              <p style="text-shadow: 2px 2px 0px #000000;">Automatically Designing Legible, Full Instructions for Games
+              <h5 class="supershadowed">The AtDelfi System</h5>
+              <p class="supershadowed">Automatically Designing Legible, Full Instructions for Games
               </p>
             </div>
           </div>
@@ -91,8 +91,8 @@
             <img class="d-block w-100" src="images/mario_evolution.png">
             <div class="carousel-caption">
               <div class="carousel-caption d-none d-md-block">
-                <h5 style="text-shadow: 2px 2px 0px #000000;">Mario Mechanic Mastery Maps</h5>
-                <p style="text-shadow: 2px 2px 0px #000000;">Evolving Maps That Teach Mechanics in Infinite Mario
+                <h5 class="supershadowed">Mario Mechanic Mastery Maps</h5>
+                <p class="supershadowed">Evolving Maps That Teach Mechanics in Infinite Mario
                 </p>
               </div>
             </div>
@@ -101,24 +101,50 @@
             <img class="d-block w-100" src="images/gdmc.png">
             <div class="carousel-caption">
               <div class="carousel-caption d-none d-md-block">
-                <h5 style="text-shadow: 2px 2px 0px #000000;">Generative Design in Minecraft!</h5>
-                <p style="text-shadow: 2px 2px 0px #000000;">Procedurally Generating Cities and Stuff</p>
+                <h5 class="supershadowed">Generative Design in Minecraft</h5>
+                <p class="supershadowed">Procedurally Generating Towns and Cities</p>
               </div>
             </div>
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="images/personas.png">
+            <div class="carousel-caption">
+              <div class="carousel-caption d-none d-md-block">
+                <h5 class="supershadowed">
+                  Procedural Personas
+                </h5>
+                <p class="supershadowed">
+                  Automated Playtesting with AI
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="images/microrct.png">
+            <div class="carousel-caption">
+              <div class="carousel-caption d-none d-md-block">
+                <h5 class="supershadowed">
+                  MicroRCT
+                </h5>
+                <p class="supershadowed">
+                  Evolutionarily Generating Virtual Theme Parks
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </header>
 
     <!-- Boats Icons Section -->
-    <div class="span-12">
       <!-- Page Content -->
       <div class="container">
         <div class="row smol-gutters">
@@ -145,46 +171,35 @@
                         href="https://www.linkedin.com/in/michael-green-7739a781/">Michael Green</a></p>
                     <p class="card-text">Github: <a class="card-link" href="https://github.com/mcgreentn">mcgreentn</a>
                     </p>
+                    <p class="card-text">Lab: <a class="card-link" href="http://game.engineering.nyu.edu" target="_blank">Game Innovation Lab</a>
+                    </p>
                     <p class="card-text">Soundcloud: <a class="card-link"
                         href="https://soundcloud.com/trichampion">ChampChampChamp</a></p>
                   </div>
                 </div>
               </div>
-              <!-- Media -->
+              <!-- About Me -->
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title">Media</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">anything that mentions me</h5>
+                    <h4 class="card-title">About Me</h4>
+                    <h5 class="card-subtitle mb-2 text-muted">hi, I'm Mike Green</h5>
                   </div>
-                  <div class="card-body">
-                    <b class="card-text">Publications</b>
-                    <p class="card-text">[2018] Big Boss Battles - <a
-                        href="https://bigbossbattle.com/data-agent/">Outwit time-travelling murderers in AI-generated
-                        Data Agent</a></p>
-                    <p class="card-text">[2018] PR Newswire - <a
-                        href="https://www.prnewswire.com/news-releases/first-of-its-kind-competition-for-minecraft-to-probe-the-creative-potential-of-artificial-intelligence-300656527.html"
-                        target="_blank"> "First-of-its-Kind Competition for Minecraft to Probe the Creative Potential of
-                        Artificial Intelligence"</a></p>
-                    <p class="card-text">[2016] Lehigh Summer Review - <a
-                        href="https://www1.lehigh.edu/news/building-knowledge" target="_blank">"Building Knowledge"</a>
+                  <div class="card-body" style="height:100%">
+                    <p class="card-text">We often think of AI as something that plays chess, identifies faces,
+                      auto-completes search results, or drives cars, among a multitude of other things. AI is all around
+                      us, constantly being used to study patterns and then use that knowledge to benefit us in some
+                      direct way.
                     </p>
-                    <p class="card-text">[2016] The Brown and White - <a
-                        href="http://thebrownandwhite.com/2016/02/28/fourth-mobilehigh/" target="_blank">"Fourth
-                        mobiLEHIGH"</a></p>
-                    <p class="card-text">[2015] The Brown and White - <a
-                        href="http://thebrownandwhite.com/2015/03/30/mobilehigh/" target="_blank">"mobiLEHIGH"</a></p>
-                    <b class="card-text">Videos and Interviews</b>
-                    <p class="card-text">[2018] <a
-                        href="https://itunes.apple.com/us/podcast/the-future-of-games/id1436976053?i=1000423468308&mt=2"
-                        target="_blank">"The Future of Games"</a> podcast @ NYU</p>
-                    <p class="card-text">[2018] <a href="https://www.youtube.com/watch?v=7eVK8UAWOaw&feature=youtu.be"
-                        target="_blank">"Generative Design In Minecraft - Christoph Salge + Friends"</a> @ ProcJam</p>
-                    <p class="card-text">[2017] <a href="https://youtu.be/uI2wUiYuU8U?t=2336" target="_blank">"Press
-                        Space to Fire"</a> @ EXAG</p>
-                    <p class="card-text">[2017] <a
-                        href="https://youtu.be/fjMHNZGlzp4?list=PLg9kiaNi4TnUldHKNWJ_gSktaFfCE6ydc"
-                        target="_blank">General Video Game Rule Generation</a> @ CIG</p>
+                    <p>We ask: What is possible for this <b>AI TO LEARN?</b>
+                      <br>But rarely do we ask: What can <b>WE LEARN</b> from this AI?</p>
+                    <p class="card-text">I am currently pursuing a PhD in Video Game Design and Artificial Intelligence
+                      at New York University. Right now my research
+                      is focused around A.I. and Video Games, and how they can be applied to learning. I love video
+                      games, coffee, code, dogs, and sailing.</p>
+                    <p><a
+                        href="https://mikecgreenblog.wordpress.com/2018/07/18/artificial-intelligence-game-design-and-education-how-it-all-fits/">Read
+                        my motivations for my research here.</a></p>
                   </div>
                 </div>
               </div>
@@ -192,7 +207,7 @@
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-header">
-                    <a class="black-text" href="#" target="_blank">
+                    <a class="black-text" href="https://champchampchamp.itch.io/data-agent" target="_blank">
                       <h4>Data Agent</h4>
                       <h5 class="card-subtitle mb-2 text-muted">an open-data, murder mystery generator</h5>
                     </a>
@@ -202,7 +217,7 @@
                         href="https://gabbbarros.com/">Gabriella Barros</a>. Given a person on Wikipedia, the system
                       automatically generates an entire murder mystery adventure to play using evolutionary algorithms.
                       The game client can then load up this game for you to play! TO BE RELEASED SOON!</p>
-                    <a href="#"><img class="img-responsive img-rounded img-hover" src="images/dataagent.png" /></a>
+                    <a href="https://champchampchamp.itch.io/data-agent" target="_blank"><img class="img-responsive img-rounded img-hover" src="images/dataagent.png" /></a>
                   </div>
                 </div>
               </div>
@@ -269,48 +284,6 @@
           <!-- Center -->
           <div class="col-md-4">
             <div class="row">
-              <!-- About Me -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title">About Me</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">hi, I'm Mike Green</h5>
-                  </div>
-                  <div class="card-body" style="height:100%">
-                    <p class="card-text">We often think of AI as something that plays chess, identifies faces,
-                      auto-completes search results, or drives cars, among a multitude of other things. AI is all around
-                      us, constantly being used to study patterns and then use that knowledge to benefit us in some
-                      direct way.
-                    </p>
-                    <p>We ask: What is possible for this <b>AI TO LEARN?</b>
-                      <br>But rarely do we ask: What can <b>WE LEARN</b> from this AI?</p>
-                    <p class="card-text">I am currently pursuing a PhD in Video Game Design and Artificial Intelligence
-                      at New York University. Right now my research
-                      is focused around A.I. and Video Games, and how they can be applied to learning. I love video
-                      games, coffee, code, dogs, and sailing.</p>
-                    <p><a
-                        href="https://mikecgreenblog.wordpress.com/2018/07/18/artificial-intelligence-game-design-and-education-how-it-all-fits/">Read
-                        my motivations for my research here.</a></p>
-                  </div>
-                </div>
-              </div>
-              <!-- The Musings Blog -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://mikecgreenblog.wordpress.com/" target="_blank">
-                      <h4 class="card-title">The Musings Blog</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a window to my thoughts</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:100%">
-                    <p class="card-text">I started a blog at the beginning of my candidacy to record my thoughts and
-                      research. I don't know if anyone ever reads it, but check it out sometime.</p>
-                    <a href="https://mikecgreenblog.wordpress.com/" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/blog.png" /></a>
-                  </div>
-                </div>
-              </div>
               <!-- The AtDelfi System -->
               <div class="col-lg-12">
                 <div class="card">
@@ -326,6 +299,28 @@
                       FDG 2018, won the Best Paper Award of the conference.</p>
                     <a href="http://game.engineering.nyu.edu/tutorial-generator/" target="_blank"><img
                         class="img-responsive img-rounded img-hover" src="images/atdelfi.png" /></a>
+                  </div>
+                </div>
+              </div>
+              <!-- GDMC -->
+              <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-header">
+                    <a class="black-text" href="https://gendesignmc.engineering.nyu.edu/" target="_blank">
+                      <h4 class="card-title">The GDMC Challenge</h4>
+                      <h5 class="card-subtitle mb-2 text-muted">generative design in minecraft</h5>
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">The GDMC Settlement Generation Challenge is to produce an
+                      algorithm that is
+                      adaptive towards the provided map, creates a settlement that satisfies a range
+                      of functional
+                      requirement - and also looks good and evokes an interesting narrative. The
+                      goal is to produce an
+                      generator that can rival what humans can produce.</p>
+                    <a href="http://gendesignmc.engineering.nyu.edu/" target="_blank"><img
+                        class="img-responsive img-rounded img-hover" src="images/minecraft.jpeg" /></a>
                   </div>
                 </div>
               </div>
@@ -367,6 +362,7 @@
                   </div>
                 </div>
               </div>
+              <!-- Cubes -->
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-header">
@@ -392,100 +388,24 @@
           <!-- Right Gutter-->
           <div class="col-md-4">
             <div class="row">
+              <!-- The Musings Blog -->
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title">Research</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">stuff I've worked on</h5>
+                    <a class="black-text" href="https://mikecgreenblog.wordpress.com/" target="_blank">
+                      <h4 class="card-title">The Musings Blog</h4>
+                      <h5 class="card-subtitle mb-2 text-muted">a window to my thoughts</h5>
+                    </a>
                   </div>
-                  <div class="card-body-tall">
-                    <p class="card-text">* = Best Paper Award || ** = Best Paper Nomination
-                      <p class="card-text"><a href="https://arxiv.org/pdf/1909.03094.pdf" target="_blank">[2019] Automatic Critical 
-                          Mechanic Discovery in Video Games</a> - Michael Cerny Green, Ahmed Khalifa, Gabriella Alves Bulhoes Barros,
-                          Tiago Machado, Julian Togelius - Submitted to AAAI 2019</p>
-                      <p class="card-text"><a href="https://arxiv.org/pdf/1910.01603.pdf" target="_blank">[2019] Bootstrapping 
-                          Conditional GANs for Video Game Level Generation</a> - Ruben Rodriguez Torrado, Ahmed Khalifa, 
-                          Michael Cerny Green, Niels Justesen, Sebastian Risi, Julian Togelius - Submitted to AAAI 2019</p>
-                      <p class="card-text"><a href="https://arxiv.org/pdf/1906.05094.pdf" target="_blank">[2019] Organic
-                          Building Generation in
-                          Minecraft</a> - Michael Cerny Green, Christoph Salge, Julian Togelius - Published @ PCG
-                        Workshop @ FDG 2019</p>
-                      <p class="card-text"><a href="https://arxiv.org/pdf/1906.04660.pdf" target="_blank">[2019]
-                          Two-step Constructive Approaches for
-                          Dungeon Generation</a> - Michael Cerny Green, Ahmed Khalifa, Athoug A., Divyesh Surana,
-                        Antonios Liapis, Julian Togelius - Published @ PCG Workshop @ FDG 2019</p>
-                      <p class="card-text"><a href="https://arxiv.org/pdf/1905.05888.pdf" target="_blank">[2019]
-                          Generative Design in Minecraft: Chronicle Challenge</a> -
-                        Christoph Salge, Christian Guckelsberger, Michael Cerny Green, Rodrigo Canaan, Julian Togelius
-                        - Published @ ICCC 2019</p>
-                      <p class="card-text"><a href="https://arxiv.org/pdf/1903.11678.pdf" target="_blank">[2019] Tree
-                          Search vs Optimization Approaches for
-                          Level Generation</a> - Debosmita Bhaumik, Ahmed Khalifa, Michael Cerny Green, Julian Togelius
-                        - Published on arxiv</p>
-                      <p class="card-text"><a href="https://arxiv.org/pdf/1904.08972.pdf" target="_blank">[2019]
-                          Intentional Level
-                          Design</a> - Ahmed
-                        Khalifa, Michael Cerny Green, Gabriella Alves Bulhoes Barros, Julian Togelius
-                        - Published @
-                        GECCO
-                        2019</p>
-                      <p class="card-text"><a href="https://arxiv.org/pdf/1901.05431.pdf" target="_blank">[2019]
-                          Evolutionarily-curated Curriculum Learning for Deep Reinforcement Learning Agents
-                        </a> - Michael Cerny Green, Benjamin
-                        Sergent, Pushyami
-                        Shandilya, Vibhor Kumar - Published @ DRL Workshop @ AAAI 2019</p>
-                      <p class="card-text"><a href="papers/gen-design-mc.pdf" target="_blank">[2018]
-                          Generative Design
-                          in Minecraft (GMDC)</a> - Christoph Salge, Michael Cerny Green, Rodrigo
-                        Canaan, Julian
-                        Togelius - Published @ PCG Workshop @ FDG 2018</p>
-                      <p class="card-text"><a href="papers/generating-levels-teach.pdf" target="_blank">[2018]
-                          Generating Levels That Teach Mechanics</a> – Michael Cerny Green, Ahmed
-                        Khalifa, Gabriella
-                        Alves Bulhoes Barros, Andy Nealen, Julian Togelius – Published @ PCG Workshop
-                        @ FDG 2018</p>
-                      <p class="card-text">*<a href="papers/atdelfi-automatically-designing.pdf" target="_blank">[2018]
-                          AtDelfi: Automatically Designing Legible, Full Instructions For Games</a> –
-                        Michael Cerny
-                        Green, Ahmed Khalifa, Gabriella Alves Bulhoes Barros, Tiago Machado, Andy
-                        Nealen, Julian
-                        Togelius – Published @ FDG 2018</p>
-                      <p class="card-text"><a href="papers/data_agent.pdf" target="_blank">[2018] Data
-                          Agent</a> –
-                        Michael Cerny Green, Gabriella Alves Bulhoes Barros, Antonios Liapis, Julian
-                        Togelius –
-                        Published @ FDG 2018</p>
-                      <p class="card-text">**<a href="papers/data-driven-design.pdf" target="_blank">[2018]
-                          Data-driven
-                          Design: A Case for Maximalist Game Design</a> – Gabriella Alves Bulhoes
-                        Barros, Michael
-                        Cerny
-                        Green, Antonios Liapis, Julian Togelius – Published @ ICCC 2018</p>
-                      <p class="card-text"><a href="papers/who-killed-albert.pdf" target="_blank">[2018] Who Killed
-                          Albert Einstein? From Open Data to Murder Mystery Games</a> – Gabriella
-                        Alves Bulhoes
-                        Barros,
-                        Michael Cerny Green, Antonios Liapis, Julian Togelius – Published in TOG 2018.
-                      </p>
-                      <p class="card-text"><a href="papers/automated-playtesting-procedural.pdf" target="_blank">[2018]
-                          Automated Playtesting with Procedural Personas with Evolved Heuristics</a> –
-                        Christoffer
-                        Holmgard, Michael Cerny Green, Antonios Liapis, Julian Togelius – Published in
-                        TOG 2018.</p>
-                      <p class="card-text"><a href="papers/press-space-fire.pdf" target="_blank">[2017] “Press Space
-                          To
-                          Fire”: Automatic Video Game Tutorial Generation</a> – Michael Cerny Green,
-                        Ahmed Khalifa,
-                        Gabriella A. B. Barros, and Julian Togelius – Published at EXAG Workshop @
-                        AIIDE 2017.</p>
-                      <p class="card-text"><a href="papers/general-rule-generation.pdf" target="_blank">[2017] General
-                          Video Game Rule Generation</a> – Ahmed Khalifa, Michael Cerny Green, Diego
-                        Perez-Liebana,
-                        and
-                        Julian Togelius – Published @ CIG 2017.</p>
+                  <div class="card-body" style="height:100%">
+                    <p class="card-text">I started a blog at the beginning of my candidacy to record my thoughts and
+                      research. Check it out here:</p>
+                    <a href="https://mikecgreenblog.wordpress.com/" target="_blank"><img
+                        class="img-responsive img-rounded img-hover" src="images/blog.png" /></a>
                   </div>
                 </div>
               </div>
+              <!-- GVGAI -->
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-header">
@@ -503,27 +423,6 @@
                       colleagues.</p>
                     <a href="http://www.gvgai.net/" target="_blank"><img class="img-responsive img-rounded img-hover"
                         src="images/survivezombies.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://gendesignmc.engineering.nyu.edu/">
-                      <h4 class="card-title">The GDMC Challenge</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">generative design in minecraft</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">The GDMC Settlement Generation Challenge is to produce an
-                      algorithm that is
-                      adaptive towards the provided map, creates a settlement that satisfies a range
-                      of functional
-                      requirement - and also looks good and evokes an interesting narrative. The
-                      goal is to produce an
-                      generatot that can rival the state of the art of what humans can produce.</p>
-                    <a href="http://gendesignmc.engineering.nyu.edu/" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/minecraft.jpeg" /></a>
                   </div>
                 </div>
               </div>
@@ -619,52 +518,21 @@
             </div>
           </div>
         </div>
-
-        <!-- /.row -->
-        <!--row-->
-        <!-- <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Videos</h4>
-                                <h5>a collection of video projects</h5>
-                            </div>
-                            <div class="card-body" style="height:150%">
-                                <p>Somewhere around my junior year I started taking videos of my friends and putting it to music. Here are some of those videos. Note, I own no professional equipment: all videos are taken on my mobile phone.</p>
-
-                                <h5><a href="https://www.youtube.com/watch?v=i6Maa9ix7mw" target="_break">A Little Longer 2017 <img class="img-responsive img-circle" src="images/alittlelonger2017.jpg"/></a></h5>
-                                <h5><a href="https://www.youtube.com/watch?v=siBSTs5Q6XE" target="_break">Hurricane 2016 <img class="img-responsive img-circle" src="images/hurricane2016.jpg"/></a></h5>
-                                <h5><a href="https://www.youtube.com/watch?v=uIElXGEcf00" target="_break">One Quick Summer (2015) <img class="img-responsive img-circle" src="images/onequicksummer2015.jpg"/></a></h5>
-                                <h5><a href="https://www.youtube.com/watch?v=-UNkUcYdrVI" target="_break">Zoellner Sledding Moguls (2014) <img class="img-responsive img-circle" src="images/sleddingmoguls.jpg"</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-        <!--/.row-->
-
         <!-- Footer -->
         <footer>
           <div class="row">
             <div class="col-lg-12">
-              <p>Copyright &copy; Michael Cerny Green 2018</p>
+              <p>Copyright &copy; Michael Cerny Green 2021. Just kidding you can take my stuff.</p>
             </div>
           </div>
         </footer>
       </div>
       <!-- /.container -->
-    </div>
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-    <!-- Script to Activate the Carousel -->
-    <script>
-      $('.carousel').carousel({
-        pause: false,
-        interval: 6000 //changes the speed    
-      })
-    </script>
   </div>
 
 </body>
