@@ -133,7 +133,7 @@ a.black-text {
 }
 
 #emailAddress::before{
-  content:"mcg520";
+  content:"mike.green";
 }
 #emailAddress::after{
   content:"nyu.edu"
