@@ -12,7 +12,8 @@ data = {
             "authors": "Michael Cerny Green, Victoria Yen, Sam Earle, Dipika Rajesh, Maria Edwards, LB Soros",
             "conference": "arXiv",
             "year": 2021,
-            "link": "https://arxiv.org/pdf/2105.04342.pdf"
+            "link": "https://arxiv.org/pdf/2105.04342.pdf",
+            "code": "https://github.com/smearle/micro-rct"
         },
         {
             "title": "The AI Settlement Generation Challenge in Minecraft: First Year Report",
@@ -26,21 +27,24 @@ data = {
             "authors": "Michael Cerny Green, Ahmed Khalifa, Philip Bontrager, Rodrigo Canaan, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2021,
-            "link": "https://arxiv.org/abs/2102.10247.pdf"
+            "link": "https://arxiv.org/abs/2102.10247.pdf",
+            "code": "https://github.com/mcgreentn/GVGAI/tree/feat/reward_evolution"
         },
         {
             "title": "Mech-Elites: Illuminating the Mechanic Space of GVG-AI",
             "authors": "Megan Charity, Michael Cerny Green, Ahmed Khalifa, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2021,
-            "link": "https://arxiv.org/pdf/2002.04733.pdf"
+            "link": "https://arxiv.org/pdf/2002.04733.pdf",
+            "code": "https://github.com/MasterMilkX/GVGAI/tree/atdelphi_plus"
         },
         {
             "title": "Mario level generation from mechanics using scene stitching",
             "authors": "Michael Cerny Green, Luvneesh Mugrai, Ahmed Khalifa, Julian Togelius",
             "conference": "IEEE Conference on Games",
             "year": 2020,
-            "link": "https://arxiv.org/pdf/2002.02992.pdf"
+            "link": "https://arxiv.org/pdf/2002.02992.pdf",
+            "code": "https://github.com/mcgreentn/MarioExperiments"
         },
         {
             "title": "Bootstrapping conditional gans for video game level generation",
@@ -54,7 +58,10 @@ data = {
             "authors": "Christoph Salge, Michael Cerny Green, Rodrigo Canaan, Filip Skwarski, Rafael Fritsch, Adrian Brightmoore, Shaofang Ye, Changxing Cao, Julian Togelius",
             "conference": "KI-Künstliche Intelligenz",
             "year": 2020,
-            "link": "https://link.springer.com/article/10.1007/s13218-020-00635-0"
+            "link": "https://link.springer.com/article/10.1007/s13218-020-00635-0",
+            "blog": "https://mikecgreenblog.wordpress.com/2018/05/31/the-generative-design-in-minecraft-competition-gdmc/",
+            "code": "https://github.com/mcgreentn/GDMC"
+
         },
         {
             "title": "Automatic Critical Mechanic Discovery Using Playtraces in Video Games",
@@ -68,7 +75,8 @@ data = {
             "authors": "Michael Cerny Green, Christoph Salge, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2019,
-            "link": "https://arxiv.org/pdf/1906.05094.pdf"
+            "link": "https://arxiv.org/pdf/1906.05094.pdf",
+            "code": "https://github.com/mcgreentn/GDMC"
         },
         {
             "title": "Two-step constructive approaches for dungeon generation",
@@ -103,7 +111,8 @@ data = {
             "authors": "Ahmed Khalifa, Michael Cerny Green, Gabriella AB Barros, Julian Togelius",
             "conference": "Genetic and Evolutionary Computation Conference",
             "year": 2019,
-            "link": "https://dl.acm.org/doi/pdf/10.1145/3321707.3321849"
+            "link": "https://dl.acm.org/doi/pdf/10.1145/3321707.3321849",
+            "code": "https://github.com/mcgreentn/MarioExperiments"
         },
         {
             "title": "Data-driven Design: A Case for Maximalist Game Design",
@@ -124,14 +133,19 @@ data = {
             "authors": "Michael Cerny Green, Ahmed Khalifa, Gabriella AB Barros, Tiago Machado, Andy Nealen, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2018,
-            "link": "https://arxiv.org/abs/1807.04375.pdf"
+            "link": "https://arxiv.org/abs/1807.04375.pdf",
+            "code": "https://github.com/mcgreentn/atdelfi-ui",
+            "blog": "https://mikecgreenblog.wordpress.com/2018/07/18/artificial-intelligence-game-design-and-education-how-it-all-fits/",
+            "demo": "http://game.engineering.nyu.edu/tutorial-generator/"
         },
         {
             "title": "DATA Agent",
             "authors": "Michael Cerny Green, Gabriella AB Barros, Antonios Liapis, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2018,
-            "link": "https://arxiv.org/abs/1810.02251.pdf"
+            "link": "https://arxiv.org/abs/1810.02251.pdf",
+            "demo": "https://champchampchamp.itch.io/data-agent",
+            "code": "https://github.com/gabbbarros/DataAdventures-UnityBuild"
         },
         {
             "title": "Generative Design in Minecraft (GDMC), Settlement Generation Competition",

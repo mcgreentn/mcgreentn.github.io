@@ -1,3 +1,15 @@
 .second {
     text-indent: -2em;
 }
+
+.top-buffer { 
+    margin-top:20px; 
+}
+
+.top-squeeze { 
+    margin-top:-10px; 
+}
+
+.lefty-button {
+    margin-right: 10px
+}
