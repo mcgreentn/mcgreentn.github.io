@@ -1,4 +1,4 @@
-data = { 
+data = {
     "papers": [
         {
             "title": "Physics-informed attention-based neural network for solving non-linear partial differential equations",
@@ -38,7 +38,8 @@ data = {
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2021,
             "link": "https://arxiv.org/pdf/2002.04733.pdf",
-            "code": "https://github.com/MasterMilkX/GVGAI/tree/atdelphi_plus"
+            "code": "https://github.com/MasterMilkX/GVGAI/tree/atdelphi_plus",
+            "slides": "slides/FDG 2021 - Mech-Elites"
         },
         {
             "title": "Mario level generation from mechanics using scene stitching",
@@ -46,7 +47,8 @@ data = {
             "conference": "IEEE Conference on Games",
             "year": 2020,
             "link": "https://arxiv.org/pdf/2002.02992.pdf",
-            "code": "https://github.com/mcgreentn/MarioExperiments"
+            "code": "https://github.com/mcgreentn/MarioExperiments",
+            "slides": "slides/COG 2020 - Mario_Scene_Stitching.pdf"
         },
         {
             "title": "Bootstrapping conditional gans for video game level generation",
@@ -110,7 +112,8 @@ data = {
             "authors": "Michael Cerny Green, Benjamin Sergent, Pushyami Shandilya, Vibhor Kumar",
             "conference": "Deep Reinforcement Learning in Games Workshop at AAAI 2019",
             "year": 2019,
-            "link": "https://arxiv.org/pdf/1901.05431.pdf"
+            "link": "https://arxiv.org/pdf/1901.05431.pdf",
+            "poster": "posters/ECCL 2019 - Curated Learning.pdf"
         },
         {
             "title": "Intentional Computational Level Design",
@@ -169,7 +172,8 @@ data = {
             "authors": "Christoffer Holmgard, Michael Cerny Green, Antonios Liapis, Julian Togelius",
             "conference": "IEEE Transactions on Games",
             "year": 2018,
-            "link": "https://arxiv.org/pdf/1802.06881.pdf"
+            "link": "https://arxiv.org/pdf/1802.06881.pdf",
+            "slides": "slides/Minidungeons 2 MCTS Personas.pdf"
         },
         {
             "title": "Who killed albert einstein? From open data to murder mystery games",
