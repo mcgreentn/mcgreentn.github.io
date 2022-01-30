@@ -1,4 +1,4 @@
-data = {
+data = { 
     "papers": [
         {
             "title": "Physics-informed attention-based neural network for solving non-linear partial differential equations",
