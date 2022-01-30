@@ -27,8 +27,10 @@ data = {
             "authors": "Michael Cerny Green, Ahmed Khalifa, Philip Bontrager, Rodrigo Canaan, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2021,
-            "link": "https://arxiv.org/abs/2102.10247.pdf",
-            "code": "https://github.com/mcgreentn/GVGAI/tree/feat/reward_evolution"
+            "link": "https://arxiv.org/pdf/2102.10247.pdf",
+            "code": "https://github.com/mcgreentn/GVGAI/tree/feat/reward_evolution",
+            "blog": "https://mikecgreenblog.wordpress.com/2022/01/29/game-mechanic-alignment-theory/",
+            "slides": "slides/Game Mechanic Alignment.pdf"
         },
         {
             "title": "Mech-Elites: Illuminating the Mechanic Space of GVG-AI",
@@ -68,7 +70,8 @@ data = {
             "authors": "Michael Cerny Green, Ahmed Khalifa, Gabriella Alves Bulhoes Barros, Tiago Machado, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2019,
-            "link": "https://arxiv.org/pdf/1909.03094.pdf"
+            "link": "https://arxiv.org/pdf/1909.03094.pdf",
+            "slides": "slides/Critical Mechanic Discovery Using Playtraces.pdf"
         },
         {
             "title": "Organic building generation in minecraft",
@@ -76,14 +79,16 @@ data = {
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2019,
             "link": "https://arxiv.org/pdf/1906.05094.pdf",
-            "code": "https://github.com/mcgreentn/GDMC"
+            "code": "https://github.com/mcgreentn/GDMC",
+            "slides": "slides/Organic_Building_Generation.pdf"
         },
         {
             "title": "Two-step constructive approaches for dungeon generation",
             "authors": "Michael Cerny Green, Ahmed Khalifa, Athoug Alsoughayer, Divyesh Surana, Antonios Liapis, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2019,
-            "link": "https://arxiv.org/pdf/1906.04660.pdf"
+            "link": "https://arxiv.org/pdf/1906.04660.pdf",
+            "slides": "slides/Two_Step_Dungeon.pdf"
         },
         {
             "title": "Generative design in Minecraft: chronicle challenge",
@@ -126,7 +131,8 @@ data = {
             "authors": "Michael Cerny Green, Ahmed Khalifa, Gabriella AB Barros, Andy Nealen, Julian Togelius",
             "conference": "Procedural Content Generation Workshop at the International Conference on the Foundations of Digital Games",
             "year": 2018,
-            "link": "https://arxiv.org/abs/1807.06734.pdf"
+            "link": "https://arxiv.org/pdf/1807.06734.pdf",
+            "slides": "slides/FDG 2018 - Mario Level Gen.pdf"
         },
         {
             "title": "AtDelfi: Automatically Designing Legible, Full Instructions For Games",
@@ -136,51 +142,56 @@ data = {
             "link": "https://arxiv.org/abs/1807.04375.pdf",
             "code": "https://github.com/mcgreentn/atdelfi-ui",
             "blog": "https://mikecgreenblog.wordpress.com/2018/07/18/artificial-intelligence-game-design-and-education-how-it-all-fits/",
-            "demo": "http://game.engineering.nyu.edu/tutorial-generator/"
+            "demo": "http://game.engineering.nyu.edu/tutorial-generator/",
+            "slides": "slides/FDG 2018 - AtDelfi.pdf"
         },
         {
             "title": "DATA Agent",
             "authors": "Michael Cerny Green, Gabriella AB Barros, Antonios Liapis, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2018,
-            "link": "https://arxiv.org/abs/1810.02251.pdf",
+            "link": "https://arxiv.org/pdf/1810.02251.pdf",
             "demo": "https://champchampchamp.itch.io/data-agent",
-            "code": "https://github.com/gabbbarros/DataAdventures-UnityBuild"
+            "code": "https://github.com/gabbbarros/DataAdventures-UnityBuild",
+            "slides": "slides/FDG 2018 - Data Agent.pdf"
         },
         {
             "title": "Generative Design in Minecraft (GDMC), Settlement Generation Competition",
             "authors": "Christoph Salge, Michael Cerny Green, Rodrigo Canaan, Julian Togelius",
             "conference": "Procedural Content Generation Workshop at the International Conference on the Foundations of Digital Games",
             "year": 2018,
-            "link": "https://arxiv.org/pdf/1803.09853.pdf"
+            "link": "https://arxiv.org/pdf/1803.09853.pdf",
+            "video": "https://www.youtube.com/watch?v=7eVK8UAWOaw"
         },
         {
             "title": "Automated playtesting with Procedural Personas through MCTS with evolved heuristics",
             "authors": "Christoffer Holmgard, Michael Cerny Green, Antonios Liapis, Julian Togelius",
             "conference": "IEEE Transactions on Games",
             "year": 2018,
-            "link": "https://arxiv.org/abs/1802.06881.pdf"
+            "link": "https://arxiv.org/pdf/1802.06881.pdf"
         },
         {
             "title": "Who killed albert einstein? From open data to murder mystery games",
             "authors": "Gabriella Alves Bulhoes Barros, Michael Green, Antonios Liapis, Julian Togelius",
             "conference": "IEEE Transactions on Games",
             "year": 2018,
-            "link": "https://arxiv.org/abs/1802.05219.pdf"
+            "link": "https://arxiv.org/pdf/1802.05219.pdf"
         },
         {
             "title": "General Video Game Rule Generation",
             "authors": "Ahmed Khalifa, Michael Cerny Green, Diego Perez-Liebana, Julian Togelius",
             "conference": "IEEE Conference on Games",
             "year": 2017,
-            "link": "https://arxiv.org/abs/1906.05160.pdf"
+            "link": "https://arxiv.org/pdf/1906.05160.pdf",
+            "video": "https://www.youtube.com/watch?v=fjMHNZGlzp4&list=PLg9kiaNi4TnUldHKNWJ_gSktaFfCE6ydc"
         },
         {
             "title": "\"Press Space To Fire\": Automatic Video Game Tutorial Generation",
             "authors": "Michael Cerny Green, Ahmed Khalifa, Gabriella AB Barros, Julian Togelius",
             "conference": "Experimental AI in Games Workshop at the AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment",
             "year": 2017,
-            "link": "https://arxiv.org/abs/1805.11768.pdf"
+            "link": "https://arxiv.org/pdf/1805.11768.pdf",
+            "video": "https://www.youtube.com/watch?v=uI2wUiYuU8U&t=2336s"
         },
 
     ]

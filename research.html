@@ -50,7 +50,7 @@
       <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Michael Cerny Green</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarText">
@@ -126,8 +126,11 @@
         if (item.demo != undefined) {
           paper += '<a role="button" class="btn btn-success lefty-button btn-sm" href="' + item.demo + '" target="_blank">Demo</button>';
         }
+        if (item.video != undefined){
+          paper += '<a role="button" class="btn btn-warning lefty-button btn-sm" href="' + item.video + '" target="_blank">Video</button>';
+        }
         if (item.slides != undefined) {
-          paper += '<a role="button" class="btn btn-secondary lefty-button btn-sm" href="' + item.slides + '" target="_blank">Slides</button>';  
+          paper += '<a role="button" class="btn btn-danger lefty-button btn-sm" href="' + item.slides + '" target="_blank">Slides</button>';  
         }
         paper += '</div></div>';
         researchContainer.append(paper);
