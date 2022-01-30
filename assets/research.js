@@ -30,7 +30,7 @@ data = {
             "link": "https://arxiv.org/pdf/2102.10247.pdf",
             "code": "https://github.com/mcgreentn/GVGAI/tree/feat/reward_evolution",
             "blog": "https://mikecgreenblog.wordpress.com/2022/01/29/game-mechanic-alignment-theory/",
-            "slides": "slides/Game Mechanic Alignment.pdf"
+            "slides": "slides/Game Mechanic Alignment.pdf",
         },
         {
             "title": "Mech-Elites: Illuminating the Mechanic Space of GVG-AI",
@@ -69,9 +69,10 @@ data = {
             "title": "Automatic Critical Mechanic Discovery Using Playtraces in Video Games",
             "authors": "Michael Cerny Green, Ahmed Khalifa, Gabriella Alves Bulhoes Barros, Tiago Machado, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
-            "year": 2019,
+            "year": 2020,
             "link": "https://arxiv.org/pdf/1909.03094.pdf",
-            "slides": "slides/Critical Mechanic Discovery Using Playtraces.pdf"
+            "slides": "slides/Critical Mechanic Discovery Using Playtraces.pdf",
+            "video": "https://youtu.be/3J-DkHEqYBA?t=728"
         },
         {
             "title": "Organic building generation in minecraft",
