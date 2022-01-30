@@ -82,7 +82,7 @@ data = {
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2019,
             "link": "https://arxiv.org/pdf/1906.05094.pdf",
-            "code": "https://github.com/mcgreentn/GDMC",
+            "code": "https://github.com/mcgreentn/GDMC/tree/master/stock-filters/floorplanner",
             "slides": "slides/Organic_Building_Generation.pdf"
         },
         {
