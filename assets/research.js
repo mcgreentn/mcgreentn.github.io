@@ -39,7 +39,7 @@ data = {
             "year": 2021,
             "link": "https://arxiv.org/pdf/2002.04733.pdf",
             "code": "https://github.com/MasterMilkX/GVGAI/tree/atdelphi_plus",
-            "slides": "slides/FDG 2021 - Mech-Elites"
+            "slides": "slides/FDG 2021 - Mech-Elites.pdf"
         },
         {
             "title": "Mario level generation from mechanics using scene stitching",
