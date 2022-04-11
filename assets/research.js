@@ -1,10 +1,17 @@
 data = {
     "papers": [
         {
+            "title": "Predicting Personas Using Mechanic Frequencies and Game State Traces",
+            "authors": "Michael Cerny Green, Ahmed Khalifa, M Charity, Debosmita Bhaumik, Julian Togelius",
+            "conference": "World Congress on Computational Intelligence (in-review)",
+            "year": 2022,
+            "link": "https://arxiv.org/pdf/2203.13351.pdf"
+        },
+        {
             "title": "Physics-informed attention-based neural network for solving non-linear partial differential equations",
             "authors": "Ruben Rodriguez-Torrado, Pablo Ruiz, Luis Cueto-Felgueroso, Michael Cerny Green, Tyler Friesen, Sebastien Matringe, Julian Togelius",
-            "conference": "arXiv",
-            "year": 2021,
+            "conference": "Scientific Reports",
+            "year": 2022,
             "link": "https://arxiv.org/pdf/2105.07898.pdf"
         },
         {
@@ -14,13 +21,6 @@ data = {
             "year": 2021,
             "link": "https://arxiv.org/pdf/2105.04342.pdf",
             "code": "https://github.com/smearle/micro-rct"
-        },
-        {
-            "title": "The AI Settlement Generation Challenge in Minecraft: First Year Report",
-            "authors": "Christoph Salge, Michael Cerny Green, Rodrigo Canaan, Filip Skwarski, Rafael Fritsch, Adrian Brightmoore, Shaofang Ye, Changxing Cao, Julian Togelius",
-            "conference": "arXiv",
-            "year": 2021,
-            "link": "https://arxiv.org/pdf/2103.14950.pdf"
         },
         {
             "title": "Game Mechanic Alignment Theory and Discovery",
@@ -34,7 +34,7 @@ data = {
         },
         {
             "title": "Mech-Elites: Illuminating the Mechanic Space of GVG-AI",
-            "authors": "Megan Charity, Michael Cerny Green, Ahmed Khalifa, Julian Togelius",
+            "authors": "M Charity, Michael Cerny Green, Ahmed Khalifa, Julian Togelius",
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2021,
             "link": "https://arxiv.org/pdf/2002.04733.pdf",
@@ -62,7 +62,7 @@ data = {
             "authors": "Christoph Salge, Michael Cerny Green, Rodrigo Canaan, Filip Skwarski, Rafael Fritsch, Adrian Brightmoore, Shaofang Ye, Changxing Cao, Julian Togelius",
             "conference": "KI-Künstliche Intelligenz",
             "year": 2020,
-            "link": "https://link.springer.com/article/10.1007/s13218-020-00635-0",
+            "link": "https://arxiv.org/pdf/2103.14950.pdf",
             "blog": "https://mikecgreenblog.wordpress.com/2018/05/31/the-generative-design-in-minecraft-competition-gdmc/",
             "code": "https://github.com/mcgreentn/GDMC"
 
