@@ -27,6 +27,8 @@
   
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54297010-6"></script>
+  <!-- ThreeJS -->
+  <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -35,118 +37,52 @@
     gtag('config', 'UA-54297010-6');
   </script>
 
+  <style>
+    canvas {
+        border: 1px solid #d3d3d3;
+        background-color: #f1f1f1;
+    }
+  </style>
+
 </head>
 
 <body>
   <!-- Navigation -->
+  <div class="span-12">
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Michael Cerny Green</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" href="index.html" aria-current="page">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="research.html">Research</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="media.html">Media</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://mikecgreenblog.wordpress.com/" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="papers/Current.pdf" target="_blank">CV</a>
-            </li>
-          </ul>
-          <span class="navbar-text">
-            AI-Games-Learning
-          </span>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Michael Cerny Green</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html" aria-current="page">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="research.html">Research</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="media.html" >Media</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://mikecgreenblog.wordpress.com/" target="_blank">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="papers/Current.pdf" target="_blank">CV</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    AI-Games-Learning
+                </span>
+            </div>
         </div>
-      </div>
     </nav>
-    <header id="myCarousel" class="carousel slide">
-      <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="images/tutorial_photo.png">
-            <div class="carousel-caption d-none d-md-block">
-              <h5 class="supershadowed">The AtDelfi System</h5>
-              <p class="supershadowed">Automatically Designing Legible, Full Instructions for Games
-              </p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="images/mario_evolution.png">
-            <div class="carousel-caption">
-              <div class="carousel-caption d-none d-md-block">
-                <h5 class="supershadowed">Mario Mechanic Mastery Maps</h5>
-                <p class="supershadowed">Evolving Maps That Teach Mechanics in Infinite Mario
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="images/gdmc.png">
-            <div class="carousel-caption">
-              <div class="carousel-caption d-none d-md-block">
-                <h5 class="supershadowed">Generative Design in Minecraft</h5>
-                <p class="supershadowed">Procedurally Generating Towns and Cities</p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="images/personas.png">
-            <div class="carousel-caption">
-              <div class="carousel-caption d-none d-md-block">
-                <h5 class="supershadowed">
-                  Procedural Personas
-                </h5>
-                <p class="supershadowed">
-                  Automated Playtesting with AI
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="images/microrct.png">
-            <div class="carousel-caption">
-              <div class="carousel-caption d-none d-md-block">
-                <h5 class="supershadowed">
-                  MicroRCT
-                </h5>
-                <p class="supershadowed">
-                  Evolutionarily Generating Virtual Theme Parks
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </header>
-
+  </div>
     <!-- Boats Icons Section -->
       <!-- Page Content -->
-      <div class="container">
+      <div class="container-fluid">
         <div class="row smol-gutters">
           <!-- Left Gutter -->
           <div class="col-md-4">
@@ -184,19 +120,17 @@
                 <div class="card">
                   <div class="card-header">
                     <h4 class="card-title">About Me</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">hi, I'm Mike Green</h5>
+                    <h5 class="card-subtitle mb-2 text-muted">hi, I'm Michael Green</h5>
                   </div>
                   <div class="card-body" style="height:100%">
                     <p class="card-text">We often think of AI as something that plays chess, identifies faces,
                       auto-completes search results, or drives cars, among a multitude of other things. AI is all around
-                      us, constantly being used to study patterns and then use that knowledge to benefit us in some
-                      direct way.
+                      us, constantly being used to study patterns and then use that knowledge to benefit us in some way.
                     </p>
                     <p>We ask: What is possible for this <b>AI TO LEARN?</b>
                       <br>But rarely do we ask: What can <b>WE LEARN</b> from this AI?</p>
-                    <p class="card-text">I am currently pursuing a PhD in Video Game Design and Artificial Intelligence
-                      at New York University. Right now my research
-                      is focused around A.I. and Video Games, and how they can be applied to learning. I love video
+                    <p class="card-text">I hold a Ph.D. in Artificial Intelligence
+                      from New York University. My research uses video games as one domain with which to study A.I, and how A.I. systems can be applied to teaching things. I love video
                       games, coffee, code, dogs, and sailing.</p>
                     <p><a
                         href="https://mikecgreenblog.wordpress.com/2018/07/18/artificial-intelligence-game-design-and-education-how-it-all-fits/" target="_blank">Read
@@ -214,10 +148,9 @@
                     </a>
                   </div>
                   <div class="card-body">
-                    <p class="card-text">Data Agent was the culmination of a massive research undertaking started by <a
-                        href="https://gabbbarros.com/">Gabriella Barros</a>. Given a person on Wikipedia, the system
+                    <p class="card-text">Data Agent is a game within the genre of Open Data Games. Given a person on Wikipedia, the system
                       automatically generates an entire murder mystery adventure to play using evolutionary algorithms.
-                      The game client can then load up this game for you to play! TO BE RELEASED SOON!</p>
+                      The game client can then load up this game for you to play!</p>
                     <a href="https://champchampchamp.itch.io/data-agent" target="_blank"><img class="img-responsive img-rounded img-hover" src="images/dataagent.png" /></a>
                   </div>
                 </div>
@@ -284,6 +217,61 @@
           </div>
           <!-- Center -->
           <div class="col-md-4">
+
+            <!-- MiniDungeon Generator -->
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-header">
+                  <a class="black-text">
+                    <h4 class="card-title">DunGen</h4>
+                    <h5 class="card-subtitle mb-2 text-muted">Browser-friendly Dungeon Generation</h5>
+                  </a>
+                </div>
+                <div class="card-body" style="height:120%">
+                  <p class="card-text">
+                    <button class="btn btn-primary" id="generateLevel">Generate</button>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-xl-2 col-lg-12">
+                          <div class="row">
+                            <label for="range-width" class="form-label">Width: </label>
+                            <output>10</output>
+                            <input type="range" class="form-range" id="range-width" value="10" min="5" max="25" step="1" oninput="this.previousElementSibling.value = this.value">
+                          </div>
+                          <div class="row">
+                            <label for="range-height" class="form-label">Height: </label>
+                            <output>10</output>
+                            <input type="range" class="form-range" id="range-height" value="10" min="5" max="15" step="1" oninput="this.previousElementSibling.value = this.value">
+                          </div>
+
+                          <div class="row">
+                            <label for="range-openess" class="form-label">Openness: </label>
+                            <output>5</output>
+                            <input type="range" class="form-range" id="range-openess" value="5" min="1" max="10" step="1" oninput="this.previousElementSibling.value = this.value">
+                          </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-12">
+                          <div class="row">
+                            <div class="col d-flex justify-content-center">
+                              <div id="dungeon-canvas">
+                                <canvas id="game-canvas"></canvas>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div id="dungeon-canvas">
+                              <tt id="ascii-dungeon-canvas"></tt>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        
+                      </div>
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
               <!-- The AtDelfi System -->
               <div class="col-lg-12">
                 <div class="card">
@@ -567,6 +555,11 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <!-- Dungeon Generator Scripts -->
+    <script src="js/level_generator/visualizer.js"></script>
+    <script src="js/level_generator/digger_generator.js"></script>
+    <script src="js/level_generator/generate_level.js"></script>
   </div>
 
 </body>
