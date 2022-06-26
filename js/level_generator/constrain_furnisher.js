@@ -619,56 +619,47 @@ class ConstrainFurnisher {
         this.Map[Entrance.Y][Entrance.X] = "H";
         EntrancePoint = new Pairing(Entrance.X, Entrance.Y);
     }
-    /// <summary>
-    /// Prints the map.
-    /// </summary>
-    public override void PrintMap() {
-        for (int i = 0; i < Map.Length; i++)
+
+    // Prints the map.
+    PrintMap() {
+        for (let i = 0; i < this.Map.length; i++)
         {
-            for (int j = 0; j < Map[i].Length; j++)
+            for (let j = 0; j < this.Map[i].length; j++)
             {
-                Console.Write(Map[i][j]);
+                console.log(this.Map[i][j]);
             }
-            Console.WriteLine("");
+            console.log("");
         }
-        Console.WriteLine("");
-        Console.WriteLine("");
+        console.log("");
+        console.log("");
     }
-    /// <summary>
     /// Gets the map.
-    /// </summary>
-    /// <returns>The map.</returns>
-    public override string[][] GetMap() {
-        return Map;
+    GetMap() {
+        return this.Map;
     }
 
-    /// <summary>
     /// Raycast the specified p1 and p2.
-    /// </summary>
-    /// <returns>The raycast.</returns>
-    /// <param name="p1">P1.</param>
-    /// <param name="p2">P2.</param>
-    public Pairing[] RayTrace(Pairing p1, Pairing p2) {
-            int x0 = p1.X;
-            int y0 = p1.Y;
-            int x1 = p2.X;
-            int y1 = p2.Y;
+   RayTrace(p1, p2) {
+        let x0 = p1.X;
+        let y0 = p1.Y;
+        let x1 = p2.X;
+        let y1 = p2.Y;
 
-        List < Pairing > trace = new List < Pairing > ();
+        let trace = [];
 
-            int dx = Math.Abs(x1 - x0);
-            int dy = Math.Abs(y1 - y0);
-            int x = x0;
-            int y = y0;
-            int n = 1 + dx + dy;
-            int x_inc = (x1 > x0) ? 1 : -1;
-            int y_inc = (y1 > y0) ? 1 : -1;
-            int error = dx - dy;
+        let dx = Math.abs(x1 - x0);
+        let dy = Math.abs(y1 - y0);
+        let x = x0;
+        let y = y0;
+        let n = 1 + dx + dy;
+        let x_inc = (x1 > x0) ? 1 : -1;
+        let y_inc = (y1 > y0) ? 1 : -1;
+        let error = dx - dy;
         dx *= 2;
         dy *= 2;
 
-        for (int tiles = n; tiles > 0; tiles--) {
-            trace.Add(new Pairing(x, y));
+        for (let tiles = n; tiles > 0; tiles--) {
+            trace.push(new Pairing(x, y));
             if (error > 0) {
                 x += x_inc;
                 error -= dy;
@@ -677,16 +668,15 @@ class ConstrainFurnisher {
                 error += dx;
             }
         }
-
-        Pairing[] result = trace.ToArray();
-        return result;
+        return trace;
     }
-    public bool LineOfSight(Pairing start, Pairing end) {
-            bool result = true;
-        Pairing[] rayTrace = RayTrace(start, end);
-        for (int point = 0; point < rayTrace.Length; point++)
+
+    LineOfSight(start, end) {
+        let result = true;
+        let rayTrace = this.RayTrace(start, end);
+        for (let point = 0; point < rayTrace.Length; point++)
         {
-            if (Map[rayTrace[point].Y][rayTrace[point].X].Equals("X")) {
+            if (this.Map[rayTrace[point].Y][rayTrace[point].X] == "X") {
                 result = false;
                 break;
             }
@@ -694,9 +684,9 @@ class ConstrainFurnisher {
         return result;
     }
 
-    public int DistanceBetween(Pairing start, Pairing end) {
-        Pairing[] rayTrace = RayTrace(start, end);
-        return rayTrace.Length;
+    DistanceBetween(start, end) {
+        rayTrace = this.RayTrace(start, end);
+        return rayTrace.length;
     }
 }
 
