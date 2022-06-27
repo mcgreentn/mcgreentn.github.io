@@ -1,14 +1,13 @@
 class Node{
 
-    constructor(parent, x, y, cost, goal_x, goal_y, visited=false) {
+    constructor(parent, x, y, cost, goal_x, goal_y) {
         this.parent = parent;
         this.x = x;
         this.y = y;
         this.children = [];
         this.cost = cost
-        this.estimate = this.Heuristic(goal_x, goal_y);
+        this.estimate = this.calcHeuristic();
         this.f = this.cost + this.estimate;
-        this.visited = visited;
     }
 
     calcHeuristic() {
@@ -16,7 +15,11 @@ class Node{
     }
 
     equals(other) {
-
+        if (this.x == other.x && this.y == other.y) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

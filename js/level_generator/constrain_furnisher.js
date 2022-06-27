@@ -579,36 +579,13 @@ class ConstrainFurnisher {
 
     // Finds the path to exit.
     FindPathToExit() {
-        let mapString = "";
-        // get the full level string
-        for (let i = 0; i < this.Map.Length; i++) {
-            for (let j = 0; j < this.Map[i].Length; j++) {
-                mapString += this.Map[i][j];
-            }
-            if (i != this.Map.Length - 1) {
-                mapString += "\n";
-            }
-        }
-        // make a simlevel out of this
-
-        let level = new SimLevel(mapString);
-        if (level == null) {
-            return 0;
-        }
-
         // TODO redo this with A* search
-        PathDatabase.GameType = 1;
-        PathDatabase.BigDatabase = new List < Dictionary < string, SimPoint[] >> ();
-        PathDatabase.levels = new ArrayList();
-        PathDatabase.Farthest = new Dictionary < SimLevel, Pair > ();
-
-        PathDatabase.BuildDB(level);
-
-        this.PathToExit = PathDatabase.GetLongestPath(level);
-        if (this.PathToExit == null) {
-            return 1;
-        }
-        return 2;
+        // AStarTree()
+        // this.PathToExit = as
+        // if (this.PathToExit == null) {
+        //     return 1;
+        // }
+        // return 2;
     }
 
     // Places the entrance.

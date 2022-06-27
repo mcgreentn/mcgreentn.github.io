@@ -61,7 +61,6 @@ class DiggerGenerator
 		}
 		
 		this.minDungeonSize = (dungeonSize / 10);
-		console.log("target size:" + this.minDungeonSize);
 	}
 
 	// Places the agent somewhere randomly in the map.
@@ -91,8 +90,6 @@ class DiggerGenerator
 		this.placeAgent();
 		this.generateDungeon();
 		this.closeDungeon();
-		this.printMap();
-
 	}
 
 	// // Generates the dungeon.
@@ -259,7 +256,6 @@ class DiggerGenerator
 			}
 		}
 		size = size / (this.map.length * this.map[0].length);
-		console.log("current size: " + size)
 		return size;
 	}
 

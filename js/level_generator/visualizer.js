@@ -28,6 +28,9 @@ function loadMap(map) {
                 tile = new component(sizeX, sizeY, "images/dunGen/wall.png", j*sizeY, i*sizeX, "image");
                 tiles.push(tile);
             }
+            else if (map[i][j] == "m") {
+                tile = new component(sizeX, sizeY, "images/dunGen/minitaur.png", j*sizeY, i*sizeX, "image");
+            }
         }
     }
 }
