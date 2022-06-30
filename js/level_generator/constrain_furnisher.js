@@ -13,7 +13,6 @@ class ConstrainFurnisher {
 
 
     Init() {
-        rng = new Random();
         this.PotionPairings = [];
         this.TreasurePairings = [];
 
@@ -38,70 +37,37 @@ class ConstrainFurnisher {
         this.TrapMax = 2;
     }
     GenerateMap() {
-        Init();
+        this.Init();
 
         //Console.WriteLine("");
         //PrintMap();
         //Console.WriteLine("");
-
-        FindPathToExit();
-        PlaceEntrance();
-        PlaceExit();
-
-        //PrintMap();
-        //Console.WriteLine("");
-
-        PlaceTreasures();
-        PlaceOgre();
-        PlaceMelee();
-        PlaceRanged();
+        console.log(this.Map);
+        this.FindPathToExit();
+        this.PlaceEntrance();
+        this.PlaceExit();
 
         //PrintMap();
         //Console.WriteLine("");
 
-        PlaceTrap();
-        PlacePotions();
-        PlaceBlobs();
-        PlaceMinitaur();
-        PlacePortals();
+        this.PlaceTreasures();
+        this.PlaceOgre();
+        this.PlaceMelee();
+        this.PlaceRanged();
 
         //PrintMap();
+        //Console.WriteLine("");
+
+        this.PlaceTrap();
+        this.PlacePotions();
+        this.PlaceBlobs();
+        this.PlaceMinitaur();
+        this.PlacePortals();
+
+        this.PrintMap();
         //Console.WriteLine("");
     }
 
-    GenerateMap(map) {
-        Init();
-        Map = map;
-
-        //Console.WriteLine("");
-        //      PrintMap();
-        //Console.WriteLine("");
-
-        FindPathToExit();
-        PlaceEntrance();
-        PlaceExit();
-
-        //PrintMap();
-        //Console.WriteLine("");
-
-        PlaceTreasures();
-
-        PlaceOgre();
-        PlaceMelee();
-        PlaceRanged();
-
-        //PrintMap();
-        //Console.WriteLine("");
-
-        PlaceTrap();
-        PlacePotions();
-        PlaceBlobs();
-        PlaceMinitaur();
-        PlacePortals();
-
-        //PrintMap();
-        //Console.WriteLine("");
-    }
 
     // Puts the map in string format.
     MapToString() {
@@ -129,7 +95,7 @@ class ConstrainFurnisher {
             for (let j = 1; j < this.Map[i].Length - 1; j++) {
                 let count = 0;
                 // check if space is empty
-                if (this.Map[i][j] == " ") {
+                if (this.Map[i][j] == "_") {
                     // check if at least 3 neighbors are walls
                     if (this.Map[i - 1][j] == "X") {
                         count++;
@@ -165,16 +131,16 @@ class ConstrainFurnisher {
                     let index = Math.floor(Math.random() * XY.Count);
                     this.Map[XY[index].Y][XY[index].X] = "T";
                     this.TreasureCount++;
-                    this.TreasurePairings.Add(XY[index]);
+                    this.TreasurePairings.push(XY[index]);
                 }
             }
         }
         // if we exhausted all 3 wall treasure spots, do some 2 wall ones
         if (this.TreasureCount < this.TreasureMax) {
-            foreach(point in Backup)
-            {
-                XY.Add(point);
-            }
+            Backup.forEach(element => {
+                XY.push(element)
+            });
+
         }
         // make sure we had >1 potential spot for treasure
         if (XY.Count > 0) {
@@ -201,19 +167,19 @@ class ConstrainFurnisher {
         // get all the points that are blank
         for (let i = 0; i < this.Map.length; i++) {
             for (let j = 0; j < this.Map[i].length; j++) {
-                if (this.Map[i][j] == " ") {
-                    XY.Add(new Pairing(j, i));
+                if (this.Map[i][j] == "_") {
+                    XY.push(new Pairing(j, i));
                 }
             }
         }
 
-        if (XY.Count > 0) {
-            for (let i = 0; i < this.PotionMax && XY.Count > 0; i++) {
-                let index = rng.Next(0, XY.Count);
+        if (XY.length > 0) {
+            for (let i = 0; i < this.PotionMax && XY.length > 0; i++) {
+                let index = Math.floor(Math.random() * XY.length);
                 this.Map[XY[index].Y][XY[index].X] = "P";
                 this.PotionCount++;
-                this.PotionPairings.Add(new Pairing(XY[index].X, XY[index].Y));
-                XY.RemoveAt(index);
+                this.PotionPairings.push(new Pairing(XY[index].X, XY[index].Y));
+                XY.splice(index, 1);
             }
         }
 
@@ -225,14 +191,14 @@ class ConstrainFurnisher {
     PlacePortals() {
         let XY = [];
         let entrancePortal = null;
-        for (let i = 1; i < this.Map.Length - 1; i++) {
-            for (let j = 1; j < this.Map[i].Length - 1; j++) {
-                if (this.Map[i][j] == " ") {
+        for (let i = 1; i < this.Map.length - 1; i++) {
+            for (let j = 1; j < this.Map[i].length - 1; j++) {
+                if (this.Map[i][j] == "_") {
                     // make it between 5 to 15 tiles from the entrance
                     let point = new Pairing(j, i);
-                    let distance = DistanceBetween(point, this.EntrancePoint);
+                    let distance = this.DistanceBetween(point, this.EntrancePoint);
                     if (distance > 5 && distance < 10) {
-                        XY.Add(point);
+                        XY.push(point)
                     }
                 }
             }
@@ -240,36 +206,36 @@ class ConstrainFurnisher {
 
         // place the first portal
         if (XY.Count > 1) {
-            let index = rng.Next(0, XY.Count);
+            let index = Math.floor(Math.random() * XY.length);
             this.Map[XY[index].Y][XY[index].X] = "p";
             entrancePortal = XY[index];
-            XY.RemoveAt(index);
+            XY.splice(index, 1);
         }
-        XY.Clear();
+        XY = []
         // do again for second portal, this time towards the exit, if the first portal was placed
         if (entrancePortal != null) {
-            for (let i = 1; i < this.Map.Length - 1; i++) {
-                for (let j = 1; j < this.Map[i].Length - 1; j++) {
-                    if (this.Map[i][j].Equals(" ")) {
+            for (let i = 1; i < this.Map.length - 1; i++) {
+                for (let j = 1; j < this.Map[i].length - 1; j++) {
+                    if (this.Map[i][j] == "_") {
                         // make sure this is 5 - 10 tiles from the exit and 10 tiles from the other portal
                         let point = new Pairing(j, i);
                         let distanceExit = DistanceBetween(point, ExitPoint);
                         let distancePortal = DistanceBetween(point, entrancePortal);
                         if (distanceExit > 5 && distanceExit < 10 && distancePortal > 10) {
-                            XY.Add(point);
+                            XY.push(point);
                         }
                     }
                 }
             }
             // place the first portal
-            if (XY.Count > 1) {
-                let index = Math.floor(Math.random() * XY.Count);
+            if (XY.length > 1) {
+                let index = Math.floor(Math.random() * XY.length);
                 this.Map[XY[index].Y][XY[index].X] = "p";
-                XY.RemoveAt(index);
+                XY.splice(index, 1);
             }
             // if there is no place for the second portal, remove the first portal
             else {
-                this.Map[entrancePortal.Y][entrancePortal.X] = " ";
+                this.Map[entrancePortal.Y][entrancePortal.X] = "_";
             }
         }
     }
@@ -286,7 +252,7 @@ class ConstrainFurnisher {
 
                 let walled = false;
                 // check if space is empty
-                if (this.Map[i][j] == " ") {
+                if (this.Map[i][j] == "_") {
                     // check if one neighbor is a wall
                     if (this.Map[i - 1][j] == "X" || this.Map[i + 1][j] == "X"
                         || this.Map[i][j - 1] == "X" || this.Map[i][j + 1] == "X") {
@@ -294,35 +260,35 @@ class ConstrainFurnisher {
                     }
 
                 }
-                if (walled && this.Map[i][j] == " ") {
+                if (walled && this.Map[i][j] == "_") {
                     // since the spot has a wall and no monsters around
                     // mark as a potential monster spot
-                    XY.Add(new Pairing(j, i));
+                    XY.push(new Pairing(j, i));
                 }
             }
         }
 
         // make sure we had >1 potential spot for monsters
-        if (XY.Count > 0) {
-            for (let i = 0; i < this.MeleeMonsterMax && XY.Count > 0; i++) {
+        if (XY.length > 0) {
+            for (let i = 0; i < this.MeleeMonsterMax && XY.length > 0; i++) {
                 // loop through the mapping and make sure any places that have melee monsters around it are removed
                 let removeUs = [];
-                for (let k = 0; k < XY.Count; k++) {
+                for (let k = 0; k < XY.length; k++) {
 
                     if (this.Map[XY[k].Y - 1][XY[k].X] == "M" || this.Map[XY[k].Y + 1][XY[k].X] == "M"
                         || this.Map[XY[k].Y][XY[k].X - 1] == "M" || this.Map[XY[k].Y][XY[k].X + 1] == "M") {
                         // put this in the list to remove from the mapping, since it has monsters around
-                        removeUs.Add(k);
+                        removeUs.push(k);
                     }
                 }
-                for (let k = removeUs.Count - 1; k > 0; k--) {
-                    XY.RemoveAt(removeUs[k]);
+                for (let k = removeUs.length - 1; k > 0; k--) {
+                    XY.splice(removeUs[k], 1);
                 }
                 // pick a random spot
-                let rand = Math.floor(Math.random() * XY.Count);
+                let rand = Math.floor(Math.random() * XY.length);
                 this.Map[XY[rand].Y][XY[rand].X] = "M";
-                MeleeMonsterCount++;
-                XY.RemoveAt(rand);
+                this.MeleeMonsterCount++;
+                XY.splice(rand, 1);
             }
         }
     }
@@ -338,7 +304,7 @@ class ConstrainFurnisher {
             for (let j = 1; j < this.Map[i].length - 1; j++) {
                 let clear = false;
                 // check if space is empty
-                if (this.Map[i][j].Equals(" ")) {
+                if (this.Map[i][j] == "_") {
                     // check that there is a melee monster around
                     if (this.Map[i - 1][j] == "M" || this.Map[i + 1][j] == "M"
                         || this.Map[i][j - 1] == "M" || this.Map[i][j + 1] == "M") {
@@ -348,19 +314,19 @@ class ConstrainFurnisher {
                 if (clear) {
                     // since the spot has a wall and no monsters around
                     // mark as a potential monster spot
-                    XY.Add(new Pairing(j, i));
+                    XY.push(new Pairing(j, i));
                 }
             }
         }
 
         // make sure we had >1 potential spot for treasure
-        if (XY.Count > 0) {
-            for (let i = 0; i < this.RangedMonsterMax && XY.Count > 0; i++) {
+        if (XY.length > 0) {
+            for (let i = 0; i < this.RangedMonsterMax && XY.length > 0; i++) {
                 // pick a random spot
-                let rand = Math.floor(Math.random() * XY.Count);
+                let rand = Math.floor(Math.random() * XY.length);
                 this.Map[XY[rand].Y][XY[rand].X] = "R";
                 this.RangedMonsterCount++;
-                XY.RemoveAt(rand);
+                XY.splice(rand, 1);
             }
         }
     }
@@ -371,45 +337,40 @@ class ConstrainFurnisher {
         // lists for x and y coordinates, mapped by index
         let XY = [];
 
-
-        foreach(potion in PotionPairings)
-        {
-            for (let i = 0; i < this.Map.Length; i++) {
-                for (let j = 0; j < this.Map[i].Length; j++) {
-                    if (this.Map[i][j].Equals(" ")) {
+        this.PotionPairings.forEach(potion => {
+            for (let i = 0; i < this.Map.length; i++) {
+                for (let j = 0; j < this.Map[i].length; j++) {
+                    if (this.Map[i][j] == "_") {
                         let point = new Pairing(j, i);
                         let canSee = this.LineOfSight(point, potion);
                         let distance = this.DistanceBetween(point, potion);
                         if (distance > 4 && distance < 8 && canSee) {
-                            XY.Add(point);
+                            XY.push(point);
                         }
                     }
                 }
             }
-        }
+        });
         // one last loop through XY to make sure all points in there follow the "too close" rule for all potions
         let removeUs = [];
-        foreach(potion in PotionPairings)
-        {
-            foreach(point in XY)
-            {
+        this.PotionPairings.forEach(potion => {
+            XY.forEach(point => {
                 let distance = this.DistanceBetween(point, potion);
                 if (distance < 4) {
-                    removeUs.Add(point);
+                    removeUs.push(point);
                 }
-            }
-        }
-
-        foreach(rem in removeUs)
-        {
-            XY.Remove(rem);
-        }
-        if (XY.Count > 0) {
-            for (let m = 0; m < BlobMax && XY.Count > 0; m++) {
-                let index = rng.Next(XY.Count);
+            });
+        });
+        removeUs.forEach(rem => {
+            let idx = XY.indexOf(rem);
+            XY.splice(idx, 1);
+        });
+        if (XY.length > 0) {
+            for (let m = 0; m < this.BlobMax && XY.length > 0; m++) {
+                let index = Math.floor(Math.random() * XY.length);
                 this.Map[XY[index].Y][XY[index].X] = "b";
                 this.BlobCount++;
-                XY.RemoveAt(index);
+                XY.splice(index, 1);
             }
         }
     }
@@ -421,95 +382,49 @@ class ConstrainFurnisher {
     /// </summary>
     PlaceOgre() {
         let XY = [];
-        foreach(treasure in TreasurePairings)
-        {
-            for (let i = 0; i < this.Map.Length; i++) {
-                for (let j = 0; j < this.Map[i].Length; j++) {
-                    if (this.Map[i][j] == " ") {
+        this.TreasurePairings.forEach(treasure => {
+            for (let i = 0; i < this.Map.length; i++) {
+                for (let j = 0; j < this.Map[i].length; j++) {
+                    if (this.Map[i][j] == "_") {
                         let point = new Pairing(j, i);
                         let distance = DistanceBetween(point, treasure);
                         let canSee = LineOfSight(point, treasure);
                         if (distance > 4 && distance < 9 && canSee) {
-                            XY.Add(point);
+                            XY.push(point);
                         }
                     }
                 }
             }
-        }
+        });
 
-        if (XY.Count > 0) {
-            for (let i = 0; i < this.OgreMax && XY.Count > 0; i++) {
-                if (XY.Count > 0) {
-                    let index = rng.Next(XY.Count);
+        if (XY.length > 0) {
+            for (let i = 0; i < this.OgreMax && XY.length > 0; i++) {
+                if (XY.length > 0) {
+                    let index = Math.floor(Math.random() * XY.length);
                     this.Map[XY[index].Y][XY[index].X] = "o";
                     this.OgreCount++;
-                    XY.RemoveAt(index);
+                    XY.splice(index, 1);
                 }
             }
         }
     }
 
     // Places the minitaurs.
-    // HEURISTIC: A minitaur wants to be somewhere within 8 tiles of the entrance, but at least 4 tiles away
+    // HEURISTIC: A minitaur wants anywhere theres a free spot
     PlaceMinitaur() {
         let XY = [];
-        for (let i = 1; i < this.Map.Length - 1; i++) {
-            for (let j = 1; j < this.Map[i].Length - 1; j++) {
-                if (this.Map[i][j] == " ") {
-                    for (let k = 4; k < 9; k++) {
-                        try {
-                            if (this.Map[i - k][j] == "H") {
-                                XY.Add(new Pairing(j, i));
-                            }
-                        }
-                        catch (error) {
-                            continue;
-                        }
-                    }
-                    for (let k = 4; k < 9; k++) {
-                        try {
-                            if (this.Map[i + k][j] == "H" || this.Map[i][j - k] == "H" || this.Map[i][j + k] == "H") {
-                                XY.Add(new Pairing(j, i));
-                            }
-                        }
-                        catch (error) {
-                            continue;
-                        }
-                    }
-                    for (let k = 4; k < 9; k++) {
-                        try {
-                            if (this.Map[i][j - k] == "H") {
-                                XY.Add(new Pairing(j, i));
-                            }
-                        }
-                        catch (error) {
-                            continue;
-                        }
-                    }
-                    for (let k = 4; k < 9; k++) {
-                        try {
-                            if (this.Map[i][j + k] == "H") {
-                                XY.Add(new Pairing(j, i));
-                            }
-                        }
-                        catch (error) {
-                            continue;
-                        }
-                    }
-                }
+        let found = false;
+        let tries = 0;
+        while (!found && tries < 50) {
+            let i = Math.floor(Math.random() * this.Map.length);
+            let j = Math.floor(Math.random() * this.Map[0].length);
+            if (this.Map[i][j] == "_") {
+                this.Map[i][j] = "m";
+                this.MinitaurCount++;
+                found = true;
             }
-        }
+            tries++;
 
-        if (XY.Count > 0) {
-            for (let i = 0; i < this.MinitaurMax && XY.Count > 0; i++) {
-
-                if (XY.Count > 0) {
-                    let index = rng.Next(XY.Count);
-                    this.Map[XY[index].Y][XY[index].X] = "m";
-                    this.MinitaurCount++;
-                    XY.RemoveAt(index);
-                }
-            }
         }
     }
 
@@ -519,42 +434,42 @@ class ConstrainFurnisher {
         // lists for x and y coordinates, mapped by index
         let XY = [];
         // get a list of the points in the shortest path
-        for (let i = entranceIndex + 1; i < exitIndex - 1; i++) {
-            if (this.Map[this.PathToExit[i].Y][Pthis.athToExit[i].X] == " ") {
-                XY.Add(new Pairing(this.PathToExit[i].X, this.PathToExit[i].Y));
+        for (let i = 0; i < this.PathToExit.length; i++) {
+            if (this.Map[this.PathToExit[i].y][this.PathToExit[i].x] == "_") {
+                XY.push(new Pairing(this.PathToExit[i].x, this.PathToExit[i].y));
             }
             // also add potions just along the shortest path on the sides
-            if (this.Map[this.PathToExit[i].Y - 1][this.PathToExit[i].X] == " ") {
-                XY.Add(new Pairing(this.PathToExit[i].X, this.PathToExit[i].Y - 1));
+            if (this.Map[this.PathToExit[i].y - 1][this.PathToExit[i].x] == "_") {
+                XY.push(new Pairing(this.PathToExit[i].x, this.PathToExit[i].y - 1));
             }
-            if (this.Map[this.PathToExit[i].Y][this.PathToExit[i].X - 1] == " ") {
-                XY.Add(new Pairing(this.PathToExit[i].X - 1, this.PathToExit[i].Y));
-            }
-
-            if (this.Map[this.PathToExit[i].Y + 1][this.PathToExit[i].X] == " ") {
-                XY.Add(new Pairing(this.PathToExit[i].X, this.PathToExit[i].Y + 1));
+            if (this.Map[this.PathToExit[i].y][this.PathToExit[i].x - 1] == "_") {
+                XY.push(new Pairing(this.PathToExit[i].x - 1, this.PathToExit[i].y));
             }
 
-            if (this.Map[this.PathToExit[i].Y][this.PathToExit[i].X + 1] == " ") {
-                XY.Add(new Pairing(this.PathToExit[i].X + 1, this.PathToExit[i].Y));
+            if (this.Map[this.PathToExit[i].y + 1][this.PathToExit[i].x] == "_") {
+                XY.push(new Pairing(this.PathToExit[i].x, this.PathToExit[i].y + 1));
+            }
+
+            if (this.Map[this.PathToExit[i].y][this.PathToExit[i].x + 1] == "_") {
+                XY.push(new Pairing(this.PathToExit[i].x + 1, this.PathToExit[i].y));
             }
 
             // also add diagonals
 
-            if (this.Map[this.PathToExit[i].Y - 1][this.PathToExit[i].X - 1] == " ") {
-                XY.Add(new Pairing(this.PathToExit[i].X - 1, this.PathToExit[i].Y - 1));
+            if (this.Map[this.PathToExit[i].y - 1][this.PathToExit[i].x - 1] == "_") {
+                XY.push(new Pairing(this.PathToExit[i].x - 1, this.PathToExit[i].y - 1));
             }
 
-            if (this.Map[this.PathToExit[i].Y - 1][this.PathToExit[i].X + 1] == " ") {
-                XY.Add(new Pairing(this.PathToExit[i].X + 1, this.PathToExit[i].Y - 1));
+            if (this.Map[this.PathToExit[i].y - 1][this.PathToExit[i].x + 1] == "_") {
+                XY.push(new Pairing(this.PathToExit[i].x + 1, this.PathToExit[i].y - 1));
             }
 
-            if (this.Map[this.PathToExit[i].Y + 1][this.PathToExit[i].X + 1] == " ") {
-                XY.Add(new Pairing(this.PathToExit[i].X + 1, this.PathToExit[i].Y + 1));
+            if (this.Map[this.PathToExit[i].y + 1][this.PathToExit[i].x + 1] == "_") {
+                XY.push(new Pairing(this.PathToExit[i].x + 1, this.PathToExit[i].y + 1));
             }
 
-            if (this.Map[this.PathToExit[i].Y + 1][this.PathToExit[i].X - 1] == " ") {
-                XY.Add(new Pairing(this.PathToExit[i].X - 1, this.PathToExit[i].Y + 1));
+            if (this.Map[this.PathToExit[i].y + 1][this.PathToExit[i].x - 1] == "_") {
+                XY.push(new Pairing(this.PathToExit[i].x - 1, this.PathToExit[i].y + 1));
             }
         }
 
@@ -571,14 +486,53 @@ class ConstrainFurnisher {
     // Places the exit.
     // HEURISTIC: The exit likes to be as far as possible from the Entrance
     PlaceExit() {
-        let exitIndex = Math.floor(Math.random() * 5) - 13;
-        let Exit = this.PathToExit[exitIndex];
-        this.Map[Exit.Y][Exit.X] = "e";
+        let Exit = this.PathToExit[this.PathToExit.length - 1];
+        this.Map[Exit.y][Exit.x] = "e";
         this.ExitPoint = new Pairing(Exit.X, Exit.Y);
     }
 
     // Finds the path to exit.
     FindPathToExit() {
+        let longestPath = []
+        let runCount = 0;
+        let freeSpaces = []
+        for (let i = 0; i < this.Map.length; i++) {
+            for (let j = 0; j < this.Map[0].length; j++) {
+                if (this.Map[i][j] != "X") {
+                    freeSpaces.push(new Pairing(i, j));
+                }
+            }
+        }
+        let startIdx = Math.floor(Math.random() * freeSpaces.length);
+        let start = freeSpaces[startIdx];
+        freeSpaces.splice(startIdx, 1);
+        let endIdx = Math.floor(Math.random() * freeSpaces.length);
+        let end = freeSpaces[endIdx];
+        freeSpaces.splice(endIdx, 1);
+        // pick to random, different, empty tiles, find path between them
+        // for (let i = 0; i < this.Map.length; i++) {
+        //     for (let j = 0; j < this.Map[0].length; j++) {
+        //         for (let k = 0; k < this.Map.length; k++) {
+        //             for (let l = 0; l < this.Map[0].length; l++) {
+        //                 if (this.Map[i][j] != "X" && this.Map[k][l] != "X") {
+        //                     console.log(i + ", " + j + " to " + k + ", " + l);
+        //                     // as long as neither are wall tiles, do AStar
+        //                     let tree = new AStarTree(i, j, k, l, this.Map);
+        //                     let path = tree.buildTree();
+        //                     runCount++;
+        //                     console.log("Run Count: " + runCount);
+        //                     if (path.length > longestPath.length) {
+        //                         longestPath = path;
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        let tree = new AStarTree(start.X, start.Y, end.X, end.Y, this.Map);
+        let path = tree.buildTree();
+        console.log("Longest path: " + path);
+        this.PathToExit = path;
         // TODO redo this with A* search
         // AStarTree()
         // this.PathToExit = as
@@ -591,24 +545,21 @@ class ConstrainFurnisher {
     // Places the entrance.
     // HEURISTIC: Any possible empty tile can be the Entrance.
     PlaceEntrance() {
-        let entranceIndex = Math.floor(Math.random() * 8);
-        let Entrance = this.PathToExit[entranceIndex];
-        this.Map[Entrance.Y][Entrance.X] = "H";
-        EntrancePoint = new Pairing(Entrance.X, Entrance.Y);
+        let Entrance = this.PathToExit[0];
+        console.log(Entrance);
+        this.Map[Entrance.y][Entrance.x] = "H";
+        this.EntrancePoint = new Pairing(Entrance.X, Entrance.Y);
     }
 
     // Prints the map.
     PrintMap() {
-        for (let i = 0; i < this.Map.length; i++)
-        {
-            for (let j = 0; j < this.Map[i].length; j++)
-            {
-                console.log(this.Map[i][j]);
+        for (let i = 0; i < this.Map.length; i++) {
+            let row = ""
+            for (let j = 0; j < this.Map[i].length; j++) {
+                row = row.concat("", this.Map[i][j]);
             }
-            console.log("");
+            console.log(row);
         }
-        console.log("");
-        console.log("");
     }
     /// Gets the map.
     GetMap() {
@@ -616,7 +567,7 @@ class ConstrainFurnisher {
     }
 
     /// Raycast the specified p1 and p2.
-   RayTrace(p1, p2) {
+    RayTrace(p1, p2) {
         let x0 = p1.X;
         let y0 = p1.Y;
         let x1 = p2.X;
@@ -651,8 +602,7 @@ class ConstrainFurnisher {
     LineOfSight(start, end) {
         let result = true;
         let rayTrace = this.RayTrace(start, end);
-        for (let point = 0; point < rayTrace.Length; point++)
-        {
+        for (let point = 0; point < rayTrace.Length; point++) {
             if (this.Map[rayTrace[point].Y][rayTrace[point].X] == "X") {
                 result = false;
                 break;
@@ -662,7 +612,7 @@ class ConstrainFurnisher {
     }
 
     DistanceBetween(start, end) {
-        rayTrace = this.RayTrace(start, end);
+        let rayTrace = this.RayTrace(start, end);
         return rayTrace.length;
     }
 }
