@@ -16,8 +16,8 @@ function loadMap(map) {
             if (map[i][j] == "_") {
                 tile = new component(sizeX, sizeY, "images/dunGen/empty.png", j * sizeY, i * sizeX, "image");
                 tiles.push(tile);
-            } else if (map[i][j] == "X" && i < map.length - 1 && map[i + 1][j] == "_") {
-                tile = new component(sizeX, sizeY, "images/dunGen/wall.png", j * sizeY, i * sizeX, "image");
+            } else if(map[i][j] == "X" && i < map.length - 1 && map[i+1][j] != "X") {
+                tile = new component(sizeX, sizeY, "images/dunGen/wall.png", j*sizeY, i*sizeX, "image");
                 tiles.push(tile);
             }
             else if (map[i][j] == "X" && i < map.length - 1) {

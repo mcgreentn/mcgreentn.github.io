@@ -21,7 +21,6 @@ class AStarTree {
             this.queue.shift();
             if (current.x == this.goal_x && current.y == this.goal_y) {
                 found = true;
-                console.log("found!")
             } else {
                 this.generateChildren(current);
             }
@@ -93,7 +92,7 @@ class AStarTree {
 
     findNode(array, node) {
         array.forEach(element => {
-            if (node.equals(element)) {
+            if (node.checkEquals(element)) {
                 return true;
             }
         });
