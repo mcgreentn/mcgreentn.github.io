@@ -55,32 +55,34 @@ class AStarTree {
         );
     }
     generateChildren(node) {
-        if (node.y + 1 < this.map.length && this.map[node.y + 1][node.x] != "X") {
-            let child = new Node(node, node.x, node.y + 1, this.goal_x, this.goal_y)
+        const x = node.x;
+        const y = node.y;
+        if (y + 1 < this.map.length && this.map[y + 1][x] != "X") {
+            let child = new Node(node, x, y + 1, node.cost + 1, this.goal_x, this.goal_y)
             if (!this.findNode(this.queue, node) && !this.findNode(this.visited, node)) {
                 child.calcHeuristic();
                 this.queue.push(child);
                 // console.log("y+1 queued");
             }
         }
-        if (node.y - 1 >= 0 && this.map[node.y - 1][node.x] != "X") {
-            let child = new Node(node, node.x, node.y - 1, this.goal_x, this.goal_y)
+        if (y - 1 >= 0 && this.map[y - 1][x] != "X") {
+            let child = new Node(node, x, y - 1, node.cost + 1, this.goal_x, this.goal_y)
             if (!this.findNode(this.queue, node) && !this.findNode(this.visited, node)) {
                 child.calcHeuristic();
                 this.queue.push(child);
                 // console.log("y-1 queued");
             }
         }
-        if (node.x + 1 < this.map[0].length && this.map[node.y][node.x + 1] != "X") {
-            let child = new Node(node, node.x + 1, node.y, this.goal_x, this.goal_y)
+        if (x + 1 < this.map[0].length && this.map[y][x + 1] != "X") {
+            let child = new Node(node, x + 1, y, node.cost + 1, this.goal_x, this.goal_y)
             if (!this.findNode(this.queue, node) && !this.findNode(this.visited, node)) {
                 child.calcHeuristic();
                 this.queue.push(child);
                 // console.log("x+1 queued");
             }
         }
-        if (node.x - 1 >= 0 && this.map[node.y][node.x - 1] != "X") {
-            let child = new Node(node, node.x - 1, node.y, this.goal_x, this.goal_y)
+        if (x - 1 >= 0 && this.map[y][x - 1] != "X") {
+            let child = new Node(node, x - 1, y, node.cost + 1, this.goal_x, this.goal_y)
             if (!this.findNode(this.queue, node) && !this.findNode(this.visited, node)) {
                 child.calcHeuristic();
                 this.queue.push(child);

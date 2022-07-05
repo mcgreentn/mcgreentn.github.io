@@ -39,8 +39,11 @@ function loadMap(map) {
             } else if (map[i][j] == "R") {
                 tile = new component(sizeX, sizeY, "images/dunGen/goblin_mage.png", j * sizeY, i * sizeX, "image");
                 tiles.push(tile);
-            } else if (map[i][j] == "B") {
+            } else if (map[i][j] == "b") {
                 tile = new component(sizeX, sizeY, "images/dunGen/blob_green.png", j * sizeY, i * sizeX, "image");
+                tiles.push(tile);
+            } else if (map[i][j] == "o") {
+                tile = new component(sizeX, sizeY, "images/dunGen/ogre_poor.png", j * sizeY, i * sizeX, "image");
                 tiles.push(tile);
             } else if (map[i][j] == "H") {
                 tile = new component(sizeX, sizeY, "images/dunGen/hero.png", j * sizeY, i * sizeX, "image");
@@ -52,12 +55,15 @@ function loadMap(map) {
                 tile = new component(sizeX, sizeY, "images/dunGen/potion.png", j * sizeY, i * sizeX, "image");
                 tiles.push(tile);
             } else if (map[i][j] == "T") {
-                tile = new component(sizeX, sizeY, "images/dunGen/treasure.png", j * sizeY, i * sizeX, "image");
+                tile = new component(sizeX, sizeY, "images/dunGen/chest.png", j * sizeY, i * sizeX, "image");
                 tiles.push(tile);
             } else if (map[i][j] == "t") {
                 tile = new component(sizeX, sizeY, "images/dunGen/trap.png", j * sizeY, i * sizeX, "image");
                 tiles.push(tile);
-            }
+            } else if (map[i][j] == "e") {
+                tile = new component(sizeX, sizeY, "images/dunGen/exit.png", j * sizeY, i * sizeX, "image");
+                tiles.push(tile);
+            } 
         }
     }
 }

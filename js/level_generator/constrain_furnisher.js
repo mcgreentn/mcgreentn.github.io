@@ -91,8 +91,8 @@ class ConstrainFurnisher {
         let XY = [];
         let Backup = [];
         // look around the map for dead-ends and place treasures there
-        for (let i = 1; i < this.Map.Length - 1; i++) {
-            for (let j = 1; j < this.Map[i].Length - 1; j++) {
+        for (let i = 1; i < this.Map.length - 1; i++) {
+            for (let j = 1; j < this.Map[i].length - 1; j++) {
                 let count = 0;
                 // check if space is empty
                 if (this.Map[i][j] == "_") {
@@ -113,22 +113,22 @@ class ConstrainFurnisher {
                 if (count > 2) {
                     // since the spot has >3 walls, mark as a potential treasure spot
 
-                    XY.Add(new Pairing(j, i));
+                    XY.push(new Pairing(j, i));
                 }
                 // add to backuplist
                 else if (count > 1) {
-                    Backup.Add(new Pairing(j, i));
+                    Backup.push(new Pairing(j, i));
                 }
             }
         }
 
         // make sure we had >1 potential spot for treasure
         if (XY.Count > 0) {
-            for (let i = 0; i < XY.Count; i++) {
+            for (let i = 0; i < XY.length; i++) {
                 // make sure we are under the treasure threashold and we still have potential spots
-                if (this.TreasureCount < this.TreasureMax && XY.Count > 0) {
+                if (this.TreasureCount < this.TreasureMax && XY.length > 0) {
                     // pick a random spot
-                    let index = Math.floor(Math.random() * XY.Count);
+                    let index = Math.floor(Math.random() * XY.length);
                     this.Map[XY[index].Y][XY[index].X] = "T";
                     this.TreasureCount++;
                     this.TreasurePairings.push(XY[index]);
@@ -143,15 +143,16 @@ class ConstrainFurnisher {
 
         }
         // make sure we had >1 potential spot for treasure
-        if (XY.Count > 0) {
-            for (let i = 0; i < XY.Count; i++) {
+        if (XY.length > 0) {
+            for (let i = 0; i < XY.length; i++) {
+                console.log("here")
                 // make sure we are under the treasure threashold and we still have potential spots
-                if (this.TreasureCount < this.TreasureMax && XY.Count > 0) {
+                if (this.TreasureCount < this.TreasureMax && XY.length > 0) {
                     // pick a random spot
-                    let index = rng.Next(0, XY.Count);
+                    let index = Math.floor(Math.random() * XY.length);
                     this.Map[XY[index].Y][XY[index].X] = "T";
                     this.TreasureCount++;
-                    this.TreasurePairings.Add(XY[index]);
+                    this.TreasurePairings.push(XY[index]);
                 }
             }
         }
@@ -205,7 +206,7 @@ class ConstrainFurnisher {
         }
 
         // place the first portal
-        if (XY.Count > 1) {
+        if (XY.length > 1) {
             let index = Math.floor(Math.random() * XY.length);
             this.Map[XY[index].Y][XY[index].X] = "p";
             entrancePortal = XY[index];
@@ -219,8 +220,8 @@ class ConstrainFurnisher {
                     if (this.Map[i][j] == "_") {
                         // make sure this is 5 - 10 tiles from the exit and 10 tiles from the other portal
                         let point = new Pairing(j, i);
-                        let distanceExit = DistanceBetween(point, ExitPoint);
-                        let distancePortal = DistanceBetween(point, entrancePortal);
+                        let distanceExit = this.DistanceBetween(point, ExitPoint);
+                        let distancePortal = this.DistanceBetween(point, entrancePortal);
                         if (distanceExit > 5 && distanceExit < 10 && distancePortal > 10) {
                             XY.push(point);
                         }
@@ -387,8 +388,8 @@ class ConstrainFurnisher {
                 for (let j = 0; j < this.Map[i].length; j++) {
                     if (this.Map[i][j] == "_") {
                         let point = new Pairing(j, i);
-                        let distance = DistanceBetween(point, treasure);
-                        let canSee = LineOfSight(point, treasure);
+                        let distance = this.DistanceBetween(point, treasure);
+                        let canSee = this.LineOfSight(point, treasure);
                         if (distance > 4 && distance < 9 && canSee) {
                             XY.push(point);
                         }
@@ -496,10 +497,11 @@ class ConstrainFurnisher {
         let longestPath = []
         let runCount = 0;
         let freeSpaces = []
+        console.log(this.Map.length + ", " + this.Map[0].length);
         for (let i = 0; i < this.Map.length; i++) {
             for (let j = 0; j < this.Map[0].length; j++) {
                 if (this.Map[i][j] != "X") {
-                    freeSpaces.push(new Pairing(i, j));
+                    freeSpaces.push(new Pairing(j, i));
                 }
             }
         }
@@ -509,37 +511,11 @@ class ConstrainFurnisher {
         let endIdx = Math.floor(Math.random() * freeSpaces.length);
         let end = freeSpaces[endIdx];
         freeSpaces.splice(endIdx, 1);
-        // pick to random, different, empty tiles, find path between them
-        // for (let i = 0; i < this.Map.length; i++) {
-        //     for (let j = 0; j < this.Map[0].length; j++) {
-        //         for (let k = 0; k < this.Map.length; k++) {
-        //             for (let l = 0; l < this.Map[0].length; l++) {
-        //                 if (this.Map[i][j] != "X" && this.Map[k][l] != "X") {
-        //                     console.log(i + ", " + j + " to " + k + ", " + l);
-        //                     // as long as neither are wall tiles, do AStar
-        //                     let tree = new AStarTree(i, j, k, l, this.Map);
-        //                     let path = tree.buildTree();
-        //                     runCount++;
-        //                     console.log("Run Count: " + runCount);
-        //                     if (path.length > longestPath.length) {
-        //                         longestPath = path;
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+
         let tree = new AStarTree(start.X, start.Y, end.X, end.Y, this.Map);
         let path = tree.buildTree();
         console.log("Longest path: " + path);
         this.PathToExit = path;
-        // TODO redo this with A* search
-        // AStarTree()
-        // this.PathToExit = as
-        // if (this.PathToExit == null) {
-        //     return 1;
-        // }
-        // return 2;
     }
 
     // Places the entrance.

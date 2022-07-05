@@ -90,6 +90,7 @@ class DiggerGenerator
 		this.placeAgent();
 		this.generateDungeon();
 		this.closeDungeon();
+		this.printMap();
 	}
 
 	// // Generates the dungeon.
