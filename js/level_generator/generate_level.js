@@ -1,6 +1,8 @@
+let moreControlsToggle = false;
+
 $(document).ready(function () {
 
-    $('#generateLevel').click(async function () {
+    $('#generate-level').click(async function () {
 
         let spinner = document.getElementById('dunGenSpinner');
         spinner.style.display = "block";
@@ -24,7 +26,18 @@ $(document).ready(function () {
         await new Promise(resolve => setTimeout(resolve, 250));
         spinner.style.display = "none";
         gameScreen.style.display = "block";
-    })
+    });
+
+    $('#more-controls').click(function() {
+
+        let moreControls = document.getElementById('more-controls');
+        if (moreControlsToggle) {
+            moreControls.innerHTML = "More Controls";
+        } else {
+            moreControls.innerHTML = "Less Controls";
+        }
+        moreControlsToggle = !moreControlsToggle;
+    });
 })
 
 

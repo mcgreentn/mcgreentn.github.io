@@ -417,13 +417,12 @@ class ConstrainFurnisher {
         let XY = [];
         let found = false;
         let tries = 0;
-        while (!found && tries < 50 && this.MinitaurCount < this.MinitaurMax) {
+        while (tries < 50 && this.MinitaurCount < this.MinitaurMax) {
             let i = Math.floor(Math.random() * this.Map.length);
             let j = Math.floor(Math.random() * this.Map[0].length);
             if (this.Map[i][j] == "_") {
                 this.Map[i][j] = "m";
                 this.MinitaurCount++;
-                found = true;
             }
             tries++;
 
