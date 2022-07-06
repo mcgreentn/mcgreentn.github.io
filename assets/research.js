@@ -6,7 +6,7 @@ data = {
             "conference": "Thesis",
             "year": 2022,
             "link": "papers/thesis.pdf",
-            "tier": "n/a"
+            "tier": "thesis"
         },
         {
             "title": "Learning Controllable 3D Level Generators",
@@ -55,7 +55,7 @@ data = {
             "year": 2021,
             "link": "https://arxiv.org/pdf/2105.04342.pdf",
             "code": "https://github.com/smearle/micro-rct",
-            "tier": "n/a"
+            "tier": "unpublished"
         },
         {
             "title": "Game Mechanic Alignment Theory",
