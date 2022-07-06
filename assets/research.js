@@ -1,6 +1,22 @@
 data = {
     "papers": [
         {
+            "title": "Automated Video Game Tutorial Generation",
+            "authors": "Michael Cerny Green",
+            "conference": "Thesis",
+            "year": 2022,
+            "link": "papers/thesis.pdf",
+            "tier": "n/a"
+        },
+        {
+            "title": "Learning Controllable 3D Level Generators",
+            "authors": "Zehua Jiang, Sam Earle, Michael Cerny Green, Julian Togelius",
+            "conference": "Procedural Content Generation Workshop at the International Conference on the Foundations of Digital Games (in-review)",
+            "year": 2022,
+            "link": "https://arxiv.org/pdf/2206.13623.pdf",
+            "tier": "workshop"
+        },
+        {
             "title": "Learning to Generate Levels by Imitating Evolution",
             "authors": "Ahmed Khalifa, Michael Cerny Green, Julian Togelius",
             "conference": "Procedural Content Generation Workshop at the International Conference on the Foundations of Digital Games (in-review)",
