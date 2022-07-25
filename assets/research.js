@@ -40,7 +40,7 @@ data = {
             "conference": "World Congress on Computational Intelligence",
             "year": 2022,
             "link": "https://arxiv.org/pdf/2203.13351.pdf",
-            "slides": "slides/WCCI 2022 Predicting Personas.pdf",
+            "slides": "slides/WCCI 2022 - Predicting Personas.pdf",
             "video": "https://youtu.be/bMU0A7EelDU",
             "tier": "conference"
         },
