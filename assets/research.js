@@ -13,7 +13,7 @@ data = {
         {
             "title": "Learning Controllable 3D Level Generators",
             "authors": "Zehua Jiang, Sam Earle, Michael Cerny Green, Julian Togelius",
-            "conference": "Procedural Content Generation Workshop at the International Conference on the Foundations of Digital Games (in-review)",
+            "conference": "Procedural Content Generation Workshop at the International Conference on the Foundations of Digital Games",
             "year": 2022,
             "link": "https://arxiv.org/pdf/2206.13623.pdf",
             "tier": "workshop"
@@ -21,7 +21,7 @@ data = {
         {
             "title": "Learning to Generate Levels by Imitating Evolution",
             "authors": "Ahmed Khalifa, Michael Cerny Green, Julian Togelius",
-            "conference": "Procedural Content Generation Workshop at the International Conference on the Foundations of Digital Games (in-review)",
+            "conference": "Procedural Content Generation Workshop at the International Conference on the Foundations of Digital Games",
             "year": 2022,
             "link": "https://arxiv.org/pdf/2206.05497.pdf",
             "tier": "workshop"
