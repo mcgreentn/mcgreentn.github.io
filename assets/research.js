@@ -24,6 +24,8 @@ data = {
             "conference": "Procedural Content Generation Workshop at the International Conference on the Foundations of Digital Games",
             "year": 2022,
             "link": "https://arxiv.org/pdf/2206.05497.pdf",
+            "video": "https://www.youtube.com/watch?v=bptCobWYIz8",
+            "slides": "slides/FDG 2022 - MutationModels.pdf",
             "tier": "workshop"
         },
         {
@@ -32,6 +34,8 @@ data = {
             "conference": "International Conference on the Foundations of Digital Games",
             "year": 2022,
             "link": "https://arxiv.org/pdf/2204.05217.pdf",
+            "slides": "slides/FDG 2022 - PDSM.pdf",
+            "video": "https://www.youtube.com/watch?v=Edn76N0WemE",
             "tier": "conference"
         },
         {
