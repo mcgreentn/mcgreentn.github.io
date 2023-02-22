@@ -1,6 +1,14 @@
 data = {
     "papers": [
         {
+            "title": "Level Generation Through Large Language Models",
+            "authors": "Graham Todd, Sam Earle, Muhammad Umair Nasir, Michael Cerny Green, Julian Togelius",
+            "conference": "arXiv",
+            "year": 2023,
+            "link": "https://arxiv.org/pdf/2302.05817.pdf",
+            "tier": "unpublished"
+        },
+        {
             "title": "Automated Video Game Tutorial Generation",
             "authors": "Michael Cerny Green",
             "conference": "Thesis",
