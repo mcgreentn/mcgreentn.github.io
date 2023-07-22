@@ -3,234 +3,111 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>Modern Business - Start Bootstrap Template</title>
+  <title>Mike C Green</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/modern-business.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom Fonts -->
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54297010-6"></script>
+  <!-- ThreeJS -->
+  <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-54297010-6');
+  </script>
+
+  <style>
+    canvas {
+        border: 1px solid #d3d3d3;
+        background-color: #f1f1f1;
+    }
+  </style>
 
 </head>
 
 <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="about.html">About</a>
+  <!-- Navigation -->
+  <div class="span-12">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Michael Cerny Green</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html" aria-current="page">Home</a>
                     </li>
-                    <li>
-                        <a href="services.html">Services</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="research.html">Research</a>
                     </li>
-                    <li>
-                        <a href="contact.html">Contact</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="media.html">Media</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="portfolio-1-col.html">1 Column Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-2-col.html">2 Column Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-3-col.html">3 Column Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-4-col.html">4 Column Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="portfolio-item.html">Single Portfolio Item</a>
-                            </li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="blog-home-1.html">Blog Home 1</a>
-                            </li>
-                            <li>
-                                <a href="blog-home-2.html">Blog Home 2</a>
-                            </li>
-                            <li>
-                                <a href="blog-post.html">Blog Post</a>
-                            </li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="papers/Current.pdf" target="_blank">CV</a>
                     </li>
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="full-width.html">Full Width Page</a>
-                            </li>
-                            <li>
-                                <a href="sidebar.html">Sidebar Page</a>
-                            </li>
-                            <li>
-                                <a href="faq.html">FAQ</a>
-                            </li>
-                            <li class="active">
-                                <a href="404.html">404</a>
-                            </li>
-                            <li>
-                                <a href="pricing.html">Pricing Table</a>
-                            </li>
-                        </ul>
+                    <li class="nav-item">
+                      <a class="nav-link" href="https://github.com/mcgreentn" target="_blank">Github</a>
                     </li>
                 </ul>
+                <span class="navbar-text">
+                    AI-Games-Learning
+                </span>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
     </nav>
-
-    <!-- Page Content -->
-    <div class="container">
-
-        <!-- Page Heading/Breadcrumbs -->
+  </div>
+    <!-- Boats Icons Section -->
+      <!-- Page Content -->
+      <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">404
-                    <small>Page Not Found</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a>
-                    </li>
-                    <li class="active">404</li>
-                </ol>
+                <p>Sorry, that page cannot be found.</p>
             </div>
         </div>
-        <!-- /.row -->
-
-        <div class="row">
-
-            <div class="col-lg-12">
-                <div class="jumbotron">
-                    <h1><span class="error-404">404</span>
-                    </h1>
-                    <p>The page you're looking for could not be found. Here are some helpful links to get you back on track:</p>
-                    <ul>
-                        <li>
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li>
-                            <a href="about.html">About</a>
-                        </li>
-                        <li>
-                            <a href="services.html">Services</a>
-                        </li>
-                        <li>
-                            <a href="contact.html">Contact</a>
-                        </li>
-                        <li>
-                            Portfolio
-                            <ul>
-                                <li>
-                                    <a href="portfolio-1-col.html">1 Column Portfolio</a>
-                                </li>
-                                <li>
-                                    <a href="portfolio-2-col.html">2 Column Portfolio</a>
-                                </li>
-                                <li>
-                                    <a href="portfolio-3-col.html">3 Column Portfolio</a>
-                                </li>
-                                <li>
-                                    <a href="portfolio-4-col.html">4 Column Portfolio</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Blog
-                            <ul>
-                                <li>
-                                    <a href="blog-home-1.html">Blog Home 1</a>
-                                </li>
-                                <li>
-                                    <a href="blog-home-2.html">Blog Home 2</a>
-                                </li>
-                                <li>
-                                    <a href="blog-post.html">Blog Post</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Other Pages
-                            <ul>
-                                <li>
-                                    <a href="full-width-page.html">Full Width Page</a>
-                                </li>
-                                <li>
-                                    <a href="sidebar.html">Sidebar Page</a>
-                                </li>
-                                <li>
-                                    <a href="faq.html">FAQ</a>
-                                </li>
-                                <li>
-                                    <a href="404.html">404 Page</a>
-                                </li>
-                                <li>
-                                    <a href="pricing-table.html">Pricing Table</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
-        <hr>
-
         <!-- Footer -->
         <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <p>Copyright &copy; Michael Cerny Green 2023.</p>
             </div>
+          </div>
         </footer>
-
-    </div>
-    <!-- /.container -->
-
+      </div>
+      <!-- /.container -->
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+  </div>
 
 </body>
 
