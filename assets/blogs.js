@@ -2,7 +2,7 @@ data = {
     "posts": [
         {
             "title": "Practitioner's Insight",
-            "authors": "Michael C Green, Micah Groh",
+            "authors": "Michael C Green, Micah Groh, Fred Heller",
             "publication": "Medium - Hitachi Solutions",
             "description": "We look beyond the hype to focus on understanding the Databricks and Snowflake platforms' abilities to augment technical teams seeking to maximize performance and minimize costs for artificial intelligence.",
             "date": "January 30, 2023",
