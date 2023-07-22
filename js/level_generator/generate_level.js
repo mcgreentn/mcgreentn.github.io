@@ -1,31 +1,11 @@
 let moreControlsToggle = false;
+triggerGeneration();
 
 $(document).ready(function () {
 
     $('#generate-level').click(async function () {
 
-        let spinner = document.getElementById('dunGenSpinner');
-        spinner.style.display = "block";
-        let gameScreen = document.getElementById('dungeon-canvas');
-        gameScreen.style.display = "none";
-        let rangeHeight = document.getElementById('range-height').value;
-        let rangeWidth = document.getElementById('range-width').value;
-        let rangeOpeness = document.getElementById('range-openess').value;
-        let maxGoblins = document.getElementById('range-goblins').value;
-        let maxWizards = document.getElementById('range-wizards').value;
-        let maxBlobs = document.getElementById('range-blobs').value;
-        let maxOgres = document.getElementById('range-ogres').value;
-        let maxMinitaurs = document.getElementById('range-minitaurs').value;
-        let maxPotions = document.getElementById('range-potions').value;
-        let maxTreasures = document.getElementById('range-treasures').value;
-        let maxPortals = document.getElementById('range-portals').value;
-        map = generate([rangeWidth, rangeHeight, rangeOpeness]);
-        map = furnish(map, [maxGoblins, maxWizards, maxBlobs, maxOgres, maxMinitaurs, maxPotions, maxTreasures, maxPortals]);
-        // renderMap(map);
-        renderDungeon(map);
-        await new Promise(resolve => setTimeout(resolve, 250));
-        spinner.style.display = "none";
-        gameScreen.style.display = "block";
+        triggerGeneration();
     });
 
     $('#more-controls').click(function() {
@@ -40,6 +20,30 @@ $(document).ready(function () {
     });
 })
 
+async function triggerGeneration() {
+    let spinner = document.getElementById('dunGenSpinner');
+    spinner.style.display = "block";
+    let gameScreen = document.getElementById('dungeon-canvas');
+    gameScreen.style.display = "none";
+    let rangeHeight = document.getElementById('range-height').value;
+    let rangeWidth = document.getElementById('range-width').value;
+    let rangeOpeness = document.getElementById('range-openess').value;
+    let maxGoblins = document.getElementById('range-goblins').value;
+    let maxWizards = document.getElementById('range-wizards').value;
+    let maxBlobs = document.getElementById('range-blobs').value;
+    let maxOgres = document.getElementById('range-ogres').value;
+    let maxMinitaurs = document.getElementById('range-minitaurs').value;
+    let maxPotions = document.getElementById('range-potions').value;
+    let maxTreasures = document.getElementById('range-treasures').value;
+    let maxPortals = document.getElementById('range-portals').value;
+    map = generate([rangeWidth, rangeHeight, rangeOpeness]);
+    map = furnish(map, [maxGoblins, maxWizards, maxBlobs, maxOgres, maxMinitaurs, maxPotions, maxTreasures, maxPortals]);
+    // renderMap(map);
+    renderDungeon(map);
+    await new Promise(resolve => setTimeout(resolve, 250));
+    spinner.style.display = "none";
+    gameScreen.style.display = "block";
+}
 
 function generate(map_limits) {
     dg = new DiggerGenerator();
