@@ -4,7 +4,7 @@ data = {
             "title": "Practitioner's Insight",
             "authors": "Michael C Green, Micah Groh",
             "publication": "Medium - Hitachi Solutions",
-            "description": "We’ve decided to provide the critical eye with a side-by-side comparison scoped to training artificial intelligence models between Databricks (developers of Apache Spark’s latest evolution) and Snowflake.",
+            "description": "We look beyond the hype to focus on understanding the Databricks and Snowflake platforms' abilities to augment technical teams seeking to maximize performance and minimize costs for artificial intelligence.",
             "date": "January 30, 2023",
             "link": "https://medium.com/empoweranalytics/practitioners-insight-databricks-ai-suite-vs-snowflake-s-3rd-party-requirements-8d69f8f2a7a4",
             "tags": ["professional"]
