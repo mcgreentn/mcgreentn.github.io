@@ -59,6 +59,20 @@ data = {
     ],
     "media": [
         {
+            "year": 2023,
+            "author": "Hitachi Solutions",
+            "publication": "Exchanges",
+            "title": "Unified Data: Healthcare & Personalized Service",
+            "link": "https://global.hitachi-solutions.com/podcasts/unified-data-healthcare-personalized-service/"
+        },
+        {
+            "year": 2023,
+            "author": "Hitachi Solutions",
+            "publication": "Exchanges",
+            "title": "How to Unlock New Insights in Three Steps",
+            "link": "https://global.hitachi-solutions.com/podcasts/how-to-unlock-new-insights-in-three-steps/"
+        },
+        {
             "year": 2018,
             "author": "NYU Tandon",
             "publication": "The Future Of",
