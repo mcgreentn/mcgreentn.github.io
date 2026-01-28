@@ -25,6 +25,11 @@ async function triggerGeneration() {
     spinner.style.display = "block";
     let gameScreen = document.getElementById('dungeon-canvas');
     gameScreen.style.display = "none";
+    let overlay = document.getElementById('dungen-generate-overlay');
+    if (overlay) {
+        overlay.classList.add("active");
+    }
+    const animationStart = performance.now();
     let rangeHeight = document.getElementById('range-height').value;
     let rangeWidth = document.getElementById('range-width').value;
     let rangeOpeness = document.getElementById('range-openess').value;
@@ -39,10 +44,22 @@ async function triggerGeneration() {
     map = generate([rangeWidth, rangeHeight, rangeOpeness]);
     map = furnish(map, [maxGoblins, maxWizards, maxBlobs, maxOgres, maxMinitaurs, maxPotions, maxTreasures, maxPortals]);
     // renderMap(map);
-    renderDungeon(map);
-    await new Promise(resolve => setTimeout(resolve, 250));
+    if (typeof initDunGenGame === "function") {
+        initDunGenGame(map);
+    } else {
+        renderDungeon(map);
+    }
+    const elapsed = performance.now() - animationStart;
+    const minAnimationMs = 1200;
+    if (elapsed < minAnimationMs) {
+        await new Promise(resolve => setTimeout(resolve, minAnimationMs - elapsed));
+    }
     spinner.style.display = "none";
     gameScreen.style.display = "block";
+    if (overlay) {
+        overlay.classList.remove("active");
+    }
+    return map;
 }
 
 function generate(map_limits) {
@@ -72,4 +89,3 @@ function renderMap(map) {
     container.innerHTML = mapString;
     // console.log(mapString);
 }
-

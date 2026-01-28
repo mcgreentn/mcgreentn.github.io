@@ -139,9 +139,52 @@ a.black-text {
   content:"nyu.edu"
 }
 
-.card-body{
-  height:100%;
-  /* overflow-y:scroll; */
+/* Clean, minimal card system */
+:root {
+  --card-bg: #ffffff;
+  --card-border: rgba(17, 59, 74, 0.12);
+  --card-shadow: 0 8px 20px rgba(17, 59, 74, 0.08);
+  --card-shadow-hover: 0 12px 28px rgba(17, 59, 74, 0.12);
+  --card-radius: 14px;
+  --card-body-text: #1f2f2a;
+  --card-muted: rgba(31, 47, 42, 0.6);
+}
+
+.card {
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.card-header {
+  background: #ffffff;
+  color: inherit;
+  border-bottom: 1px solid rgba(17, 59, 74, 0.08);
+  padding: 14px 18px;
+}
+
+.card-header h4,
+.card-header h5,
+.card-header .card-title,
+.card-header .card-subtitle {
+  margin: 0;
+}
+
+.card-header .card-subtitle {
+  color: var(--card-muted);
+}
+
+.card-body {
+  height: 100%;
+  color: var(--card-body-text);
 }
 
 .card-body-tall {
@@ -157,7 +200,7 @@ a.black-text {
 }
 
 .card {
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 
@@ -173,8 +216,9 @@ a.black-text {
 }
 
 .card-body img {
-    height: 100%;
-    width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
 .shadowed {
   text-shadow: 
