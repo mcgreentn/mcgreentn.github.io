@@ -152,27 +152,61 @@
     }
 
     .dungen-toggle .btn {
-        border-radius: 999px;
-        font-weight: 600;
-        color: #1f2f2a;
-        background: rgba(17, 59, 74, 0.05);
-        border: 1px solid rgba(17, 59, 74, 0.08);
+        border-radius: 12px;
+        font-weight: 700;
+        color: #1b1d21;
+        background: linear-gradient(180deg, #f9fbff 0%, #e6e9ff 100%);
+        border: 1px solid #1b1d21;
         margin-right: 8px;
-        transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+        min-height: 46px;
+        padding: 8px 16px;
+        box-shadow: 0 4px 0 #1b1d21, 0 10px 18px rgba(27, 29, 33, 0.3);
+        transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease, color 140ms ease;
     }
 
     .dungen-toggle .btn.active {
-        color: #ffffff;
-        background: #1f2f2a;
-        box-shadow: 0 6px 16px rgba(17, 59, 74, 0.22);
-        border-color: transparent;
+        color: #0f1115;
+        background: linear-gradient(180deg, #eaf0ff 0%, #d2dbf5 100%);
+        box-shadow: 0 2px 0 #1b1d21, 0 6px 12px rgba(27, 29, 33, 0.28);
+        border-color: #1b1d21;
+        transform: translateY(2px);
+    }
+
+    .dungen-toggle .btn:hover,
+    .dungen-toggle .btn:focus {
+        background: linear-gradient(180deg, #ffffff 0%, #dbe3ff 100%);
+        color: #1b1d21;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 0 #1b1d21, 0 14px 22px rgba(27, 29, 33, 0.3);
+    }
+
+    .dungen-toggle .btn:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 #1b1d21, 0 6px 12px rgba(27, 29, 33, 0.28);
     }
 
     .dungen-action-row .btn {
-        border-radius: 999px;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        padding: 0.5rem 1.2rem;
+        border-radius: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding: 10px 16px;
+        color: #1b1d21;
+        background: linear-gradient(180deg, #f9fbff 0%, #e6e9ff 100%);
+        border: 1px solid #1b1d21;
+        box-shadow: 0 4px 0 #1b1d21, 0 10px 18px rgba(27, 29, 33, 0.3);
+        transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease, color 140ms ease;
+    }
+
+    .dungen-action-row .btn:hover,
+    .dungen-action-row .btn:focus {
+        background: linear-gradient(180deg, #ffffff 0%, #dbe3ff 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 0 #1b1d21, 0 14px 22px rgba(27, 29, 33, 0.3);
+    }
+
+    .dungen-action-row .btn:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 #1b1d21, 0 6px 12px rgba(27, 29, 33, 0.28);
     }
 
     .dungen-hint {
@@ -225,6 +259,743 @@
         padding: 12px;
     }
 
+    .dungen-boot-shell {
+        position: relative;
+        min-height: 520px;
+    }
+
+    .dungen-boot-overlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 40%, rgba(24, 35, 42, 0.9), #0b0f12 70%);
+        color: #c7d3dd;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        transition: opacity 900ms ease;
+        z-index: 2;
+        overflow: hidden;
+    }
+
+    .dungen-boot-overlay::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 3px);
+        opacity: 0.35;
+        pointer-events: none;
+    }
+
+    .dungen-boot-overlay::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(64, 255, 232, 0.12), transparent 60%);
+        opacity: 0;
+        transition: opacity 400ms ease;
+        pointer-events: none;
+    }
+
+    .dungen-boot-shell.booting .dungen-boot-overlay::after {
+        opacity: 1;
+    }
+
+    .dungen-boot-screen {
+        position: relative;
+        padding: 26px 28px;
+        border-radius: 18px;
+        border: 1px solid rgba(200, 220, 235, 0.2);
+        background: rgba(8, 12, 16, 0.6);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+        text-align: center;
+    }
+
+    .boot-title {
+        font-family: 'Dosis', sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    .boot-status {
+        margin-top: 10px;
+        font-size: 0.8rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(199, 211, 221, 0.7);
+    }
+
+    .boot-loading {
+        display: none;
+        margin-top: 12px;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        color: rgba(143, 255, 230, 0.9);
+    }
+
+    .boot-loading span {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        margin: 0 3px;
+        border-radius: 999px;
+        background: rgba(143, 255, 230, 0.9);
+        animation: bootDots 900ms ease-in-out infinite;
+    }
+
+    .boot-loading span:nth-child(2) {
+        animation-delay: 120ms;
+    }
+
+    .boot-loading span:nth-child(3) {
+        animation-delay: 240ms;
+    }
+
+    @keyframes bootDots {
+        0%, 100% {
+            transform: translateY(0);
+            opacity: 0.4;
+        }
+        50% {
+            transform: translateY(-4px);
+            opacity: 1;
+        }
+    }
+
+    .boot-switch {
+        margin-top: 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 999px;
+        padding: 8px 10px 8px 16px;
+        border: 1px solid rgba(143, 255, 230, 0.25);
+        background: rgba(8, 12, 16, 0.8);
+        color: rgba(199, 211, 221, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.7rem;
+    }
+
+    .boot-toggle {
+        width: 64px;
+        height: 32px;
+        border-radius: 16px;
+        border: 1px solid rgba(199, 211, 221, 0.35);
+        background: rgba(18, 24, 30, 0.95);
+        position: relative;
+        cursor: pointer;
+        box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6);
+        transition: background 200ms ease, border-color 200ms ease;
+    }
+
+    .boot-toggle::before {
+        content: "0";
+        position: absolute;
+        left: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(199, 211, 221, 0.6);
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+    }
+
+    .boot-toggle::after {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, #f0f3f6 0%, #b6c1cc 100%);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+        top: 3px;
+        left: 4px;
+        transition: transform 200ms ease;
+    }
+
+    .dungen-boot-shell.booting .boot-toggle::before,
+    .dungen-boot-shell.booted .boot-toggle::before {
+        content: "1";
+        left: 40px;
+        color: rgba(143, 255, 230, 0.9);
+    }
+
+    .dungen-boot-shell.booting .boot-toggle,
+    .dungen-boot-shell.booted .boot-toggle {
+        border-color: rgba(143, 255, 230, 0.6);
+        background: rgba(14, 26, 30, 0.95);
+    }
+
+    .dungen-boot-shell.booting .boot-toggle::after,
+    .dungen-boot-shell.booted .boot-toggle::after {
+        transform: translateX(32px);
+        background: linear-gradient(180deg, #d8fff3 0%, #8debd6 100%);
+    }
+
+    .dungen-boot-shell.booting .boot-loading {
+        display: inline-flex;
+    }
+
+    .dungen-boot-shell.booting .boot-status {
+        color: rgba(143, 255, 230, 0.8);
+    }
+
+    .dungen-boot-shell.booted .dungen-boot-overlay {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .dungen-content {
+        opacity: 0;
+        transition: opacity 900ms ease;
+        position: relative;
+        z-index: 1;
+    }
+
+    .dungen-boot-shell.booted .dungen-content {
+        opacity: 1;
+    }
+
+    .contact-keys {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .key-link {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 64px;
+        padding: 12px 14px 10px;
+        border-radius: 12px;
+        border: 1px solid #b9c1c7;
+        background: linear-gradient(180deg, #ffffff 0%, #e3e7ea 100%);
+        color: #1f2a33;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        box-shadow: 0 4px 0 #9aa4ad, 0 10px 18px rgba(15, 23, 32, 0.18);
+        transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+    }
+
+    .key-link::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -5px 8px rgba(0, 0, 0, 0.12);
+        pointer-events: none;
+    }
+
+    .key-link::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: 14px;
+        background: linear-gradient(120deg, #ff4d4d, #ffd54d, #4dffb5, #4da3ff, #b04dff, #ff4df1);
+        z-index: -1;
+        filter: blur(8px);
+        opacity: 0;
+        transition: opacity 160ms ease;
+    }
+
+    .key-link:hover,
+    .key-link:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 0 #9aa4ad, 0 14px 22px rgba(15, 23, 32, 0.2);
+        background: linear-gradient(180deg, #ffffff 0%, #dbe1e6 100%);
+        color: #1f2a33;
+    }
+
+    .key-link:hover::before,
+    .key-link:focus::before {
+        opacity: 1;
+    }
+
+    .key-link:focus {
+        outline: 2px solid rgba(31, 95, 99, 0.45);
+        outline-offset: 2px;
+    }
+
+    .key-link:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 #9aa4ad, 0 6px 12px rgba(15, 23, 32, 0.2);
+    }
+
+    .key-link .key-top {
+        font-family: 'Dosis', sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+    }
+
+    .key-link .key-sub {
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        opacity: 0.7;
+        margin-top: 2px;
+    }
+
+    .key-link.key-accent {
+        border-color: #1f5f63;
+        background: linear-gradient(180deg, #e7f4f4 0%, #c6dde0 100%);
+        box-shadow: 0 4px 0 #1f5f63, 0 10px 18px rgba(31, 95, 99, 0.28);
+        color: #12383b;
+    }
+
+    .key-link.key-accent:hover,
+    .key-link.key-accent:focus {
+        box-shadow: 0 6px 0 #1f5f63, 0 14px 22px rgba(31, 95, 99, 0.32);
+        background: linear-gradient(180deg, #eff8f8 0%, #b8d6d9 100%);
+        color: #12383b;
+    }
+
+    .key-link.key-caps {
+        border-color: #3c434a;
+        background: linear-gradient(180deg, #f4f4f2 0%, #cfd4d8 100%);
+        box-shadow: 0 5px 0 #3c434a, 0 12px 22px rgba(19, 23, 27, 0.28);
+        color: #1f252b;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+    }
+
+    .key-link.key-caps:hover,
+    .key-link.key-caps:focus {
+        box-shadow: 0 7px 0 #3c434a, 0 16px 26px rgba(19, 23, 27, 0.34);
+    }
+
+    .key-link.key-retro {
+        border-color: #ff7c5b;
+        background: linear-gradient(180deg, #fff1d6 0%, #ffd3c2 100%);
+        box-shadow: 0 4px 0 #ff7c5b, 0 10px 18px rgba(255, 124, 91, 0.28);
+        color: #5a1e12;
+    }
+
+    .key-link.key-retro:hover,
+    .key-link.key-retro:focus {
+        background: linear-gradient(180deg, #fff6e5 0%, #ffc6ae 100%);
+    }
+
+    .key-link.key-terminal {
+        border-color: #222b2f;
+        background: linear-gradient(180deg, #0e1518 0%, #1b2429 100%);
+        box-shadow: 0 4px 0 #11181c, 0 10px 18px rgba(6, 9, 10, 0.4);
+        color: #b6ffcf;
+        text-shadow: 0 0 8px rgba(73, 255, 155, 0.4);
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .key-link.key-terminal .key-sub {
+        color: rgba(182, 255, 207, 0.7);
+        letter-spacing: 0.2em;
+    }
+
+    .key-link.key-glass {
+        border-color: rgba(255, 255, 255, 0.7);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(222, 238, 255, 0.6) 100%);
+        box-shadow: 0 6px 0 rgba(120, 150, 190, 0.55), 0 14px 24px rgba(34, 60, 90, 0.24);
+        color: #12324d;
+        backdrop-filter: blur(6px);
+    }
+
+    .key-link.key-glass::after {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -8px 14px rgba(40, 64, 90, 0.18);
+    }
+
+    .key-link.key-metal {
+        border-color: #6d7a86;
+        background: linear-gradient(135deg, #e6edf2 0%, #b8c2cc 55%, #f7fbff 100%);
+        box-shadow: 0 4px 0 #6d7a86, 0 10px 18px rgba(47, 63, 76, 0.26);
+        color: #1b2a34;
+    }
+
+    .key-link.key-rgb {
+        border-color: #1b1d21;
+        background: linear-gradient(180deg, #f9fbff 0%, #e6e9ff 100%);
+        box-shadow: 0 4px 0 #1b1d21, 0 10px 18px rgba(27, 29, 33, 0.3);
+        color: #1b1d21;
+    }
+
+    .key-link.key-neon {
+        border-color: #3b2f5a;
+        background: linear-gradient(180deg, #14101f 0%, #211b36 100%);
+        box-shadow: 0 4px 0 #3b2f5a, 0 10px 18px rgba(59, 47, 90, 0.4);
+        color: #f4e7ff;
+        text-shadow: 0 0 10px rgba(246, 190, 255, 0.7);
+    }
+
+    .key-link.key-soft {
+        border-color: #b2b6c1;
+        background: linear-gradient(180deg, #f8f9fb 0%, #dfe3ea 100%);
+        box-shadow: 0 4px 0 #b2b6c1, 0 10px 16px rgba(35, 40, 50, 0.16);
+        color: #2a2f36;
+    }
+
+    .contact-email {
+        margin-top: 10px;
+        font-size: 0.95rem;
+    }
+
+    :root {
+        --ink: #0a0f14;
+        --night: #0b0f12;
+        --panel: #121a24;
+        --panel-2: #172232;
+        --steel: #2a3a4a;
+        --glow: #7af5d1;
+        --accent: #6aa2ff;
+        --text: #e6eff7;
+        --muted: #93a4b6;
+    }
+
+    body.site-body {
+        font-family: 'Arvo', serif;
+        background: radial-gradient(circle at 10% 10%, rgba(106, 162, 255, 0.15), transparent 40%),
+            radial-gradient(circle at 85% 20%, rgba(122, 245, 209, 0.12), transparent 45%),
+            linear-gradient(180deg, #0a0f14 0%, #0b1117 45%, #0f151d 100%);
+        color: var(--text);
+        min-height: 100vh;
+        padding-top: 72px;
+    }
+
+    h1, h2, h3, h4 {
+        font-family: 'Dosis', sans-serif;
+        letter-spacing: 0.04em;
+    }
+
+    .site-nav {
+        background: rgba(9, 14, 20, 0.88);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(122, 245, 209, 0.08);
+    }
+
+    .site-nav .navbar-brand {
+        font-family: 'Dosis', sans-serif;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .site-nav .navbar-text {
+        color: rgba(122, 245, 209, 0.65);
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    .hero-section {
+        padding: 36px 5vw 48px;
+    }
+
+    .hero-shell {
+        position: relative;
+        border-radius: 28px;
+        padding: 28px;
+        background: linear-gradient(160deg, rgba(20, 28, 38, 0.96), rgba(14, 20, 28, 0.98));
+        border: 1px solid rgba(122, 245, 209, 0.12);
+        box-shadow: 0 28px 60px rgba(3, 6, 9, 0.6);
+        overflow: hidden;
+        min-height: 70vh;
+    }
+
+    .hero-shell::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 20% 30%, rgba(106, 162, 255, 0.18), transparent 45%),
+            radial-gradient(circle at 80% 70%, rgba(122, 245, 209, 0.16), transparent 50%);
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .hero-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 18px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-header h1 {
+        font-size: clamp(2rem, 3vw, 3.1rem);
+        margin: 0 0 12px;
+    }
+
+    .hero-kicker {
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        font-size: 0.72rem;
+        color: rgba(122, 245, 209, 0.8);
+        margin-bottom: 12px;
+    }
+
+    .hero-sub {
+        max-width: 520px;
+        color: var(--muted);
+        line-height: 1.6;
+    }
+
+    .hero-chip {
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(122, 245, 209, 0.4);
+        color: rgba(122, 245, 209, 0.9);
+        font-size: 0.7rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+    }
+
+    .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+        gap: 18px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .control-panel {
+        background: linear-gradient(180deg, rgba(23, 34, 50, 0.9), rgba(13, 19, 27, 0.9));
+        border: 1px solid rgba(122, 245, 209, 0.14);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 10px;
+    }
+
+    .panel-header p {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+    }
+
+    .panel-badge {
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(106, 162, 255, 0.45);
+        color: rgba(106, 162, 255, 0.9);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+    }
+
+    .hero-controls .form-label {
+        color: rgba(230, 239, 247, 0.85);
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .hero-controls output {
+        font-weight: 700;
+        color: var(--glow);
+        margin-left: 6px;
+    }
+
+    .hero-controls .card.card-body {
+        background: rgba(12, 18, 26, 0.9);
+        border: 1px solid rgba(106, 162, 255, 0.18);
+    }
+
+    .dungen-action-row .btn {
+        border-radius: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 10px 16px;
+        border: 1px solid rgba(106, 162, 255, 0.4);
+        background: rgba(16, 25, 36, 0.85);
+        color: var(--text);
+        box-shadow: 0 6px 14px rgba(4, 8, 12, 0.4);
+    }
+
+    .dungen-action-row .btn-primary {
+        background: linear-gradient(120deg, rgba(106, 162, 255, 0.9), rgba(90, 120, 220, 0.9));
+        border-color: rgba(106, 162, 255, 0.9);
+        color: #0a0f14;
+    }
+
+    .hero-map .map-frame {
+        border-radius: 18px;
+        border: 1px solid rgba(106, 162, 255, 0.18);
+        background: rgba(12, 18, 26, 0.9);
+        overflow: hidden;
+        height: 100%;
+        min-height: 320px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .map-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px;
+        background: rgba(18, 26, 36, 0.9);
+        border-bottom: 1px solid rgba(106, 162, 255, 0.2);
+        font-family: 'Dosis', sans-serif;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+    }
+
+    .map-chip {
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(122, 245, 209, 0.2);
+        color: rgba(122, 245, 209, 0.85);
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+    }
+
+    .map-body {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    #dungeon-canvas {
+        width: 100%;
+        max-width: 100%;
+        background: rgba(9, 13, 18, 0.9);
+        border-radius: 14px;
+        border: 1px solid rgba(122, 245, 209, 0.12);
+        padding: 8px;
+    }
+
+    #game-canvas {
+        width: 100%;
+        max-width: 320px;
+        aspect-ratio: 1 / 1;
+        height: auto;
+        border-radius: 8px;
+        border: none;
+        background: transparent;
+    }
+
+    .hero-mode-switch {
+        margin-top: 14px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .dungen-mode-switch .btn {
+        border-radius: 999px;
+        padding: 10px 26px;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        border: 1px solid rgba(122, 245, 209, 0.5);
+        background: rgba(8, 12, 16, 0.8);
+        color: rgba(230, 239, 247, 0.9);
+    }
+
+    .dungen-mode-switch .btn.active {
+        background: rgba(122, 245, 209, 0.85);
+        color: #0a0f14;
+        border-color: rgba(122, 245, 209, 0.9);
+    }
+
+    .boot-hero-screen {
+        padding: 28px 34px;
+        min-width: min(520px, 90vw);
+    }
+
+    .boot-log {
+        margin-top: 14px;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(147, 255, 225, 0.7);
+        min-height: 54px;
+    }
+
+    .boot-toggle-hero {
+        width: 96px;
+        height: 44px;
+        border-radius: 27px;
+    }
+
+    .boot-toggle-hero::after {
+        width: 34px;
+        height: 34px;
+        border-radius: 21px;
+        top: 5px;
+        left: 5px;
+    }
+
+    .dungen-boot-shell.booting .boot-toggle-hero::after,
+    .dungen-boot-shell.booted .boot-toggle-hero::after {
+        transform: translateX(52px);
+    }
+
+    .scroll-section {
+        padding: 80px 6vw;
+    }
+
+    .scroll-section.alt {
+        background: rgba(8, 12, 18, 0.8);
+    }
+
+    .section-card {
+        background: rgba(16, 24, 34, 0.9);
+        border-radius: 18px;
+        border: 1px solid rgba(106, 162, 255, 0.12);
+        padding: 24px;
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.4);
+    }
+
+    .section-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .section-link {
+        color: rgba(122, 245, 209, 0.9);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.7rem;
+    }
+
+    .site-footer {
+        padding: 30px 6vw 40px;
+        color: rgba(230, 239, 247, 0.6);
+    }
+
+    @media (max-width: 992px) {
+        .hero-shell {
+            padding: 22px;
+            min-height: auto;
+        }
+
+        .hero-header {
+            flex-direction: column;
+        }
+
+        .hero-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
     .dungen-divider {
         height: 1px;
         background: rgba(17, 59, 74, 0.08);
@@ -258,656 +1029,350 @@
 
 </head>
 
-<body>
-  <!-- Navigation -->
-  <div class="span-12">
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Michael Cerny Green</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html" aria-current="page">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="research.html">Research</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="media.html">Media</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="papers/Current.pdf" target="_blank">CV</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="https://github.com/mcgreentn" target="_blank">Github</a>
-                    </li>
-                </ul>
-                <span class="navbar-text">
-                    AI-Games-Learning
-                </span>
+<body class="site-body">
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark site-nav">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#home">Michael Cerny Green</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"
+        aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="siteNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="research.html">Research</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="media.html">Media</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="blog.html">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="papers/Current.pdf" target="_blank">CV</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/mcgreentn" target="_blank">GitHub</a>
+          </li>
+        </ul>
+        <span class="navbar-text">AI-Games-Learning</span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero-section" id="home">
+      <div class="hero-shell dungen-boot-shell" id="dungen-boot-shell">
+        <div class="dungen-boot-overlay" id="dungen-boot-overlay">
+          <div class="dungen-boot-screen boot-hero-screen">
+            <div class="boot-title">DunGen OS</div>
+            <div class="boot-status" id="dungen-boot-status">Power Offline</div>
+            <div class="boot-loading" id="dungen-boot-loading">
+              Booting
+              <span></span><span></span><span></span>
             </div>
-        </div>
-    </nav>
-  </div>
-    <!-- Boats Icons Section -->
-      <!-- Page Content -->
-      <div class="container-fluid">
-        <div class="row smol-gutters">
-          <!-- Left Gutter -->
-          <div class="col-md-4">
-            <div class="row">
-              <!-- Contact Me -->
-              <div class="col-lg-12">
-                <div class="card border border-primary shadow-0 mb-3">
-                  <div class="card-header">
-                    <h4 class="card-title">Contact Me</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">various ways to find me</h5>
-                  </div>
-                  <div class="card-body">
-                    <a class="btn btn-primary btn-md active" role="button" href="papers/Current.pdf" target="_blank"
-                      role="button">Resume</a>
-                    <a class="btn btn-secondary btn-md" href="https://scholar.google.com/citations?user=kEfvzvIAAAAJ&hl=en" target="_blank" role="button">Google Scholar</a>
-                    <br>
-                    <p class="card-text">Email: <i id="emailAddress">@</i></p>
-                    <p class="card-text">Blog: <a class="card-link" href="https://mikecgreenblog.wordpress.com/">The
-                        Musings</a></p>
-                    <p class="card-text">Twitter: <a class="card-link"
-                        href="https://twitter.com/Bumblebor">@Bumblebor</a></p>
-                    <p class="card-text">LinkedIn: <a class="card-link"
-                        href="https://www.linkedin.com/in/michael-green-7739a781/">Michael Green</a></p>
-                    <p class="card-text">Github: <a class="card-link" href="https://github.com/mcgreentn">mcgreentn</a>
-                    </p>
-                    <p class="card-text">Research Affiliations: <a class="card-link" href="http://game.engineering.nyu.edu" target="_blank">Game Innovation Lab</a>
-                    </p>
-                    <p class="card-text">Soundcloud: <a class="card-link"
-                        href="https://soundcloud.com/trichampion">ChampChampChamp</a></p>
-                  </div>
-                </div>
-              </div>
-              <!-- About Me -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title">About Me</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">hi, I'm Michael Green</h5>
-                  </div>
-                  <div class="card-body" style="height:100%">
-                    <p class="card-text">We often think of AI as something that plays chess, identifies faces,
-                      auto-completes search results, or drives cars, among a multitude of other things. AI is all around
-                      us, constantly being used to study patterns and then use that knowledge to benefit us in some way.
-                    </p>
-                    <p>We ask: What is possible for this <b>AI TO LEARN?</b>
-                      <br>But rarely do we ask: What can <b>WE LEARN</b> from this AI?</p>
-                    <p class="card-text">I hold a Ph.D. in Artificial Intelligence
-                      from New York University. My research uses video games as one domain with which to study A.I, and how A.I. systems can be applied to teaching things. I love video
-                      games, coffee, code, dogs, and sailing.</p>
-                    <p><a
-                        href="https://mikecgreenblog.wordpress.com/2018/07/18/artificial-intelligence-game-design-and-education-how-it-all-fits/" target="_blank">Read
-                        my motivations for my research here.</a></p>
-                    <p>
-                      View my thesis on <a href="papers/thesis.pdf" target="_blank">Automated Video Game Tutorial Generation</a>.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <!-- Data Agent -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/data-agent" target="_blank">
-                      <h4>Data Agent</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">an open-data, murder mystery generator</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">Data Agent is a game within the genre of Open Data Games. Given a person on Wikipedia, the system
-                      automatically generates an entire murder mystery adventure to play using evolutionary algorithms.
-                      The game client can then load up this game for you to play!</p>
-                    <a href="https://champchampchamp.itch.io/data-agent" target="_blank"><img class="img-responsive img-rounded img-hover" src="images/dataagent.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Seer -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/seer" target="_blank">
-                      <h4 class="card-title">Seer</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">time-travel interactive fiction</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p>A text-based, narrative-adventure game about time-travel that I made for my Narrative Game Design
-                      Class in Spring 2018.</p>
-                    <a href="https://champchampchamp.itch.io/seer" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/seer.jpg" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Olav Broccoli: Ghost of Space -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text"
-                      href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.OlavGhost&hl=en"
-                      target="_blank">
-                      <h4 class="card-title">Olav Broccoli: Ghost of Space</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a 3d, space-shooter prototype</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">After I created Cubes, I decided I wanted to build another space-themed
-                      prototype within a "next-gen" Stay Alive context. Olav Broccoli is not finished in the slightest,
-                      but it is fun to mess around with 3d space, and even more fun to optimize it for phones. The name
-                      comes from one of my good friends in college. It makes sense to us, which is what counts.</p>
-                    <a href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.OlavGhost&hl=en"
-                      target="_blank"><img class="img-responsive img-rounded img-hover" src="images/olav.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Downloadr -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://github.com/mcgreentn/Downloadr" target="_blank">
-                      <h4 class="card-title">Downloadr</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a youtube-to-.mp3 bash script</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:100%">
-                    <p class="card-text">Before Spotify, I used to download all my music from youtube (mostly artists
-                      that released stuff for free like <a
-                        href="https://www.youtube.com/user/ThisIsTheFatRat">TheFatRat</a>). Along the way I became
-                      exhausted with the heavy application based software and the online, ad-infested apps. So I made my
-                      own simple downloading tool.</p>
-                    <a href="https://github.com/mcgreentn/Downloadr" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/youtube.png" /></a>
-                  </div>
-                </div>
-              </div>
+            <div class="boot-log" id="dungen-boot-log">Awaiting power signal...</div>
+            <div class="boot-switch">
+              Power
+              <button class="boot-toggle boot-toggle-hero" id="dungen-boot-toggle" type="button" aria-pressed="false"
+                aria-label="Power toggle"></button>
             </div>
           </div>
-          <!-- Center -->
-          <div class="col-md-4">
-            <div class="row smol-gutters">
-              <!-- MiniDungeon Generator -->
-              <div class="col-lg-12">
-                <div class="card dungen-card">
-                  <div class="card-header dungen-header">
-                    <h4 class="card-title">DunGen</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">Generate a dungeon, then play your way out.</h5>
+        </div>
+
+        <div class="dungen-content" id="dungen-content">
+          <div class="hero-header">
+            <div>
+              <p class="hero-kicker">Dungeon Generator</p>
+              <h1>Boot the system. Craft the maze. Play the run.</h1>
+              <p class="hero-sub">A dramatic entry into DunGen: flip the power, watch the system boot, then build and
+                explore your dungeon with a split-screen command UI.</p>
+            </div>
+            <div class="hero-chip">ONLINE</div>
+          </div>
+
+          <div class="hero-grid">
+            <div class="hero-controls">
+              <div class="control-panel">
+                <div class="panel-header">
+                  <div>
+                    <h3>Create + Play Controls</h3>
+                    <p>Dial in the generator, then switch modes below.</p>
                   </div>
-                  <div class="card-body" style="height:120%">
-                    <div class="container">
-                      <div class="row mb-3">
+                  <span class="panel-badge">DunGen v1.0</span>
+                </div>
+
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="dungen-generate" role="tabpanel"
+                    aria-labelledby="dungen-generate-tab">
+                    <div class="dungen-panel">
+                      <div class="row">
                         <div class="col">
-                          <div class="nav nav-pills btn-group dungen-toggle" role="tablist" aria-label="Dungeon controls">
-                            <button class="btn nav-link active" id="dungen-generate-tab" data-bs-toggle="tab" data-bs-target="#dungen-generate" type="button" role="tab" aria-controls="dungen-generate" aria-selected="true">Generate</button>
-                            <button class="btn nav-link" id="dungen-play-tab" data-bs-toggle="tab" data-bs-target="#dungen-play" type="button" role="tab" aria-controls="dungen-play" aria-selected="false">Play</button>
-                          </div>
-                          <div class="dungen-hint mt-2">Build your dungeon first, then flip to play mode for quick action controls.</div>
+                          <label for="range-width" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Total level width">Width: </label>
+                          <output>10</output>
+                          <input type="range" class="form-range" id="range-width" value="10" min="5" max="25" step="1"
+                            oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="Total level width">
+                        </div>
+                        <div class="col">
+                          <label for="range-height" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Total level height">Height: </label>
+                          <output>10</output>
+                          <input type="range" class="form-range" id="range-height" value="10" min="5" max="15" step="1"
+                            oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="Total level height">
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col">
+                          <label for="range-openess" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Blank/Wall tile ratio">Openness: </label>
+                          <output>5</output>
+                          <input type="range" class="form-range" id="range-openess" value="5" min="1" max="10" step="1"
+                            oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="Blank/Wall tile ratio">
+                        </div>
+                      </div>
+                      <div class="dungen-divider"></div>
+                      <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h5>Monsters</h5>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <label for="range-goblins" class="form-label" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of (melee) goblins">Max Goblins: </label>
+                              <output>2</output>
+                              <input type="range" class="form-range" id="range-goblins" value="2" min="0" max="5"
+                                step="1" oninput="this.previousElementSibling.value = this.value"
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="The max number of (melee) goblins">
+                            </div>
+                            <div class="col">
+                              <label for="range-wizards" class="form-label" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of (ranged) wizards">Max Wizards: </label>
+                              <output>1</output>
+                              <input type="range" class="form-range" id="range-wizards" value="1" min="0" max="5"
+                                step="1" oninput="this.previousElementSibling.value = this.value"
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="The max number of (ranged) wizards">
+                            </div>
+                            <div class="col">
+                              <label for="range-blobs" class="form-label" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of blobs">Max Blobs: </label>
+                              <output>2</output>
+                              <input type="range" class="form-range" id="range-blobs" value="2" min="0" max="5" step="1"
+                                oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of blobs">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <label for="range-ogres" class="form-label" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of ogres">Max Ogres: </label>
+                              <output>1</output>
+                              <input type="range" class="form-range" id="range-ogres" value="1" min="0" max="5" step="1"
+                                oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of ogres">
+                            </div>
+                            <div class="col">
+                              <label for="range-minitaurs" class="form-label" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of minitaurs">Max Minitaurs: </label>
+                              <output>1</output>
+                              <input type="range" class="form-range" id="range-minitaurs" value="1" min="0" max="5"
+                                step="1" oninput="this.previousElementSibling.value = this.value"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of minitaurs">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <h5>Items</h5>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <label for="range-potions" class="form-label" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of potions">Max Potions: </label>
+                              <output>2</output>
+                              <input type="range" class="form-range" id="range-potions" value="2" min="0" max="8" step="1"
+                                oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of potions">
+                            </div>
+                            <div class="col">
+                              <label for="range-treasures" class="form-label" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of treasures">Max Treasures: </label>
+                              <output>3</output>
+                              <input type="range" class="form-range" id="range-treasures" value="3" min="0" max="8"
+                                step="1" oninput="this.previousElementSibling.value = this.value"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of treasures">
+                            </div>
+                            <div class="col">
+                              <label for="range-portals" class="form-label" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of portals">Max Portals: </label>
+                              <output>2</output>
+                              <input type="range" class="form-range" id="range-portals" value="2" min="0" max="2" step="2"
+                                oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="The max number of portals">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-3 dungen-action-row">
+                        <div class="col">
+                          <button class="btn btn-outline-secondary" id="more-controls" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                            aria-controls="collapseExample">
+                            More Controls
+                          </button>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                          <button class="btn btn-primary" id="generate-level">Generate</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-                      <div class="tab-content">
-                      <div class="tab-pane fade show active" id="dungen-generate" role="tabpanel" aria-labelledby="dungen-generate-tab">
-                        <div class="dungen-panel">
-                        <div class="row">
-                          <div class="col">
-                            <label for="range-width" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="Total level width">Width: </label>
-                            <output>10</output>
-                            <input type="range" class="form-range" id="range-width" value="10" min="5" max="25" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="Total level width">
-                          </div>
-                          <div class="col">
-                            <label for="range-height" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="Total level height">Height: </label>
-                            <output>10</output>
-                            <input type="range" class="form-range" id="range-height" value="10" min="5" max="15" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="Total level height">
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <label for="range-openess" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="Blank/Wall tile ratio">Openness: </label>
-                            <output>5</output>
-                            <input type="range" class="form-range" id="range-openess" value="5" min="1" max="10" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="Blank/Wall tile ratio">
-                          </div>          
-                        </div>
-                        <div class="dungen-divider"></div>
-                        <div class="collapse" id="collapseExample">
-                          <div class="card card-body">
-                            <div class="row">
-                              <div class="col">
-                                  <h5>Monsters</h5>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <label for="range-goblins" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of (melee) goblins">Max Goblins: </label>
-                                  <output>2</output>
-                                  <input type="range" class="form-range" id="range-goblins" value="2" min="0" max="5" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of (melee) goblins">
-                                </div>
-                                <div class="col">
-                                  <label for="range-wizards" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of (ranged) wizards">Max Wizards: </label>
-                                  <output>1</output>
-                                  <input type="range" class="form-range" id="range-wizards" value="1" min="0" max="5" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of (ranged) wizards">
-                                </div>
-                                <div class="col">
-                                  <label for="range-blobs" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of blobs">Max Blobs: </label>
-                                  <output>2</output>
-                                  <input type="range" class="form-range" id="range-blobs" value="2" min="0" max="5" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of blobs">
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <label for="range-ogres" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of ogres">Max Ogres: </label>
-                                  <output>1</output>
-                                  <input type="range" class="form-range" id="range-ogres" value="1" min="0" max="5" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of ogres">
-                                </div>
-                                <div class="col">
-                                  <label for="range-minitaurs" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of minitaurs">Max Minitaurs: </label>
-                                  <output>1</output>
-                                  <input type="range" class="form-range" id="range-minitaurs" value="1" min="0" max="5" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of minitaurs">
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <h5>Items</h5>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <label for="range-potions" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of potions">Max Potions: </label>
-                                  <output>2</output>
-                                  <input type="range" class="form-range" id="range-potions" value="2" min="0" max="8" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of potions">
-                                </div>
-                                <div class="col">
-                                  <label for="range-treasures" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of treasures">Max Treasures: </label>
-                                  <output>3</output>
-                                  <input type="range" class="form-range" id="range-treasures" value="3" min="0" max="8" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of treasures">
-                                </div>
-                                <div class="col">
-                                  <label for="range-portals" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of portals">Max Portals: </label>
-                                  <output>2</output>
-                                  <input type="range" class="form-range" id="range-portals" value="2" min="0" max="2" step="2" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of portals">
-                                </div>
-                              </div>
-                          </div>
-                        </div>
-                        <div class="row mt-3 dungen-action-row">
-                          <div class="col">
-                            <button class="btn btn-outline-secondary" id="more-controls" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                              More Controls
-                            </button>
-                          </div>
-                          <div class="col d-flex justify-content-end">
-                            <button class="btn btn-primary" id="generate-level">Generate</button>
-                          </div>
-                        </div>
+                  <div class="tab-pane fade" id="dungen-play" role="tabpanel" aria-labelledby="dungen-play-tab">
+                    <div class="dungen-panel">
+                      <div class="row mb-2">
+                        <div class="col d-flex flex-wrap gap-2 dungen-action-row">
+                          <button class="btn btn-success" id="game-play" type="button">Start</button>
+                          <button class="btn btn-outline-primary" id="game-step" type="button">Wait</button>
+                          <button class="btn btn-outline-warning" id="game-reset" type="button">Reset</button>
                         </div>
                       </div>
-
-                      <div class="tab-pane fade" id="dungen-play" role="tabpanel" aria-labelledby="dungen-play-tab">
-                        <div class="dungen-panel">
-                        <div class="row mb-2">
-                          <div class="col d-flex flex-wrap gap-2 dungen-action-row">
-                            <button class="btn btn-success" id="game-play" type="button">Start</button>
-                            <button class="btn btn-outline-primary" id="game-step" type="button">Wait</button>
-                            <button class="btn btn-outline-warning" id="game-reset" type="button">Reset</button>
+                      <div class="row mb-2">
+                        <div class="col dungen-hud" id="dungen-hud">
+                          <div class="dungen-stat">
+                            <span class="label">HP</span>
+                            <span id="hud-hp">-</span>
                           </div>
-                        </div>
-                        <div class="row mb-2">
-                          <div class="col dungen-hud" id="dungen-hud">
-                            <div class="dungen-stat">
-                              <span class="label">HP</span>
-                              <span id="hud-hp">-</span>
-                            </div>
-                            <div class="dungen-stat">
-                              <span class="label">Turns</span>
-                              <span id="hud-turns">0</span>
-                            </div>
-                            <div class="dungen-stat">
-                              <span class="label">Treasure</span>
-                              <span id="hud-treasure">0</span>
-                            </div>
-                            <div class="dungen-status">
-                              Status: <span id="hud-status">Ready</span>
-                            </div>
+                          <div class="dungen-stat">
+                            <span class="label">Turns</span>
+                            <span id="hud-turns">0</span>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col dungen-keys">
-                            Move: <span>W</span><span>A</span><span>S</span><span>D</span> or <span>↑</span><span>←</span><span>↓</span><span>→</span>
+                          <div class="dungen-stat">
+                            <span class="label">Treasure</span>
+                            <span id="hud-treasure">0</span>
                           </div>
-                        </div>
+                          <div class="dungen-status">
+                            Status: <span id="hud-status">Ready</span>
+                          </div>
                         </div>
                       </div>
-                      </div>
-
-                      <div class="row mt-3">
-                        <div class="spinner-border" id="dunGenSpinner" role="status" style="display:none">
-                          <span class="visually-hidden">Loading...</span>
-                        </div>
-                      </div>
-                      <div class="row mt-2">                    
-                        <div class="col-12">
-                          <div class="col d-flex justify-content-center">
-                            <div id="dungeon-canvas">
-                              <div class="dungen-generate-overlay" id="dungen-generate-overlay">
-                                <div class="d-flex flex-column align-items-center">
-                                  <div class="dungen-generate-anim">
-                                    <span class="dungen-pixel" style="--x: 18px; --y: 18px; --d: 1200ms; --delay: 0ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 56px; --y: 12px; --d: 1400ms; --delay: 120ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 96px; --y: 20px; --d: 1600ms; --delay: 240ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 128px; --y: 8px; --d: 1100ms; --delay: 60ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 26px; --y: 52px; --d: 1500ms; --delay: 180ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 74px; --y: 46px; --d: 1300ms; --delay: 300ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 112px; --y: 58px; --d: 1700ms; --delay: 420ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 140px; --y: 44px; --d: 1250ms; --delay: 90ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 10px; --y: 84px; --d: 1350ms; --delay: 210ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 52px; --y: 92px; --d: 1550ms; --delay: 330ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 90px; --y: 82px; --d: 1150ms; --delay: 150ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 126px; --y: 96px; --d: 1750ms; --delay: 360ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 22px; --y: 124px; --d: 1450ms; --delay: 270ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 64px; --y: 130px; --d: 1650ms; --delay: 390ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 104px; --y: 122px; --d: 1250ms; --delay: 210ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 136px; --y: 128px; --d: 1350ms; --delay: 60ms;"></span>
-                                  </div>
-                                  <div class="dungen-generate-label">Generating</div>
-                                </div>
-                              </div>
-                              <canvas id="game-canvas" tabindex="0"></canvas>
-                            </div>
-                          </div>
+                      <div class="row">
+                        <div class="col dungen-keys">
+                          Move: <span>W</span><span>A</span><span>S</span><span>D</span> or <span>↑</span><span>←</span><span>↓</span><span>→</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- The AtDelfi System -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="http://game.engineering.nyu.edu/tutorial-generator/" target="_blank">
-                      <h4 class="card-title">The AtDelfi System</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">Automatically Designing Legible, Full Instructions</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:120%">
-                    <p class="card-text">The beginnings of my thesis research, AtDelfi is a system contained within the
-                      GVGAI Framework which reads in source code to output a tutorial. The first AtDelfi paper, sent to
-                      FDG 2018, won the Best Paper Award of the conference.</p>
-                    <a href="http://game.engineering.nyu.edu/tutorial-generator/" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/atdelfi.png" /></a>
-                  </div>
+            </div>
+
+            <div class="hero-map">
+              <div class="map-frame">
+                <div class="map-header">
+                  <span>Dungeon Map</span>
+                  <span class="map-chip">Live</span>
                 </div>
-              </div>
-              <!-- Micro RCT -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://github.com/smearle/micro-rct" target="_blank">
-                      <h4 class="card-title">MicroRCT</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a theme park AI framework</h5>
-                    </a>
+                <div class="map-body">
+                  <div class="spinner-border" id="dunGenSpinner" role="status" style="display:none">
+                    <span class="visually-hidden">Loading...</span>
                   </div>
-                  <div class="card-body" style="height:120%">
-                    <p class="card-text">MicroRCT is an open source simulator inspired by the theme park sandbox game RollerCoaster Tycoon. The goal in MicroRCT is to place rides and shops in an amusement park to maximize profit earned from park guests.</p>
-                    <a href="https://github.com/smearle/micro-rct" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/micro_rct.png" /></a>
-                  </div>
-                </div>
-              </div>              
-              <!-- GDMC -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://gendesignmc.engineering.nyu.edu/" target="_blank">
-                      <h4 class="card-title">The GDMC Challenge</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">generative design in minecraft</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">The GDMC Settlement Generation Challenge is to produce an
-                      algorithm that is
-                      adaptive towards the provided map, creates a settlement that satisfies a range
-                      of functional
-                      requirement - and also looks good and evokes an interesting narrative. The
-                      goal is to produce an
-                      generator that can rival what humans can produce.</p>
-                    <a href="http://gendesignmc.engineering.nyu.edu/" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/minecraft.jpeg" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Lifeguard -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/lifeguard" target="_blank">
-                      <h4 class="card-title">Lifeguard</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">what's "getting fired"?</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:100%">
-                    <p class="card-text">A cyclical, text-based, narrative-adventure game about my favorite experiences
-                      from being a lifeguard in highschool.</p>
-                    <a href="https://champchampchamp.itch.io/lifeguard" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/lifeguard.jpg" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Stay Alive: Evolved -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text"
-                      href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.StayAlive"
-                      target="_blank">
-                      <h4 class="card-title">Stay Alive: Evolved</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a galaga-esque, action packed survival experience</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:120%">
-                    <p class="card-text">The Stay Alive series was one of my very first video games, originally made for
-                      mobiLehigh 2014. It is a visually-overwhelming, 2D, space-ship shooter game. It is currently not
-                      found online, but I'm working on putting it up on itch.io!</p>
-                    <!-- <a href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.StayAlive" target="_blank"> -->
-                    <img class="img-responsive img-rounded img-hover" src="images/stayalive.jpg" />
-                    <!-- </a> -->
-                  </div>
-                </div>
-              </div>
-              <!-- Cubes -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text"
-                      href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.Cubes"
-                      target="_blank">
-                      <h4 class="card-title">Cubes</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">an experiment in 3d physics and racing</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">Cubes was a prototype I built my junior year of college for mobiLehigh 2015. <a
-                        href="http://thebrownandwhite.com/2015/03/30/mobilehigh/">We were interviewed about it.</a> and
-                      were awarded the Bethlehem's Choice Award. Cubes was my first exploration into 3d space and
-                      physics within the <a href="https://unity3d.com/">Unity Engine</a>.</p>
-                    <a href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.Cubes"
-                      target="_blank"><img class="img-responsive img-rounded img-hover" src="images/cubes.jpg" /></a>
+                  <div id="dungeon-canvas">
+                    <div class="dungen-generate-overlay" id="dungen-generate-overlay">
+                      <div class="d-flex flex-column align-items-center">
+                        <div class="dungen-generate-anim">
+                          <span class="dungen-pixel" style="--x: 18px; --y: 18px; --d: 1200ms; --delay: 0ms;"></span>
+                          <span class="dungen-pixel" style="--x: 56px; --y: 12px; --d: 1400ms; --delay: 120ms;"></span>
+                          <span class="dungen-pixel" style="--x: 96px; --y: 20px; --d: 1600ms; --delay: 240ms;"></span>
+                          <span class="dungen-pixel" style="--x: 128px; --y: 8px; --d: 1100ms; --delay: 60ms;"></span>
+                          <span class="dungen-pixel" style="--x: 26px; --y: 52px; --d: 1500ms; --delay: 180ms;"></span>
+                          <span class="dungen-pixel" style="--x: 74px; --y: 46px; --d: 1300ms; --delay: 300ms;"></span>
+                          <span class="dungen-pixel" style="--x: 112px; --y: 58px; --d: 1700ms; --delay: 420ms;"></span>
+                          <span class="dungen-pixel" style="--x: 140px; --y: 44px; --d: 1250ms; --delay: 90ms;"></span>
+                          <span class="dungen-pixel" style="--x: 10px; --y: 84px; --d: 1350ms; --delay: 210ms;"></span>
+                          <span class="dungen-pixel" style="--x: 52px; --y: 92px; --d: 1550ms; --delay: 330ms;"></span>
+                          <span class="dungen-pixel" style="--x: 90px; --y: 82px; --d: 1150ms; --delay: 150ms;"></span>
+                          <span class="dungen-pixel" style="--x: 126px; --y: 96px; --d: 1750ms; --delay: 360ms;"></span>
+                          <span class="dungen-pixel" style="--x: 22px; --y: 124px; --d: 1450ms; --delay: 270ms;"></span>
+                          <span class="dungen-pixel" style="--x: 64px; --y: 130px; --d: 1650ms; --delay: 390ms;"></span>
+                          <span class="dungen-pixel" style="--x: 104px; --y: 122px; --d: 1250ms; --delay: 210ms;"></span>
+                          <span class="dungen-pixel" style="--x: 136px; --y: 128px; --d: 1350ms; --delay: 60ms;"></span>
+                        </div>
+                        <div class="dungen-generate-label">Generating</div>
+                      </div>
+                    </div>
+                    <canvas id="game-canvas" tabindex="0"></canvas>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- Right Gutter-->
-          <div class="col-md-4">
-              <!-- The Musings Blog -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://mikecgreenblog.wordpress.com/" target="_blank">
-                      <h4 class="card-title">The Musings Blog</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a window to my thoughts</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:100%">
-                    <p class="card-text">I started a blog at the beginning of my candidacy to record my thoughts and
-                      research. Check it out here:</p>
-                    <a href="https://mikecgreenblog.wordpress.com/" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/blog.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Trumpland -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/trumpland" target="_blank">
-                      <h4 class="card-title">Trumpland</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a political Twitter simulation</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:120%">
-                    <p class="card-text">Not as much as enjoyment as "unjoyment", Trumpland is a political satire game about Twitter in the age of Trumpism. Become the Don and tweet as he tweets. The more you match what he actually wrote, the more followers and likes you gain.</p>
-                    <a href="https://champchampchamp.itch.io/trumpland" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/trumpland.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- GVGAI -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="http://www.gvgai.net/">
-                      <h4 class="card-title">The GVG-AI Framework</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">general video game artificial
-                        intelligence</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">A incredibly easy and efficient way to test AI against a
-                      large variety of
-                      simple 2d video games. I have helped develop the Rule-Generation Track
-                      together with some of my
-                      colleagues.</p>
-                    <a href="http://www.gvgai.net/" target="_blank"><img class="img-responsive img-rounded img-hover"
-                        src="images/survivezombies.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- 2118: Corruption -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/2118-corruption" target="_blank">
-                      <h4 class="card-title">2118: Corruption</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a cyberpunk rpg prototype</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">I made this game with a team for my final project in my
-                      Narrative Game Design
-                      class in Spring 2018. The idea was to create a cyberpunk detective game using
-                      design techniques
-                      learned in class. I was the sole programmer on the team and thus was in charge
-                      of all programming
-                      and game mechanic related content. It's not much, but this was made in only 4
-                      weeks!</p>
-                    <a href="https://champchampchamp.itch.io/2118-corruption" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/2118Game.jpg" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Edu-Venture -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/edu-venture" target="_blank">
-                      <h4 class="card-title">Edu-Venture</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">an leap into educational video games
-                      </h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">Edu-venture was a protoype I built during Hack NYU 2017 in
-                      36 hours with a team
-                      of 3 others. All assets are totally copyrighted, so please don't sue.</p>
-                    <a href="https://champchampchamp.itch.io/edu-venture" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/eduventure.jpg" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Music -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://soundcloud.com/trichampion" target="_blank">
-                      <h4 class="card-title">Music</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a collection of audio projects</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">The more games I have worked on, the more I've dabbled in
-                      audio creation and
-                      mixing. Here are the soundtracks I've created so far for my games.</p>
 
-                    <h5 class="card-text">Solo Releases</h5>
-                    <ul>
-                      <li><a href="https://soundcloud.com/trichampion/minidungeons?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">Minidungeons Theme</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/autopilot-remix" target="_blank">Autopilot
-                          Remix</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/prototype-2" target="_blank">Protoype 2</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/dataadventurestheme-20" target="_blank">DATA
-                          Agent</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/horizon-east-and-young-trust-fund-remix"
-                          target="_blank">Horizon - East and Young (Trust Fund Remix)</a></li>
-                    </ul>
-                    <h5 class="card-text">Stay Alive: Evolved Soundtrack <a
-                        href="https://soundcloud.com/trichampion/sets/stay-alive-ost" target="_blank">(Album)</a></h5>
-                    <ul>
-                      <li><a href="https://soundcloud.com/trichampion/autopilot?in=michael-green-69/sets/stay-alive-ost"
-                          target="_blank">Autopilot</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/nebula?in=michael-green-69/sets/stay-alive-ost"
-                          target="_blank">Nebula</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/starburst?in=michael-green-69/sets/stay-alive-ost"
-                          target="_blank">Starbust</a></li>
-                    </ul>
-                    <h5 class="card-text">Cubes Soundtrack <a
-                        href="https://soundcloud.com/trichampion/sets/cubes-soundtrack" target="_blank">(Album)</a></h5>
-                    <ul>
-                      <li><a
-                          href="https://soundcloud.com/trichampion/euphoria?in=michael-green-69/sets/cubes-soundtrack"
-                          target="_blank">Euphoria</a></li>
-                      <li><a
-                          href="https://soundcloud.com/trichampion/firetrain?in=michael-green-69/sets/cubes-soundtrack"
-                          target="_blank">Firetrain</a></li>
-                      <li><a
-                          href="https://soundcloud.com/trichampion/electricwave?in=michael-green-69/sets/cubes-soundtrack"
-                          target="_blank">Electric Wave</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+          <div class="hero-mode-switch">
+            <div class="nav nav-pills btn-group dungen-mode-switch" role="tablist" aria-label="Dungeon mode">
+              <button class="btn nav-link active" id="dungen-generate-tab" data-bs-toggle="tab"
+                data-bs-target="#dungen-generate" type="button" role="tab" aria-controls="dungen-generate"
+                aria-selected="true">Create</button>
+              <button class="btn nav-link" id="dungen-play-tab" data-bs-toggle="tab" data-bs-target="#dungen-play"
+                type="button" role="tab" aria-controls="dungen-play" aria-selected="false">Play</button>
+            </div>
           </div>
         </div>
-        <footer>
-        <div class="row">
-          <div class="col-lg-12">
-            <p>Copyright &copy; Michael Cerny Green 2023.</p>
-          </div>
-        </div>
-      </footer>
       </div>
-        <!-- Footer -->
-      
-      <!-- /.container -->
+    </section>
+
+    <section class="scroll-section" id="about">
+      <div class="container">
+        <div class="section-card">
+          <h2>About the Lab</h2>
+          <p>Scroll down to explore research, games, writing, and experiments. This space stays open for future
+            additions without closing the story above.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-section alt" id="projects">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-card">
+            <h3>Research</h3>
+            <p>Explore AI + games scholarship, publications, and teaching resources.</p>
+            <a class="section-link" href="research.html">Visit Research</a>
+          </div>
+          <div class="section-card">
+            <h3>Media</h3>
+            <p>Talks, demos, and recorded experiments from the lab.</p>
+            <a class="section-link" href="media.html">Visit Media</a>
+          </div>
+          <div class="section-card">
+            <h3>Writing</h3>
+            <p>Notes, essays, and behind-the-scenes development stories.</p>
+            <a class="section-link" href="blog.html">Visit Blog</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Copyright &copy; Michael Cerny Green 2026.</p>
+    </div>
+  </footer>
+
+  <!-- /.container -->
+
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -922,6 +1387,50 @@
     <script src="js/search/astar_tree.js"></script>
     <script src="js/search/astar_node.js"></script>
     <script src="js/level_generator/generate_level.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var shell = document.getElementById('dungen-boot-shell');
+        var toggle = document.getElementById('dungen-boot-toggle');
+        var status = document.getElementById('dungen-boot-status');
+        var log = document.getElementById('dungen-boot-log');
+        if (!shell || !toggle || !status) {
+          return;
+        }
+        var booted = false;
+        toggle.addEventListener('click', function () {
+          if (booted) {
+            return;
+          }
+          shell.classList.add('booting');
+          toggle.setAttribute('aria-pressed', 'true');
+          status.textContent = 'Powering Up';
+          if (log) {
+            log.textContent = '';
+          }
+          var steps = [
+            'Initializing core modules',
+            'Loading dungeon drivers',
+            'Syncing UI matrix',
+            'Launching generator'
+          ];
+          steps.forEach(function (line, index) {
+            window.setTimeout(function () {
+              if (log) {
+                log.textContent = line;
+              }
+              if (index === steps.length - 1) {
+                status.textContent = 'System Online';
+              }
+            }, 400 + index * 520);
+          });
+          window.setTimeout(function () {
+            shell.classList.remove('booting');
+            shell.classList.add('booted');
+            booted = true;
+          }, 2800);
+        });
+      });
+    </script>
 </body>
 
 </html>
