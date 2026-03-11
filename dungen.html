@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DunGen — Michael Cerny Green">
+  <title>DunGen — Michael Cerny Green</title>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Dosis:400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
+
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54297010-6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-54297010-6');
+  </script>
+
+  <style>
+    :root {
+      --bg: #0c1017;
+      --text: #dde6f0;
+      --muted: #7a8fa3;
+      --link: #7ab8f5;
+      --link-hover: #b0d4ff;
+    }
+
+    body {
+      font-family: 'Arvo', serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    /* ── Nav ── */
+    .site-nav {
+      background-color: var(--bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .site-nav .container {
+      max-width: 760px;
+    }
+
+    .site-nav .navbar-brand {
+      font-family: 'Dosis', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text);
+    }
+
+    .site-nav .nav-link {
+      font-family: 'Dosis', sans-serif;
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 0.4rem 0.75rem;
+      transition: color 150ms ease;
+    }
+
+    .site-nav .nav-link:hover,
+    .site-nav .nav-link.active {
+      color: var(--text);
+    }
+
+    /* ── Page ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
+    }
+
+    .breadcrumb-back {
+      font-family: 'Dosis', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 24px;
+      transition: color 150ms ease;
+    }
+
+    .breadcrumb-back:hover { color: var(--text); }
+
+    .page-title {
+      font-family: 'Dosis', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin: 0 0 6px;
+    }
+
+    .page-sub {
+      font-family: 'Dosis', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    /* ── DunGen widget ── */
+    .dungen-wrap {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .dungen-inner {
+      padding: 16px;
+    }
+
+    /* controls */
+    .dungen-toggle .btn {
+      border-radius: 999px;
+      font-weight: 600;
+      color: #1f2f2a;
+      background: rgba(17,59,74,0.05);
+      border: 1px solid rgba(17,59,74,0.08);
+      margin-right: 8px;
+      transition: background 150ms ease, box-shadow 150ms ease;
+    }
+
+    .dungen-toggle .btn.active {
+      color: #fff;
+      background: #1f2f2a;
+      box-shadow: 0 6px 16px rgba(17,59,74,0.22);
+      border-color: transparent;
+    }
+
+    .dungen-hint {
+      color: rgba(31,47,42,0.65);
+      font-size: 0.85rem;
+      margin-top: 6px;
+    }
+
+    .dungen-panel {
+      background: rgba(17,59,74,0.02);
+      border: 1px solid rgba(17,59,74,0.06);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .dungen-divider {
+      height: 1px;
+      background: rgba(17,59,74,0.08);
+      margin: 12px 0;
+    }
+
+    .dungen-action-row .btn {
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      padding: 0.45rem 1.1rem;
+    }
+
+    .dungen-hud {
+      background: #fff;
+      border: 1px solid rgba(17,59,74,0.12);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .dungen-stat {
+      background: rgba(17,59,74,0.04);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      color: #1f2f2a;
+    }
+
+    .dungen-stat .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(31,47,42,0.6);
+    }
+
+    .dungen-status {
+      grid-column: 1 / -1;
+      background: rgba(17,59,74,0.06);
+      border-radius: 10px;
+      padding: 8px 10px;
+      color: rgba(31,47,42,0.8);
+      font-weight: 500;
+    }
+
+    .dungen-keys span {
+      display: inline-block;
+      padding: 2px 6px;
+      margin-right: 4px;
+      border-radius: 6px;
+      background: #f6f7f6;
+      border: 1px solid rgba(17,59,74,0.12);
+      font-family: 'Arvo', serif;
+      font-size: 0.8rem;
+    }
+
+    .dungen-keys { color: rgba(31,47,42,0.7); font-size: 0.85rem; }
+
+    /* canvas */
+    #dungeon-canvas {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    #game-canvas {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      border: 1px solid #d3d3d3;
+      background-color: #f1f1f1;
+    }
+
+    /* generating overlay */
+    .dungen-generate-overlay {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(120deg, rgba(255,255,255,0.95), rgba(246,248,247,0.9));
+      z-index: 2;
+    }
+
+    .dungen-generate-overlay.active { display: flex; }
+
+    .dungen-generate-anim {
+      width: 160px;
+      height: 160px;
+      border-radius: 16px;
+      background: radial-gradient(circle at 30% 30%, rgba(31,47,42,0.2), rgba(31,47,42,0.02));
+      border: 1px solid rgba(17,59,74,0.12);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 14px 30px rgba(17,59,74,0.14);
+    }
+
+    .dungen-pixel {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #1f2f2a;
+      opacity: 0.85;
+      border-radius: 2px;
+      animation: dungenPixelFall var(--d, 1400ms) ease-in-out infinite;
+      animation-delay: var(--delay, 0ms);
+      transform: translate(var(--x, 0px), var(--y, 0px));
+    }
+
+    .dungen-pixel:nth-child(odd)  { background: #2c5b52; }
+    .dungen-pixel:nth-child(3n)   { background: #487f73; }
+
+    .dungen-generate-label {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(31,47,42,0.7);
+      font-weight: 600;
+    }
+
+    @keyframes dungenPixelFall {
+      0%   { transform: translate(var(--x,0px), var(--y,0px)) rotate(0deg);   opacity: 0.9; }
+      50%  { transform: translate(calc(var(--x,0px) + 18px), calc(var(--y,0px) + 30px)) rotate(120deg); opacity: 0.5; }
+      100% { transform: translate(calc(var(--x,0px) - 12px), calc(var(--y,0px) + 60px)) rotate(240deg); opacity: 0.1; }
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      padding: 12px 24px;
+      font-family: 'Dosis', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: rgba(122,143,163,0.35);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      background-color: var(--bg);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm fixed-top site-nav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Michael Cerny Green</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"
+        aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="siteNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">about</a></li>
+          <li class="nav-item"><a class="nav-link" href="research.html">research</a></li>
+          <li class="nav-item"><a class="nav-link" href="media.html">media</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">blog</a></li>
+          <li class="nav-item"><a class="nav-link active" href="projects.html">projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="papers/Current.pdf" target="_blank">cv</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page">
+      <a class="breadcrumb-back" href="projects.html">&larr; projects</a>
+
+      <h1 class="page-title">DunGen</h1>
+      <p class="page-sub">toy &nbsp;·&nbsp; 2022 &nbsp;·&nbsp; browser game</p>
+
+      <p class="project-desc">
+        Configure a dungeon — size, openness, monsters, items — then generate it and play your way out.
+        A small browser-based roguelike I built to play with procedural generation ideas from my research.
+        Use the sliders to tune the level, hit Generate, then flip to Play mode and try to survive.
+      </p>
+
+      <!-- DunGen widget -->
+      <div class="dungen-wrap">
+        <div class="dungen-inner">
+
+          <!-- mode tabs -->
+          <div class="row mb-3">
+            <div class="col">
+              <div class="nav nav-pills btn-group dungen-toggle" role="tablist">
+                <button class="btn nav-link active" id="dungen-generate-tab"
+                  data-bs-toggle="tab" data-bs-target="#dungen-generate"
+                  type="button" role="tab" aria-selected="true">Generate</button>
+                <button class="btn nav-link" id="dungen-play-tab"
+                  data-bs-toggle="tab" data-bs-target="#dungen-play"
+                  type="button" role="tab" aria-selected="false">Play</button>
+              </div>
+              <div class="dungen-hint">Build your dungeon first, then flip to play mode.</div>
+            </div>
+          </div>
+
+          <div class="tab-content">
+
+            <!-- generate panel -->
+            <div class="tab-pane fade show active" id="dungen-generate" role="tabpanel">
+              <div class="dungen-panel">
+                <div class="row">
+                  <div class="col">
+                    <label class="form-label">Width: </label><output>10</output>
+                    <input type="range" class="form-range" id="range-width" value="10" min="5" max="25" step="1"
+                      oninput="this.previousElementSibling.value = this.value">
+                  </div>
+                  <div class="col">
+                    <label class="form-label">Height: </label><output>10</output>
+                    <input type="range" class="form-range" id="range-height" value="10" min="5" max="15" step="1"
+                      oninput="this.previousElementSibling.value = this.value">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label class="form-label">Openness: </label><output>5</output>
+                    <input type="range" class="form-range" id="range-openess" value="5" min="1" max="10" step="1"
+                      oninput="this.previousElementSibling.value = this.value">
+                  </div>
+                </div>
+
+                <div class="dungen-divider"></div>
+
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body mb-2">
+                    <div class="row"><div class="col"><h5>Monsters</h5></div></div>
+                    <div class="row">
+                      <div class="col">
+                        <label class="form-label">Max Goblins: </label><output>2</output>
+                        <input type="range" class="form-range" id="range-goblins" value="2" min="0" max="5" step="1"
+                          oninput="this.previousElementSibling.value = this.value">
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Max Wizards: </label><output>1</output>
+                        <input type="range" class="form-range" id="range-wizards" value="1" min="0" max="5" step="1"
+                          oninput="this.previousElementSibling.value = this.value">
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Max Blobs: </label><output>2</output>
+                        <input type="range" class="form-range" id="range-blobs" value="2" min="0" max="5" step="1"
+                          oninput="this.previousElementSibling.value = this.value">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <label class="form-label">Max Ogres: </label><output>1</output>
+                        <input type="range" class="form-range" id="range-ogres" value="1" min="0" max="5" step="1"
+                          oninput="this.previousElementSibling.value = this.value">
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Max Minitaurs: </label><output>1</output>
+                        <input type="range" class="form-range" id="range-minitaurs" value="1" min="0" max="5" step="1"
+                          oninput="this.previousElementSibling.value = this.value">
+                      </div>
+                    </div>
+                    <div class="row"><div class="col"><h5>Items</h5></div></div>
+                    <div class="row">
+                      <div class="col">
+                        <label class="form-label">Max Potions: </label><output>2</output>
+                        <input type="range" class="form-range" id="range-potions" value="2" min="0" max="8" step="1"
+                          oninput="this.previousElementSibling.value = this.value">
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Max Treasures: </label><output>3</output>
+                        <input type="range" class="form-range" id="range-treasures" value="3" min="0" max="8" step="1"
+                          oninput="this.previousElementSibling.value = this.value">
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Max Portals: </label><output>2</output>
+                        <input type="range" class="form-range" id="range-portals" value="2" min="0" max="2" step="2"
+                          oninput="this.previousElementSibling.value = this.value">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-3 dungen-action-row">
+                  <div class="col">
+                    <button class="btn btn-outline-secondary" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#collapseExample">More Controls</button>
+                  </div>
+                  <div class="col d-flex justify-content-end">
+                    <button class="btn btn-primary" id="generate-level">Generate</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- play panel -->
+            <div class="tab-pane fade" id="dungen-play" role="tabpanel">
+              <div class="dungen-panel">
+                <div class="row mb-2">
+                  <div class="col d-flex flex-wrap gap-2 dungen-action-row">
+                    <button class="btn btn-success" id="game-play" type="button">Start</button>
+                    <button class="btn btn-outline-primary" id="game-step" type="button">Wait</button>
+                    <button class="btn btn-outline-warning" id="game-reset" type="button">Reset</button>
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col dungen-hud" id="dungen-hud">
+                    <div class="dungen-stat">
+                      <span class="label">HP</span><span id="hud-hp">-</span>
+                    </div>
+                    <div class="dungen-stat">
+                      <span class="label">Turns</span><span id="hud-turns">0</span>
+                    </div>
+                    <div class="dungen-stat">
+                      <span class="label">Treasure</span><span id="hud-treasure">0</span>
+                    </div>
+                    <div class="dungen-status">Status: <span id="hud-status">Ready</span></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col dungen-keys">
+                    Move: <span>W</span><span>A</span><span>S</span><span>D</span>
+                    or <span>↑</span><span>←</span><span>↓</span><span>→</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /tab-content -->
+
+          <!-- spinner + canvas -->
+          <div class="row mt-3">
+            <div class="spinner-border" id="dunGenSpinner" role="status" style="display:none">
+              <span class="visually-hidden">Loading…</span>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12">
+              <div class="d-flex justify-content-center">
+                <div id="dungeon-canvas">
+                  <div class="dungen-generate-overlay" id="dungen-generate-overlay">
+                    <div class="d-flex flex-column align-items-center">
+                      <div class="dungen-generate-anim">
+                        <span class="dungen-pixel" style="--x:18px;--y:18px;--d:1200ms;--delay:0ms"></span>
+                        <span class="dungen-pixel" style="--x:56px;--y:12px;--d:1400ms;--delay:120ms"></span>
+                        <span class="dungen-pixel" style="--x:96px;--y:20px;--d:1600ms;--delay:240ms"></span>
+                        <span class="dungen-pixel" style="--x:128px;--y:8px;--d:1100ms;--delay:60ms"></span>
+                        <span class="dungen-pixel" style="--x:26px;--y:52px;--d:1500ms;--delay:180ms"></span>
+                        <span class="dungen-pixel" style="--x:74px;--y:46px;--d:1300ms;--delay:300ms"></span>
+                        <span class="dungen-pixel" style="--x:112px;--y:58px;--d:1700ms;--delay:420ms"></span>
+                        <span class="dungen-pixel" style="--x:140px;--y:44px;--d:1250ms;--delay:90ms"></span>
+                        <span class="dungen-pixel" style="--x:10px;--y:84px;--d:1350ms;--delay:210ms"></span>
+                        <span class="dungen-pixel" style="--x:52px;--y:92px;--d:1550ms;--delay:330ms"></span>
+                        <span class="dungen-pixel" style="--x:90px;--y:82px;--d:1150ms;--delay:150ms"></span>
+                        <span class="dungen-pixel" style="--x:126px;--y:96px;--d:1750ms;--delay:360ms"></span>
+                        <span class="dungen-pixel" style="--x:22px;--y:124px;--d:1450ms;--delay:270ms"></span>
+                        <span class="dungen-pixel" style="--x:64px;--y:130px;--d:1650ms;--delay:390ms"></span>
+                        <span class="dungen-pixel" style="--x:104px;--y:122px;--d:1250ms;--delay:210ms"></span>
+                        <span class="dungen-pixel" style="--x:136px;--y:128px;--d:1350ms;--delay:60ms"></span>
+                      </div>
+                      <div class="dungen-generate-label">Generating</div>
+                    </div>
+                  </div>
+                  <canvas id="game-canvas" tabindex="0"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /dungen-inner -->
+      </div><!-- /dungen-wrap -->
+
+    </div><!-- /page -->
+  </main>
+
+  <footer>&copy; 2026 Michael Cerny Green</footer>
+
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/level_generator/visualizer.js"></script>
+  <script src="js/level_generator/dungen_game.js"></script>
+  <script src="js/level_generator/digger_generator.js"></script>
+  <script src="js/level_generator/constrain_furnisher.js"></script>
+  <script src="js/search/astar_tree.js"></script>
+  <script src="js/search/astar_node.js"></script>
+  <script src="js/level_generator/generate_level.js"></script>
+</body>
+
+</html>
