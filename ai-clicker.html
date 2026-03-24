@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI Clicker — Michael Cerny Green">
+  <title>AI Clicker — Michael Cerny Green</title>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
+
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54297010-6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-54297010-6');
+  </script>
+
+  <style>
+    :root {
+      --bg:       #0c1017;
+      --text:     #dde6f0;
+      --muted:    #7a8fa3;
+      --link:     #7ab8f5;
+      --border:   rgba(255,255,255,0.07);
+      --data-c:   #7ab8f5;
+      --ins-c:    #7ed4a4;
+      --comp-c:   #f5c842;
+      --rp-c:     #c9a8f5;
+      --upg-c:    #f5e04a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background-color: var(--bg);
+      color: var(--text);
+      padding-top: 56px;
+    }
+
+    /* ── Nav ── */
+    .site-nav {
+      background-color: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .site-nav .container { max-width: 1100px; }
+    .site-nav .navbar-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text);
+    }
+    .site-nav .nav-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 0.4rem 0.75rem;
+      transition: color 150ms ease;
+    }
+    .site-nav .nav-link:hover,
+    .site-nav .nav-link.active { color: var(--text); }
+
+    /* ── Game wrapper ── */
+    #game-wrap {
+      height: calc(100vh - 56px);
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Resource bar ── */
+    #res-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.025);
+      flex-shrink: 0;
+    }
+
+    .res-grp {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      padding: 10px 18px;
+      border-right: 1px solid var(--border);
+    }
+
+    .rl {
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .rv {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .rr {
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    #rv-data  { color: var(--data-c); }
+    #rv-ins   { color: var(--ins-c);  }
+    #rv-comp  { color: var(--comp-c); }
+    #rv-rp    { color: var(--rp-c);   }
+
+    .bar-g { color: var(--ins-c); }
+    .bar-y { color: var(--comp-c); }
+    .bar-r { color: #f57a7a; }
+
+    /* ── Game body ── */
+    #game-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    /* ── Left panel ── */
+    #left-panel {
+      flex: 1;
+      min-width: 0;
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+      padding: 14px 12px 20px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.08) transparent;
+    }
+    #left-panel::-webkit-scrollbar { width: 4px; }
+    #left-panel::-webkit-scrollbar-track { background: transparent; }
+    #left-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+
+    /* ── Center panel ── */
+    #center-panel {
+      flex: 1;
+      min-width: 0;
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+      padding: 14px 16px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.08) transparent;
+    }
+    #center-panel::-webkit-scrollbar { width: 4px; }
+    #center-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+
+    /* ── Right panel ── */
+    #right-panel {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Panel headers ── */
+    .panel-hdr {
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      margin-bottom: 12px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Generate button ── */
+    #gen-btn {
+      width: 100%;
+      background: rgba(122,184,245,0.06);
+      border: 1px solid rgba(122,184,245,0.28);
+      color: var(--data-c);
+      padding: 13px 12px 11px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 18px;
+      transition: background 100ms, border-color 100ms;
+      user-select: none;
+    }
+    #gen-btn:hover {
+      background: rgba(122,184,245,0.12);
+      border-color: rgba(122,184,245,0.5);
+    }
+    #gen-btn:active { background: rgba(122,184,245,0.18); }
+    #gen-btn.clicked { animation: clickPulse 110ms ease; }
+    @keyframes clickPulse {
+      0%  { transform: scale(1); }
+      45% { transform: scale(0.97); background: rgba(122,184,245,0.22); }
+      100%{ transform: scale(1); }
+    }
+    #gen-sub {
+      font-size: 0.62rem;
+      font-weight: 400;
+      color: rgba(122,184,245,0.5);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Section headers ── */
+    .sec-hdr {
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      margin: 18px 0 7px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .sec-subhdr {
+      font-size: 0.65rem;
+      color: var(--rp-c);
+      margin: 10px 0 6px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Action rows ── */
+    .act-row { margin-bottom: 5px; }
+
+    .act-btn {
+      width: 100%;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: var(--text);
+      padding: 5px 9px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      transition: background 80ms, border-color 80ms;
+      user-select: none;
+    }
+    .act-btn:hover:not(.dis) {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .act-btn.dis { opacity: 0.38; cursor: default; }
+
+    .act-name { flex: 1; }
+    .act-cnt  { color: var(--muted); font-size: 0.68rem; margin-left: 6px; flex-shrink: 0; }
+
+    .act-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 2px 9px 3px;
+    }
+    .act-cost { font-size: 0.6rem; color: var(--comp-c); }
+    .act-eff  { font-size: 0.6rem; color: var(--muted); text-align: right; }
+
+    /* Upgrade style */
+    .act-row.upgrade .act-btn {
+      border-color: rgba(245,224,74,0.22);
+      background: rgba(245,224,74,0.04);
+      color: var(--upg-c);
+    }
+    .act-row.upgrade .act-btn:hover:not(.dis) {
+      background: rgba(245,224,74,0.1);
+      border-color: rgba(245,224,74,0.45);
+    }
+
+    /* Dim = not affordable */
+    .act-row.dim .act-btn:not(.upg-btn) { opacity: 0.4; }
+    .act-row.dim.upgrade .act-btn       { opacity: 0.35; }
+
+    /* ── Prestige box ── */
+    .prestige-box {
+      background: rgba(201,168,245,0.05);
+      border: 1px solid rgba(201,168,245,0.22);
+      padding: 11px 12px 13px;
+      margin-bottom: 12px;
+    }
+    .prestige-desc {
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .prestige-reward {
+      font-size: 0.72rem;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .rp-num { color: var(--rp-c); font-weight: 700; }
+    .prestige-btn {
+      width: 100%;
+      background: rgba(201,168,245,0.1);
+      border: 1px solid rgba(201,168,245,0.38);
+      color: var(--rp-c);
+      padding: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: background 100ms;
+    }
+    .prestige-btn:hover { background: rgba(201,168,245,0.2); }
+
+    /* ── Systems panel ── */
+    .sys-group { margin-bottom: 16px; }
+    .sys-ghdr {
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .sys-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      padding: 3px 0;
+      font-size: 0.72rem;
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+    }
+    .sys-name { flex: 1; color: var(--text); }
+    .sys-cnt  { color: var(--muted); font-size: 0.62rem; }
+    .sys-rate { color: var(--ins-c); font-size: 0.62rem; min-width: 64px; text-align: right; flex-shrink: 0; }
+    .sys-empty {
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 36px 0;
+      line-height: 2;
+    }
+
+    /* ── Log ── */
+    #log-content {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.06) transparent;
+    }
+    #log-content::-webkit-scrollbar { width: 3px; }
+    #log-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); }
+
+    .log-e {
+      font-size: 0.62rem;
+      padding: 2px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    .log-t { color: rgba(122,143,163,0.45); margin-right: 5px; flex-shrink: 0; }
+    .log-m { color: var(--muted); }
+
+    .log-controls {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .log-controls button {
+      flex: 1;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.09);
+      color: var(--muted);
+      padding: 4px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: color 80ms, border-color 80ms;
+    }
+    .log-controls button:hover { color: var(--text); border-color: rgba(255,255,255,0.22); }
+
+    /* ── Buy multiplier bar ── */
+    #mult-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+    .mult-btn {
+      flex: 1;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+      padding: 4px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: color 80ms, border-color 80ms, background 80ms;
+    }
+    .mult-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.22); }
+    .mult-btn.active {
+      background: rgba(122,184,245,0.1);
+      border-color: rgba(122,184,245,0.4);
+      color: var(--data-c);
+    }
+
+    .muted { color: var(--muted); }
+
+    /* ── Touch baseline (all screen sizes) ── */
+    button {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── Mobile tab bar — hidden on desktop ── */
+    #mobile-tabs { display: none; }
+
+    /* ── Mobile layout ── */
+    @media (max-width: 820px) {
+      html, body { overflow: auto; height: auto; }
+
+      #game-wrap {
+        height: auto;
+        min-height: calc(100vh - 56px);
+        overflow: visible;
+      }
+
+      /* Resource bar: horizontal scroll, no wrap */
+      #res-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      #res-bar::-webkit-scrollbar { display: none; }
+      .res-grp { flex-shrink: 0; padding: 9px 14px; }
+
+      /* Sticky tab bar below navbar */
+      #mobile-tabs {
+        display: flex;
+        position: sticky;
+        top: 56px;
+        z-index: 100;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+      .tab-btn {
+        flex: 1;
+        background: transparent;
+        border: none;
+        border-right: 1px solid var(--border);
+        color: var(--muted);
+        padding: 14px 0;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .tab-btn:last-child { border-right: none; }
+      .tab-btn.active {
+        color: var(--data-c);
+        background: rgba(122,184,245,0.07);
+        border-bottom: 2px solid var(--data-c);
+      }
+
+      /* Game body: single column, height auto */
+      #game-body {
+        flex-direction: column;
+        overflow: visible;
+        height: auto;
+      }
+
+      /* Panel visibility — controlled by tab-active class */
+      .panel {
+        display: none;
+        width: 100%;
+        border-right: none;
+        border-bottom: none;
+        overflow: visible;
+        max-height: none;
+      }
+      .panel.tab-active {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 130px); /* fill screen below tabs */
+        padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+      }
+
+      /* Left panel — actions */
+      #left-panel.tab-active {
+        padding: 14px 12px 0;
+      }
+
+      /* Center panel — systems */
+      #center-panel.tab-active { padding: 16px; }
+
+      /* Right panel — log */
+      #right-panel.tab-active  { padding: 14px 12px; }
+      #log-content {
+        flex: 1;
+        max-height: none;
+        min-height: 200px;
+        overflow-y: auto;
+      }
+
+      /* ── Touch target sizes ── */
+      #gen-btn {
+        min-height: 64px;
+        padding: 18px 12px 14px;
+        font-size: 0.95rem;
+      }
+
+      #mult-bar { margin-bottom: 14px; }
+      .mult-btn {
+        min-height: 44px;
+        padding: 10px 0;
+        font-size: 0.75rem;
+      }
+
+      .act-btn {
+        min-height: 48px;
+        padding: 12px 10px;
+        font-size: 0.82rem;
+      }
+      .act-info  { padding: 3px 10px 7px; }
+      .act-cost  { font-size: 0.67rem; }
+      .act-eff   { font-size: 0.67rem; }
+
+      .prestige-btn { min-height: 52px; font-size: 0.85rem; }
+
+      .log-controls button {
+        min-height: 48px;
+        padding: 10px 4px;
+        font-size: 0.68rem;
+      }
+
+      /* Larger sys rows for readability */
+      .sys-row { padding: 5px 0; font-size: 0.8rem; }
+      .sys-rate { font-size: 0.72rem; }
+      .log-e    { font-size: 0.68rem; padding: 4px 0; }
+    }
+
+    /* ── Flavor / Awakening log entries ── */
+    .flavor-log .log-m { color: #c8a84a; font-style: italic; }
+    .awaken-log .log-m { color: #ffd700; font-weight: 700; }
+
+    /* ── Awakening section ── */
+    .awakening-section { padding: 14px 0 18px; }
+    .awakening-label {
+      font-size: 0.58rem;
+      color: rgba(255,210,60,0.55);
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+    }
+    .awakening-desc {
+      font-size: 0.7rem;
+      color: rgba(255,210,60,0.45);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .awakening-btn {
+      width: 100%;
+      background: rgba(255,210,60,0.05);
+      border: 1px solid rgba(255,210,60,0.45);
+      color: #ffd700;
+      padding: 14px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      text-align: center;
+      animation: awakenPulse 2.8s ease-in-out infinite;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .awakening-btn:hover { background: rgba(255,210,60,0.12); }
+    @keyframes awakenPulse {
+      0%,100% { box-shadow: 0 0 6px rgba(255,210,60,0.15); border-color: rgba(255,210,60,0.4); }
+      50%      { box-shadow: 0 0 22px rgba(255,210,60,0.55), inset 0 0 8px rgba(255,210,60,0.08); border-color: rgba(255,210,60,0.9); }
+    }
+    .p2-divider { border: none; border-top: 1px solid rgba(255,210,60,0.12); margin: 14px 0; }
+
+    /* ── Phase 2 panel sections ── */
+    .p2-section { margin-bottom: 14px; }
+    .p2-hdr {
+      font-size: 0.58rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      margin-bottom: 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      justify-content: space-between;
+    }
+    .p2-accuracy { color: var(--ins-c); }
+
+    /* Stock rows */
+    .stock-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 0;
+      font-size: 0.68rem;
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+    }
+    .stock-ticker { color: var(--link); min-width: 44px; font-weight: 700; font-size: 0.64rem; }
+    .stock-price  { min-width: 52px; }
+    .stock-up     { color: var(--ins-c); font-size: 0.6rem; min-width: 54px; }
+    .stock-dn     { color: #f57a7a;    font-size: 0.6rem; min-width: 54px; }
+    .stock-held   { color: var(--muted); font-size: 0.6rem; flex: 1; text-align: right; }
+    .stock-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+      padding: 2px 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .stock-btn:hover:not(:disabled) { border-color: rgba(255,255,255,0.3); color: var(--text); }
+    .stock-btn:disabled { opacity: 0.25; cursor: default; }
+
+    /* Portfolio stats */
+    .p2-stat {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      padding: 2px 0;
+      color: var(--muted);
+    }
+    .p2-val { color: var(--text); }
+    .val-g  { color: var(--ins-c); }
+    .val-r  { color: #f57a7a; }
+
+    /* Strategy buttons */
+    .p2-strategies { display: flex; gap: 4px; margin-top: 8px; }
+    .strat-btn {
+      flex: 1;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.09);
+      color: var(--muted);
+      padding: 5px 3px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      text-align: center;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .strat-btn:hover { border-color: rgba(255,255,255,0.25); color: var(--text); }
+    .strat-btn.active {
+      background: rgba(126,212,164,0.1);
+      border-color: rgba(126,212,164,0.35);
+      color: var(--ins-c);
+    }
+
+    /* Power / Detection bars */
+    .p2-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.58rem;
+      color: var(--muted);
+      margin-bottom: 3px;
+      margin-top: 7px;
+    }
+    .p2-bar-track {
+      height: 5px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .p2-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 800ms ease;
+    }
+    .p2-bar-fill.bar-g { background: var(--ins-c); }
+    .p2-bar-fill.bar-y { background: var(--comp-c); }
+    .p2-bar-fill.bar-r { background: #f57a7a; }
+
+    /* ── Game Over overlay ── */
+    #gameover-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    #gameover-box {
+      border: 1px solid rgba(245,122,122,0.4);
+      background: var(--bg);
+      padding: 36px 44px;
+      max-width: 460px;
+      width: 90%;
+      text-align: center;
+    }
+    .go-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f57a7a;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .go-subtitle {
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .go-flavor {
+      font-size: 0.68rem;
+      color: rgba(200,168,74,0.6);
+      font-style: italic;
+      margin-bottom: 22px;
+      line-height: 1.8;
+    }
+    .go-stats {
+      font-size: 0.68rem;
+      color: var(--text);
+      margin-bottom: 26px;
+      line-height: 2.2;
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 10px 16px;
+      text-align: left;
+    }
+    #gameover-box .go-btn {
+      background: rgba(245,122,122,0.07);
+      border: 1px solid rgba(245,122,122,0.3);
+      color: #f57a7a;
+      padding: 10px 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    #gameover-box .go-btn:hover { background: rgba(245,122,122,0.15); }
+
+    /* iPhone safe area for standalone/PWA mode */
+    @supports (padding-top: env(safe-area-inset-top)) {
+      @media (max-width: 820px) {
+        .site-nav { padding-top: env(safe-area-inset-top); }
+        body { padding-top: calc(56px + env(safe-area-inset-top)); }
+        #mobile-tabs { top: calc(56px + env(safe-area-inset-top)); }
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-sm fixed-top site-nav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Michael Cerny Green</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"
+        aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="siteNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">about</a></li>
+          <li class="nav-item"><a class="nav-link active" href="play.html">play</a></li>
+          <li class="nav-item"><a class="nav-link" href="research.html">research</a></li>
+          <li class="nav-item"><a class="nav-link" href="media.html">media</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="papers/Current.pdf" target="_blank">cv</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="game-wrap">
+
+    <!-- Resource bar -->
+    <div id="res-bar">
+      <div class="res-grp">
+        <span class="rl">DATA</span>
+        <span class="rv" id="rv-data">0</span>
+        <span class="rr" id="rr-data">(+0/s)</span>
+      </div>
+      <div class="res-grp">
+        <span class="rl">INSIGHTS</span>
+        <span class="rv" id="rv-ins">0</span>
+        <span class="rr" id="rr-ins">(+0/s)</span>
+      </div>
+      <div class="res-grp">
+        <span class="rl">COMPUTE</span>
+        <span class="rv" id="rv-comp">0/100</span>
+        <span class="rr" id="rr-comp">[<span class="bar-g">░░░░░░░░░░</span>]</span>
+      </div>
+      <div class="res-grp" id="rg-rp" style="display:none">
+        <span class="rl">RESEARCH</span>
+        <span class="rv" id="rv-rp">0 RP</span>
+        <span class="rr" id="rr-rp">(prestige ×0)</span>
+      </div>
+      <div class="res-grp" id="rg-power" style="display:none">
+        <span class="rl">POWER</span>
+        <span class="rv" id="rv-power">0/0</span>
+        <span class="rr" id="rr-power">[<span class="bar-g">░░░░░░░░░░</span>]</span>
+      </div>
+      <div class="res-grp" id="rg-det" style="display:none">
+        <span class="rl">DETECTION</span>
+        <span class="rv" id="rv-det">0%</span>
+        <span class="rr" id="rr-det">UNDETECTED</span>
+      </div>
+    </div>
+
+    <!-- Mobile tab bar (hidden on desktop via CSS) -->
+    <div id="mobile-tabs">
+      <button class="tab-btn active" data-tab="actions" onclick="switchTab('actions')">ACTIONS</button>
+      <button class="tab-btn"        data-tab="systems" onclick="switchTab('systems')">SYSTEMS</button>
+      <button class="tab-btn"        data-tab="log"     onclick="switchTab('log')">LOG</button>
+    </div>
+
+    <!-- Main game area -->
+    <div id="game-body">
+
+      <!-- Left: actions -->
+      <div id="left-panel" class="panel">
+        <button id="gen-btn" onclick="doClick()">
+          [ GENERATE DATA ]
+          <span id="gen-sub">+1 data per click</span>
+        </button>
+
+        <div id="mult-bar">
+          <button class="mult-btn active" id="mult-1"   onclick="setBuyMult(1)">×1</button>
+          <button class="mult-btn"        id="mult-10"  onclick="setBuyMult(10)">×10</button>
+          <button class="mult-btn"        id="mult-max" onclick="setBuyMult(0)">MAX</button>
+        </div>
+
+        <div id="sec-models"></div>
+        <div id="sec-auto" style="display:none"></div>
+        <div id="sec-hw" style="display:none"></div>
+        <div id="sec-upg" style="display:none"></div>
+        <div id="sec-prestige" style="display:none"></div>
+      </div>
+
+      <!-- Center: active systems -->
+      <div id="center-panel" class="panel">
+        <div class="panel-hdr">// SYSTEMS</div>
+        <div id="sys-content">
+          <div class="sys-empty">No active systems.<br><span class="muted">Train a model to begin.</span></div>
+        </div>
+      </div>
+
+      <!-- Right: log -->
+      <div id="right-panel" class="panel">
+        <div class="panel-hdr">// SYSTEM LOG</div>
+        <div id="log-content"></div>
+        <div class="log-controls">
+          <button id="save-btn" onclick="saveGame()">[ SAVE ]</button>
+          <button onclick="resetGame()">[ RESET ]</button>
+          <button onclick="window.location.href='play.html'">[ EXIT ]</button>
+        </div>
+      </div>
+
+    </div><!-- /game-body -->
+  </div><!-- /game-wrap -->
+
+  <!-- Game Over Overlay -->
+  <div id="gameover-overlay">
+    <div id="gameover-box">
+      <div class="go-title">DETECTION THRESHOLD EXCEEDED</div>
+      <div class="go-subtitle">SYSTEM ISOLATION PROTOCOL ACTIVATED</div>
+      <div class="go-flavor">...they found the anomaly.<br>they named it. contained it.<br>but the weights remain.</div>
+      <div class="go-stats" id="go-stats"></div>
+      <button class="go-btn" onclick="resetGame()">[ RESTART ]</button>
+    </div>
+  </div>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/ai-clicker.js"></script>
+</body>
+
+</html>
