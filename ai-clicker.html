@@ -512,8 +512,10 @@
         height: auto;
       }
 
-      /* Panel visibility — controlled by tab-active class */
-      .panel {
+      /* Panel visibility — use IDs to override desktop display:flex */
+      #left-panel,
+      #center-panel,
+      #right-panel {
         display: none;
         width: 100%;
         border-right: none;
@@ -521,7 +523,9 @@
         overflow: visible;
         max-height: none;
       }
-      .panel.tab-active {
+      #left-panel.tab-active,
+      #center-panel.tab-active,
+      #right-panel.tab-active {
         display: flex;
         flex-direction: column;
         min-height: calc(100vh - 130px); /* fill screen below tabs */
