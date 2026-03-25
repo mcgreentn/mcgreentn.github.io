@@ -45,6 +45,7 @@
     .site-nav {
       background-color: var(--bg);
       border-bottom: 1px solid rgba(255,255,255,0.06);
+      z-index: 10;
     }
 
     .site-nav .container {
@@ -70,6 +71,8 @@
       max-width: 760px;
       margin: 0 auto;
       padding: 64px 24px 48px;
+      position: relative;
+      z-index: 1;
     }
 
     /* ── Name header ── */
@@ -176,6 +179,29 @@
       color: rgba(122, 143, 163, 0.35);
       border-top: 1px solid rgba(255,255,255,0.04);
       background-color: var(--bg);
+      z-index: 10;
+    }
+
+    /* ── Orrery regenerate button ── */
+    #orrery-regen {
+      position: fixed;
+      bottom: 48px;
+      right: 20px;
+      z-index: 10;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: color 150ms ease, background 150ms ease;
+    }
+    #orrery-regen:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.10);
     }
   </style>
 </head>
@@ -261,11 +287,14 @@
     </div>
   </main>
 
+  <button id="orrery-regen" title="Regenerate planets">regenerate</button>
+
   <footer>
     &copy; 2026 Michael Cerny Green
   </footer>
 
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/orrery.js"></script>
 </body>
 
 </html>
