@@ -1,6 +1,53 @@
 data = {
     "posts": [
         {
+            "title": "Always Right or Mostly Right?",
+            "authors": "Michael C Green",
+            "publication": "Substack - Professor Green",
+            "description": "You may already realize that when you interact with an “AI agent,” you are not getting a fixed, predictable answer! You are actually getting the output of a stochastic system.",
+            "link": "https://professorgreen.substack.com/p/always-right-or-mostly-right",
+            "date": "August 28, 2025",
+            "tags": ["professional"]
+        },
+        {
+            "title": "The 'AI-Free' Test",
+            "authors": "Michael C Green",
+            "publication": "Substack - Professor Green",
+            "description": "The 'AI-Free' Test is a simple thought experiment to help you determine whether your product is truly AI-powered, or if it's just a marketing gimmick.",
+            "date": "August 15, 2025",
+            "link": "https://professorgreen.substack.com/p/the-ai-free-test",
+            "tags": ["professional"]
+
+        },
+        {
+            "title": "We Automated the Engineers. Still No Product-Market Fit.",
+            "authors": "Michael C Green",
+            "publication": "Substack - Professor Green",
+            "description": "The tech industry seems convinced that software engineering is the biggest speedbump for rapid innovation and delivery. But AI still can’t tell you why anyone should care about your product. That’s your job.",
+            "date": "July 28, 2025",
+            "link": "https://professorgreen.substack.com/p/we-automated-the-engineers-still",
+            "tags": ["professional"]
+        },
+        {
+            "title": "Losing Critical Thinking in the Age of AI",
+            "authors": "Michael C Green",
+            "publication": "Substack - Professor Green",
+            "description": "Every company claims to be building 'AI-powered' solutions. Every digital workflow is marketed as 'agentic.' And increasingly, people seem to wear it as a badge of honor that they’ve automated away core aspects of decision making.",
+            "date": "July 16, 2025",
+            "link": "https://professorgreen.substack.com/p/losing-critical-thinking-in-the-age",
+            "tags": ["professional"]
+
+        },
+        {
+            "title": "You Need More Than LLMs",
+            "authors": "Michael C Green",
+            "publication": "Substack - Professor Green",
+            "description": "It is in combination with these other types of AI tech that LLMs truly become useful. Here is a subset of areas which multiply LLM capabilities that you should be paying attention right now.",
+            "date": "October 16, 2024",
+            "link": "https://professorgreen.substack.com/p/you-need-more-than-just-llms",
+            "tags": ["professional"]
+        },
+        {
             "title": "Practitioner's Insight",
             "authors": "Michael C Green, Micah Groh, Fred Heller",
             "publication": "Medium - Hitachi Solutions",

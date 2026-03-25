@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Projects — Michael Cerny Green">
+  <title>Projects — Michael Cerny Green</title>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
+
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54297010-6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-54297010-6');
+  </script>
+
+  <style>
+    :root {
+      --bg: #0c1017;
+      --text: #dde6f0;
+      --muted: #7a8fa3;
+      --link: #7ab8f5;
+      --link-hover: #b0d4ff;
+    }
+
+    body {
+      font-family: 'Arvo', serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    /* ── Nav ── */
+    .site-nav {
+      background-color: var(--bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .site-nav .container {
+      max-width: 760px;
+    }
+
+    .site-nav .navbar-brand {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text);
+    }
+
+    .site-nav .nav-link {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 0.4rem 0.75rem;
+      transition: color 150ms ease;
+    }
+
+    .site-nav .nav-link:hover,
+    .site-nav .nav-link.active {
+      color: var(--text);
+    }
+
+    /* ── Page ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
+    }
+
+    .page-title {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin: 0 0 48px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Section ── */
+    .section-label {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(122, 143, 163, 0.55);
+      margin-bottom: 20px;
+    }
+
+    /* ── Project entry ── */
+    .project {
+      margin-bottom: 14px;
+    }
+
+    .project-name {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .project-name a {
+      color: var(--link);
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+
+    .project-name a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+    }
+
+    .project-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 1px;
+      line-height: 1.55;
+    }
+
+    .project-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin: 0 0 20px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 24px;
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: rgba(122, 143, 163, 0.35);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      background-color: var(--bg);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm fixed-top site-nav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Michael Cerny Green</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"
+        aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="siteNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">about</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="play.html">play</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="research.html">research</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="media.html">media</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="blog.html">blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="projects.html">projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="papers/Current.pdf" target="_blank">cv</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page">
+      <h1 class="page-title">Projects</h1>
+
+      <!-- Research & AI -->
+      <p class="section-label">Research &amp; AI</p>
+
+      <div class="project">
+        <div class="project-name"><a href="http://game.engineering.nyu.edu/tutorial-generator/" target="_blank">The AtDelfi System</a></div>
+        <div class="project-sub">Automatically Designing Legible, Full Instructions — the beginnings of my thesis research on automated video game tutorial generation.</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://github.com/smearle/micro-rct" target="_blank">MicroRCT</a></div>
+        <div class="project-sub">An open source simulator inspired by RollerCoaster Tycoon. Place rides and shops to maximize profit; built as a testbed for AI agents.</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://gendesignmc.engineering.nyu.edu/" target="_blank">The GDMC Challenge</a></div>
+        <div class="project-sub">Generative design in Minecraft — a competition to build AI that creates functional settlements in procedurally generated environments.</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="http://www.gvgai.net/" target="_blank">The GVG-AI Framework</a></div>
+        <div class="project-sub">An easy, efficient way to test AI against a large variety of 2D video games. I co-developed the Rule-Generation Track with colleagues.</div>
+      </div>
+
+      <!-- Games -->
+      <p class="section-label" style="margin-top: 40px;">Games</p>
+
+      <div class="project">
+        <div class="project-name"><a href="https://champchampchamp.itch.io/data-agent" target="_blank">Data Agent</a></div>
+        <div class="project-sub">An open-data, murder mystery generator. Given a Wikipedia person, the system constructs a procedurally generated murder mystery.</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://champchampchamp.itch.io/seer" target="_blank">Seer</a></div>
+        <div class="project-sub">Time-travel interactive fiction.</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://champchampchamp.itch.io/lifeguard" target="_blank">Lifeguard</a></div>
+        <div class="project-sub">A cyclical, text-based narrative adventure about my favorite experiences. What's "getting fired"?</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://champchampchamp.itch.io/trumpland" target="_blank">Trumpland</a></div>
+        <div class="project-sub">A political Twitter simulation. Become the Don and tweet as he tweets — the more you match what he actually wrote, the more followers you gain.</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://champchampchamp.itch.io/2118-corruption" target="_blank">2118: Corruption</a></div>
+        <div class="project-sub">A cyberpunk RPG prototype built in 4 weeks for a Narrative Game Design class.</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://champchampchamp.itch.io/edu-venture" target="_blank">Edu-Venture</a></div>
+        <div class="project-sub">An educational game prototype built at Hack NYU 2017 in 36 hours.</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.StayAlive" target="_blank">Stay Alive: Evolved</a></div>
+        <div class="project-sub">A galaga-esque, action-packed survival experience. One of my first games, now on the Play Store.</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.Cubes" target="_blank">Cubes</a></div>
+        <div class="project-sub">An experiment in 3D physics and racing built for mobiLehigh 2015. <a href="http://thebrownandwhite.com/2015/03/30/mobilehigh/" target="_blank" style="color:var(--link)">We were interviewed about it.</a></div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.OlavGhost&hl=en" target="_blank">Olav Broccoli: Ghost of Space</a></div>
+        <div class="project-sub">A 3D space-shooter prototype.</div>
+      </div>
+
+      <!-- Tools & Other -->
+      <p class="section-label" style="margin-top: 40px;">Tools &amp; Other</p>
+
+      <div class="project">
+        <div class="project-name"><a href="https://github.com/mcgreentn/Downloadr" target="_blank">Downloadr</a></div>
+        <div class="project-sub">A youtube-to-.mp3 bash script from the pre-Spotify era.</div>
+      </div>
+      <hr class="project-divider">
+
+      <div class="project">
+        <div class="project-name"><a href="https://soundcloud.com/trichampion" target="_blank">Music</a></div>
+        <div class="project-sub">Game soundtracks and audio experiments — Minidungeons Theme, DATA Agent, and more on SoundCloud.</div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 Michael Cerny Green
+  </footer>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

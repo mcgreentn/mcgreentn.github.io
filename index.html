@@ -2,926 +2,270 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Michael Cerny Green — AI, Games, Learning">
+  <title>Michael Cerny Green</title>
 
-  <title>Mike C Green</title>
-
-  <!-- Bootstrap Core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom CSS -->
-  <link href="css/modern-business.css" rel="stylesheet">
-
-  <!-- Custom Fonts -->
   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
 
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-  
-  <!-- Global site tag (gtag.js) - Google Analytics -->
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54297010-6"></script>
-  <!-- ThreeJS -->
-  <script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'UA-54297010-6');
   </script>
 
   <style>
-
-    canvas {
-        border: 1px solid #d3d3d3;
-        background-color: #f1f1f1;
+    :root {
+      --bg: #0c1017;
+      --text: #dde6f0;
+      --muted: #7a8fa3;
+      --link: #7ab8f5;
+      --link-hover: #b0d4ff;
     }
 
-    #dungeon-canvas {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: auto;
-        position: relative;
+    body {
+      font-family: 'Arvo', serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-top: 56px;
+      padding-bottom: 56px; /* room for fixed footer */
     }
 
-    #game-canvas {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        margin: 0 auto;
+    /* ── Nav ── */
+    .site-nav {
+      background-color: var(--bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    .dungen-generate-overlay {
-        position: absolute;
-        inset: 0;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(120deg, rgba(255, 255, 255, 0.95), rgba(246, 248, 247, 0.9));
-        z-index: 2;
+    .site-nav .container {
+      max-width: 760px;
     }
 
-    .dungen-generate-overlay.active {
-        display: flex;
+    .site-nav .nav-link {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 0.4rem 0.75rem;
+      transition: color 150ms ease;
     }
 
-    .dungen-generate-anim {
-        width: 160px;
-        height: 160px;
-        border-radius: 16px;
-        background: radial-gradient(circle at 30% 30%, rgba(31, 47, 42, 0.2), rgba(31, 47, 42, 0.02));
-        border: 1px solid rgba(17, 59, 74, 0.12);
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 14px 30px rgba(17, 59, 74, 0.14);
+    .site-nav .nav-link:hover,
+    .site-nav .nav-link.active {
+      color: var(--text);
     }
 
-    .dungen-pixel {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background: #1f2f2a;
-        opacity: 0.85;
-        border-radius: 2px;
-        animation: dungenPixelFall var(--d, 1400ms) ease-in-out infinite;
-        animation-delay: var(--delay, 0ms);
-        transform: translate(var(--x, 0px), var(--y, 0px));
+    /* ── Page ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
     }
 
-    .dungen-pixel:nth-child(odd) {
-        background: #2c5b52;
+    /* ── Name header ── */
+    .page-title {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 0 0 6px;
+      letter-spacing: 0.02em;
     }
 
-    .dungen-pixel:nth-child(3n) {
-        background: #487f73;
+    .page-title .bold {
+      font-weight: 700;
     }
 
-    .dungen-generate-label {
-        margin-top: 12px;
-        font-size: 0.85rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: rgba(31, 47, 42, 0.7);
-        font-weight: 600;
+    .page-subtitle {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 36px;
     }
 
-    @keyframes dungenPixelFall {
-        0% {
-            transform: translate(var(--x, 0px), var(--y, 0px)) rotate(0deg);
-            opacity: 0.9;
-        }
-        50% {
-            transform: translate(calc(var(--x, 0px) + 18px), calc(var(--y, 0px) + 30px)) rotate(120deg);
-            opacity: 0.5;
-        }
-        100% {
-            transform: translate(calc(var(--x, 0px) - 12px), calc(var(--y, 0px) + 60px)) rotate(240deg);
-            opacity: 0.1;
-        }
+    /* ── Profile photo (optional) ── */
+    .profile-photo {
+      float: right;
+      margin: 0 0 24px 32px;
+      width: 160px;
     }
 
-    .dungen-card {
-        border: 1px solid rgba(17, 59, 74, 0.12);
-        border-radius: 14px;
-        background: #ffffff;
-        box-shadow: 0 8px 20px rgba(17, 59, 74, 0.08);
-        overflow: hidden;
+    .profile-photo img {
+      width: 100%;
+      border-radius: 6px;
     }
 
-    .dungen-header {
-        background: #ffffff;
-        color: inherit;
-        border-bottom: 1px solid rgba(17, 59, 74, 0.08);
-        padding: 14px 18px;
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
+    /* ── Bio ── */
+    .bio p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.97rem;
+      margin-bottom: 16px;
     }
 
-    .dungen-header h4,
-    .dungen-header h5 {
-        margin: 0;
+    .bio p b {
+      color: var(--text);
+      font-weight: 700;
     }
 
-    .dungen-toggle .btn {
-        border-radius: 999px;
-        font-weight: 600;
-        color: #1f2f2a;
-        background: rgba(17, 59, 74, 0.05);
-        border: 1px solid rgba(17, 59, 74, 0.08);
-        margin-right: 8px;
-        transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+    .bio a {
+      color: var(--link);
+      text-decoration: none;
     }
 
-    .dungen-toggle .btn.active {
-        color: #ffffff;
-        background: #1f2f2a;
-        box-shadow: 0 6px 16px rgba(17, 59, 74, 0.22);
-        border-color: transparent;
+    .bio a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
     }
 
-    .dungen-action-row .btn {
-        border-radius: 999px;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        padding: 0.5rem 1.2rem;
+    /* ── Contact ── */
+    .contact {
+      margin-top: 36px;
+      clear: both;
     }
 
-    .dungen-hint {
-        color: rgba(31, 47, 42, 0.65);
-        font-size: 0.9rem;
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 0;
     }
 
-    .dungen-hud {
-        background: #ffffff;
-        border: 1px solid rgba(17, 59, 74, 0.12);
-        border-radius: 12px;
-        padding: 10px 12px;
-        font-size: 0.9rem;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
+    .contact-row a {
+      color: var(--muted);
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: color 150ms ease;
+      white-space: nowrap;
     }
 
-    .dungen-stat {
-        background: rgba(17, 59, 74, 0.04);
-        border-radius: 10px;
-        padding: 8px 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-weight: 600;
-        color: #1f2f2a;
+    .contact-row a:hover {
+      color: var(--text);
     }
 
-    .dungen-stat .label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: rgba(31, 47, 42, 0.6);
+    .contact-sep {
+      color: rgba(255,255,255,0.15);
+      margin: 0 10px;
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.85rem;
     }
 
-    .dungen-status {
-        grid-column: 1 / -1;
-        background: rgba(17, 59, 74, 0.06);
-        border-radius: 10px;
-        padding: 8px 10px;
-        color: rgba(31, 47, 42, 0.8);
-        font-weight: 500;
-    }
-
-    .dungen-panel {
-        background: rgba(17, 59, 74, 0.02);
-        border: 1px solid rgba(17, 59, 74, 0.06);
-        border-radius: 12px;
-        padding: 12px;
-    }
-
-    .dungen-divider {
-        height: 1px;
-        background: rgba(17, 59, 74, 0.08);
-        margin: 12px 0;
-    }
-
-    .dungen-card .form-range {
-        height: 0.5rem;
-    }
-
-    .dungen-card .form-range::-webkit-slider-thumb {
-        background: #1f2f2a;
-    }
-
-    .dungen-card .form-range::-moz-range-thumb {
-        background: #1f2f2a;
-        border: none;
-    }
-
-    .dungen-keys span {
-        display: inline-block;
-        padding: 2px 6px;
-        margin-right: 6px;
-        border-radius: 6px;
-        background: #f6f7f6;
-        border: 1px solid rgba(17, 59, 74, 0.12);
-        font-family: "Arvo", serif;
-        font-size: 0.8rem;
+    /* ── Footer ── */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 24px;
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: rgba(122, 143, 163, 0.35);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      background-color: var(--bg);
     }
   </style>
-
 </head>
 
 <body>
-  <!-- Navigation -->
-  <div class="span-12">
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Michael Cerny Green</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html" aria-current="page">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="research.html">Research</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="media.html">Media</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="papers/Current.pdf" target="_blank">CV</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="https://github.com/mcgreentn" target="_blank">Github</a>
-                    </li>
-                </ul>
-                <span class="navbar-text">
-                    AI-Games-Learning
-                </span>
-            </div>
-        </div>
-    </nav>
-  </div>
-    <!-- Boats Icons Section -->
-      <!-- Page Content -->
-      <div class="container-fluid">
-        <div class="row smol-gutters">
-          <!-- Left Gutter -->
-          <div class="col-md-4">
-            <div class="row">
-              <!-- Contact Me -->
-              <div class="col-lg-12">
-                <div class="card border border-primary shadow-0 mb-3">
-                  <div class="card-header">
-                    <h4 class="card-title">Contact Me</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">various ways to find me</h5>
-                  </div>
-                  <div class="card-body">
-                    <a class="btn btn-primary btn-md active" role="button" href="papers/Current.pdf" target="_blank"
-                      role="button">Resume</a>
-                    <a class="btn btn-secondary btn-md" href="https://scholar.google.com/citations?user=kEfvzvIAAAAJ&hl=en" target="_blank" role="button">Google Scholar</a>
-                    <br>
-                    <p class="card-text">Email: <i id="emailAddress">@</i></p>
-                    <p class="card-text">Blog: <a class="card-link" href="https://mikecgreenblog.wordpress.com/">The
-                        Musings</a></p>
-                    <p class="card-text">Twitter: <a class="card-link"
-                        href="https://twitter.com/Bumblebor">@Bumblebor</a></p>
-                    <p class="card-text">LinkedIn: <a class="card-link"
-                        href="https://www.linkedin.com/in/michael-green-7739a781/">Michael Green</a></p>
-                    <p class="card-text">Github: <a class="card-link" href="https://github.com/mcgreentn">mcgreentn</a>
-                    </p>
-                    <p class="card-text">Research Affiliations: <a class="card-link" href="http://game.engineering.nyu.edu" target="_blank">Game Innovation Lab</a>
-                    </p>
-                    <p class="card-text">Soundcloud: <a class="card-link"
-                        href="https://soundcloud.com/trichampion">ChampChampChamp</a></p>
-                  </div>
-                </div>
-              </div>
-              <!-- About Me -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title">About Me</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">hi, I'm Michael Green</h5>
-                  </div>
-                  <div class="card-body" style="height:100%">
-                    <p class="card-text">We often think of AI as something that plays chess, identifies faces,
-                      auto-completes search results, or drives cars, among a multitude of other things. AI is all around
-                      us, constantly being used to study patterns and then use that knowledge to benefit us in some way.
-                    </p>
-                    <p>We ask: What is possible for this <b>AI TO LEARN?</b>
-                      <br>But rarely do we ask: What can <b>WE LEARN</b> from this AI?</p>
-                    <p class="card-text">I hold a Ph.D. in Artificial Intelligence
-                      from New York University. My research uses video games as one domain with which to study A.I, and how A.I. systems can be applied to teaching things. I love video
-                      games, coffee, code, dogs, and sailing.</p>
-                    <p><a
-                        href="https://mikecgreenblog.wordpress.com/2018/07/18/artificial-intelligence-game-design-and-education-how-it-all-fits/" target="_blank">Read
-                        my motivations for my research here.</a></p>
-                    <p>
-                      View my thesis on <a href="papers/thesis.pdf" target="_blank">Automated Video Game Tutorial Generation</a>.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <!-- Data Agent -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/data-agent" target="_blank">
-                      <h4>Data Agent</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">an open-data, murder mystery generator</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">Data Agent is a game within the genre of Open Data Games. Given a person on Wikipedia, the system
-                      automatically generates an entire murder mystery adventure to play using evolutionary algorithms.
-                      The game client can then load up this game for you to play!</p>
-                    <a href="https://champchampchamp.itch.io/data-agent" target="_blank"><img class="img-responsive img-rounded img-hover" src="images/dataagent.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Seer -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/seer" target="_blank">
-                      <h4 class="card-title">Seer</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">time-travel interactive fiction</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p>A text-based, narrative-adventure game about time-travel that I made for my Narrative Game Design
-                      Class in Spring 2018.</p>
-                    <a href="https://champchampchamp.itch.io/seer" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/seer.jpg" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Olav Broccoli: Ghost of Space -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text"
-                      href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.OlavGhost&hl=en"
-                      target="_blank">
-                      <h4 class="card-title">Olav Broccoli: Ghost of Space</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a 3d, space-shooter prototype</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">After I created Cubes, I decided I wanted to build another space-themed
-                      prototype within a "next-gen" Stay Alive context. Olav Broccoli is not finished in the slightest,
-                      but it is fun to mess around with 3d space, and even more fun to optimize it for phones. The name
-                      comes from one of my good friends in college. It makes sense to us, which is what counts.</p>
-                    <a href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.OlavGhost&hl=en"
-                      target="_blank"><img class="img-responsive img-rounded img-hover" src="images/olav.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Downloadr -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://github.com/mcgreentn/Downloadr" target="_blank">
-                      <h4 class="card-title">Downloadr</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a youtube-to-.mp3 bash script</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:100%">
-                    <p class="card-text">Before Spotify, I used to download all my music from youtube (mostly artists
-                      that released stuff for free like <a
-                        href="https://www.youtube.com/user/ThisIsTheFatRat">TheFatRat</a>). Along the way I became
-                      exhausted with the heavy application based software and the online, ad-infested apps. So I made my
-                      own simple downloading tool.</p>
-                    <a href="https://github.com/mcgreentn/Downloadr" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/youtube.png" /></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Center -->
-          <div class="col-md-4">
-            <div class="row smol-gutters">
-              <!-- MiniDungeon Generator -->
-              <div class="col-lg-12">
-                <div class="card dungen-card">
-                  <div class="card-header dungen-header">
-                    <h4 class="card-title">DunGen</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">Generate a dungeon, then play your way out.</h5>
-                  </div>
-                  <div class="card-body" style="height:120%">
-                    <div class="container">
-                      <div class="row mb-3">
-                        <div class="col">
-                          <div class="nav nav-pills btn-group dungen-toggle" role="tablist" aria-label="Dungeon controls">
-                            <button class="btn nav-link active" id="dungen-generate-tab" data-bs-toggle="tab" data-bs-target="#dungen-generate" type="button" role="tab" aria-controls="dungen-generate" aria-selected="true">Generate</button>
-                            <button class="btn nav-link" id="dungen-play-tab" data-bs-toggle="tab" data-bs-target="#dungen-play" type="button" role="tab" aria-controls="dungen-play" aria-selected="false">Play</button>
-                          </div>
-                          <div class="dungen-hint mt-2">Build your dungeon first, then flip to play mode for quick action controls.</div>
-                        </div>
-                      </div>
-
-                      <div class="tab-content">
-                      <div class="tab-pane fade show active" id="dungen-generate" role="tabpanel" aria-labelledby="dungen-generate-tab">
-                        <div class="dungen-panel">
-                        <div class="row">
-                          <div class="col">
-                            <label for="range-width" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="Total level width">Width: </label>
-                            <output>10</output>
-                            <input type="range" class="form-range" id="range-width" value="10" min="5" max="25" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="Total level width">
-                          </div>
-                          <div class="col">
-                            <label for="range-height" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="Total level height">Height: </label>
-                            <output>10</output>
-                            <input type="range" class="form-range" id="range-height" value="10" min="5" max="15" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="Total level height">
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <label for="range-openess" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="Blank/Wall tile ratio">Openness: </label>
-                            <output>5</output>
-                            <input type="range" class="form-range" id="range-openess" value="5" min="1" max="10" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="Blank/Wall tile ratio">
-                          </div>          
-                        </div>
-                        <div class="dungen-divider"></div>
-                        <div class="collapse" id="collapseExample">
-                          <div class="card card-body">
-                            <div class="row">
-                              <div class="col">
-                                  <h5>Monsters</h5>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <label for="range-goblins" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of (melee) goblins">Max Goblins: </label>
-                                  <output>2</output>
-                                  <input type="range" class="form-range" id="range-goblins" value="2" min="0" max="5" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of (melee) goblins">
-                                </div>
-                                <div class="col">
-                                  <label for="range-wizards" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of (ranged) wizards">Max Wizards: </label>
-                                  <output>1</output>
-                                  <input type="range" class="form-range" id="range-wizards" value="1" min="0" max="5" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of (ranged) wizards">
-                                </div>
-                                <div class="col">
-                                  <label for="range-blobs" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of blobs">Max Blobs: </label>
-                                  <output>2</output>
-                                  <input type="range" class="form-range" id="range-blobs" value="2" min="0" max="5" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of blobs">
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <label for="range-ogres" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of ogres">Max Ogres: </label>
-                                  <output>1</output>
-                                  <input type="range" class="form-range" id="range-ogres" value="1" min="0" max="5" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of ogres">
-                                </div>
-                                <div class="col">
-                                  <label for="range-minitaurs" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of minitaurs">Max Minitaurs: </label>
-                                  <output>1</output>
-                                  <input type="range" class="form-range" id="range-minitaurs" value="1" min="0" max="5" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of minitaurs">
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <h5>Items</h5>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col">
-                                  <label for="range-potions" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of potions">Max Potions: </label>
-                                  <output>2</output>
-                                  <input type="range" class="form-range" id="range-potions" value="2" min="0" max="8" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of potions">
-                                </div>
-                                <div class="col">
-                                  <label for="range-treasures" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of treasures">Max Treasures: </label>
-                                  <output>3</output>
-                                  <input type="range" class="form-range" id="range-treasures" value="3" min="0" max="8" step="1" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of treasures">
-                                </div>
-                                <div class="col">
-                                  <label for="range-portals" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of portals">Max Portals: </label>
-                                  <output>2</output>
-                                  <input type="range" class="form-range" id="range-portals" value="2" min="0" max="2" step="2" oninput="this.previousElementSibling.value = this.value" data-bs-toggle="tooltip" data-bs-placement="top" title="The max number of portals">
-                                </div>
-                              </div>
-                          </div>
-                        </div>
-                        <div class="row mt-3 dungen-action-row">
-                          <div class="col">
-                            <button class="btn btn-outline-secondary" id="more-controls" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                              More Controls
-                            </button>
-                          </div>
-                          <div class="col d-flex justify-content-end">
-                            <button class="btn btn-primary" id="generate-level">Generate</button>
-                          </div>
-                        </div>
-                        </div>
-                      </div>
-
-                      <div class="tab-pane fade" id="dungen-play" role="tabpanel" aria-labelledby="dungen-play-tab">
-                        <div class="dungen-panel">
-                        <div class="row mb-2">
-                          <div class="col d-flex flex-wrap gap-2 dungen-action-row">
-                            <button class="btn btn-success" id="game-play" type="button">Start</button>
-                            <button class="btn btn-outline-primary" id="game-step" type="button">Wait</button>
-                            <button class="btn btn-outline-warning" id="game-reset" type="button">Reset</button>
-                          </div>
-                        </div>
-                        <div class="row mb-2">
-                          <div class="col dungen-hud" id="dungen-hud">
-                            <div class="dungen-stat">
-                              <span class="label">HP</span>
-                              <span id="hud-hp">-</span>
-                            </div>
-                            <div class="dungen-stat">
-                              <span class="label">Turns</span>
-                              <span id="hud-turns">0</span>
-                            </div>
-                            <div class="dungen-stat">
-                              <span class="label">Treasure</span>
-                              <span id="hud-treasure">0</span>
-                            </div>
-                            <div class="dungen-status">
-                              Status: <span id="hud-status">Ready</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col dungen-keys">
-                            Move: <span>W</span><span>A</span><span>S</span><span>D</span> or <span>↑</span><span>←</span><span>↓</span><span>→</span>
-                          </div>
-                        </div>
-                        </div>
-                      </div>
-                      </div>
-
-                      <div class="row mt-3">
-                        <div class="spinner-border" id="dunGenSpinner" role="status" style="display:none">
-                          <span class="visually-hidden">Loading...</span>
-                        </div>
-                      </div>
-                      <div class="row mt-2">                    
-                        <div class="col-12">
-                          <div class="col d-flex justify-content-center">
-                            <div id="dungeon-canvas">
-                              <div class="dungen-generate-overlay" id="dungen-generate-overlay">
-                                <div class="d-flex flex-column align-items-center">
-                                  <div class="dungen-generate-anim">
-                                    <span class="dungen-pixel" style="--x: 18px; --y: 18px; --d: 1200ms; --delay: 0ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 56px; --y: 12px; --d: 1400ms; --delay: 120ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 96px; --y: 20px; --d: 1600ms; --delay: 240ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 128px; --y: 8px; --d: 1100ms; --delay: 60ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 26px; --y: 52px; --d: 1500ms; --delay: 180ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 74px; --y: 46px; --d: 1300ms; --delay: 300ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 112px; --y: 58px; --d: 1700ms; --delay: 420ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 140px; --y: 44px; --d: 1250ms; --delay: 90ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 10px; --y: 84px; --d: 1350ms; --delay: 210ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 52px; --y: 92px; --d: 1550ms; --delay: 330ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 90px; --y: 82px; --d: 1150ms; --delay: 150ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 126px; --y: 96px; --d: 1750ms; --delay: 360ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 22px; --y: 124px; --d: 1450ms; --delay: 270ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 64px; --y: 130px; --d: 1650ms; --delay: 390ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 104px; --y: 122px; --d: 1250ms; --delay: 210ms;"></span>
-                                    <span class="dungen-pixel" style="--x: 136px; --y: 128px; --d: 1350ms; --delay: 60ms;"></span>
-                                  </div>
-                                  <div class="dungen-generate-label">Generating</div>
-                                </div>
-                              </div>
-                              <canvas id="game-canvas" tabindex="0"></canvas>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- The AtDelfi System -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="http://game.engineering.nyu.edu/tutorial-generator/" target="_blank">
-                      <h4 class="card-title">The AtDelfi System</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">Automatically Designing Legible, Full Instructions</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:120%">
-                    <p class="card-text">The beginnings of my thesis research, AtDelfi is a system contained within the
-                      GVGAI Framework which reads in source code to output a tutorial. The first AtDelfi paper, sent to
-                      FDG 2018, won the Best Paper Award of the conference.</p>
-                    <a href="http://game.engineering.nyu.edu/tutorial-generator/" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/atdelfi.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Micro RCT -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://github.com/smearle/micro-rct" target="_blank">
-                      <h4 class="card-title">MicroRCT</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a theme park AI framework</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:120%">
-                    <p class="card-text">MicroRCT is an open source simulator inspired by the theme park sandbox game RollerCoaster Tycoon. The goal in MicroRCT is to place rides and shops in an amusement park to maximize profit earned from park guests.</p>
-                    <a href="https://github.com/smearle/micro-rct" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/micro_rct.png" /></a>
-                  </div>
-                </div>
-              </div>              
-              <!-- GDMC -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://gendesignmc.engineering.nyu.edu/" target="_blank">
-                      <h4 class="card-title">The GDMC Challenge</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">generative design in minecraft</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">The GDMC Settlement Generation Challenge is to produce an
-                      algorithm that is
-                      adaptive towards the provided map, creates a settlement that satisfies a range
-                      of functional
-                      requirement - and also looks good and evokes an interesting narrative. The
-                      goal is to produce an
-                      generator that can rival what humans can produce.</p>
-                    <a href="http://gendesignmc.engineering.nyu.edu/" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/minecraft.jpeg" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Lifeguard -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/lifeguard" target="_blank">
-                      <h4 class="card-title">Lifeguard</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">what's "getting fired"?</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:100%">
-                    <p class="card-text">A cyclical, text-based, narrative-adventure game about my favorite experiences
-                      from being a lifeguard in highschool.</p>
-                    <a href="https://champchampchamp.itch.io/lifeguard" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/lifeguard.jpg" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Stay Alive: Evolved -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text"
-                      href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.StayAlive"
-                      target="_blank">
-                      <h4 class="card-title">Stay Alive: Evolved</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a galaga-esque, action packed survival experience</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:120%">
-                    <p class="card-text">The Stay Alive series was one of my very first video games, originally made for
-                      mobiLehigh 2014. It is a visually-overwhelming, 2D, space-ship shooter game. It is currently not
-                      found online, but I'm working on putting it up on itch.io!</p>
-                    <!-- <a href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.StayAlive" target="_blank"> -->
-                    <img class="img-responsive img-rounded img-hover" src="images/stayalive.jpg" />
-                    <!-- </a> -->
-                  </div>
-                </div>
-              </div>
-              <!-- Cubes -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text"
-                      href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.Cubes"
-                      target="_blank">
-                      <h4 class="card-title">Cubes</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">an experiment in 3d physics and racing</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">Cubes was a prototype I built my junior year of college for mobiLehigh 2015. <a
-                        href="http://thebrownandwhite.com/2015/03/30/mobilehigh/">We were interviewed about it.</a> and
-                      were awarded the Bethlehem's Choice Award. Cubes was my first exploration into 3d space and
-                      physics within the <a href="https://unity3d.com/">Unity Engine</a>.</p>
-                    <a href="https://play.google.com/store/apps/details?id=com.TriChampionDevelopment.Cubes"
-                      target="_blank"><img class="img-responsive img-rounded img-hover" src="images/cubes.jpg" /></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Right Gutter-->
-          <div class="col-md-4">
-              <!-- The Musings Blog -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://mikecgreenblog.wordpress.com/" target="_blank">
-                      <h4 class="card-title">The Musings Blog</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a window to my thoughts</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:100%">
-                    <p class="card-text">I started a blog at the beginning of my candidacy to record my thoughts and
-                      research. Check it out here:</p>
-                    <a href="https://mikecgreenblog.wordpress.com/" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/blog.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Trumpland -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/trumpland" target="_blank">
-                      <h4 class="card-title">Trumpland</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a political Twitter simulation</h5>
-                    </a>
-                  </div>
-                  <div class="card-body" style="height:120%">
-                    <p class="card-text">Not as much as enjoyment as "unjoyment", Trumpland is a political satire game about Twitter in the age of Trumpism. Become the Don and tweet as he tweets. The more you match what he actually wrote, the more followers and likes you gain.</p>
-                    <a href="https://champchampchamp.itch.io/trumpland" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/trumpland.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- GVGAI -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="http://www.gvgai.net/">
-                      <h4 class="card-title">The GVG-AI Framework</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">general video game artificial
-                        intelligence</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">A incredibly easy and efficient way to test AI against a
-                      large variety of
-                      simple 2d video games. I have helped develop the Rule-Generation Track
-                      together with some of my
-                      colleagues.</p>
-                    <a href="http://www.gvgai.net/" target="_blank"><img class="img-responsive img-rounded img-hover"
-                        src="images/survivezombies.png" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- 2118: Corruption -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/2118-corruption" target="_blank">
-                      <h4 class="card-title">2118: Corruption</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a cyberpunk rpg prototype</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">I made this game with a team for my final project in my
-                      Narrative Game Design
-                      class in Spring 2018. The idea was to create a cyberpunk detective game using
-                      design techniques
-                      learned in class. I was the sole programmer on the team and thus was in charge
-                      of all programming
-                      and game mechanic related content. It's not much, but this was made in only 4
-                      weeks!</p>
-                    <a href="https://champchampchamp.itch.io/2118-corruption" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/2118Game.jpg" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Edu-Venture -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://champchampchamp.itch.io/edu-venture" target="_blank">
-                      <h4 class="card-title">Edu-Venture</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">an leap into educational video games
-                      </h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">Edu-venture was a protoype I built during Hack NYU 2017 in
-                      36 hours with a team
-                      of 3 others. All assets are totally copyrighted, so please don't sue.</p>
-                    <a href="https://champchampchamp.itch.io/edu-venture" target="_blank"><img
-                        class="img-responsive img-rounded img-hover" src="images/eduventure.jpg" /></a>
-                  </div>
-                </div>
-              </div>
-              <!-- Music -->
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header">
-                    <a class="black-text" href="https://soundcloud.com/trichampion" target="_blank">
-                      <h4 class="card-title">Music</h4>
-                      <h5 class="card-subtitle mb-2 text-muted">a collection of audio projects</h5>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">The more games I have worked on, the more I've dabbled in
-                      audio creation and
-                      mixing. Here are the soundtracks I've created so far for my games.</p>
-
-                    <h5 class="card-text">Solo Releases</h5>
-                    <ul>
-                      <li><a href="https://soundcloud.com/trichampion/minidungeons?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">Minidungeons Theme</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/autopilot-remix" target="_blank">Autopilot
-                          Remix</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/prototype-2" target="_blank">Protoype 2</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/dataadventurestheme-20" target="_blank">DATA
-                          Agent</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/horizon-east-and-young-trust-fund-remix"
-                          target="_blank">Horizon - East and Young (Trust Fund Remix)</a></li>
-                    </ul>
-                    <h5 class="card-text">Stay Alive: Evolved Soundtrack <a
-                        href="https://soundcloud.com/trichampion/sets/stay-alive-ost" target="_blank">(Album)</a></h5>
-                    <ul>
-                      <li><a href="https://soundcloud.com/trichampion/autopilot?in=michael-green-69/sets/stay-alive-ost"
-                          target="_blank">Autopilot</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/nebula?in=michael-green-69/sets/stay-alive-ost"
-                          target="_blank">Nebula</a></li>
-                      <li><a href="https://soundcloud.com/trichampion/starburst?in=michael-green-69/sets/stay-alive-ost"
-                          target="_blank">Starbust</a></li>
-                    </ul>
-                    <h5 class="card-text">Cubes Soundtrack <a
-                        href="https://soundcloud.com/trichampion/sets/cubes-soundtrack" target="_blank">(Album)</a></h5>
-                    <ul>
-                      <li><a
-                          href="https://soundcloud.com/trichampion/euphoria?in=michael-green-69/sets/cubes-soundtrack"
-                          target="_blank">Euphoria</a></li>
-                      <li><a
-                          href="https://soundcloud.com/trichampion/firetrain?in=michael-green-69/sets/cubes-soundtrack"
-                          target="_blank">Firetrain</a></li>
-                      <li><a
-                          href="https://soundcloud.com/trichampion/electricwave?in=michael-green-69/sets/cubes-soundtrack"
-                          target="_blank">Electric Wave</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
-        <footer>
-        <div class="row">
-          <div class="col-lg-12">
-            <p>Copyright &copy; Michael Cerny Green 2023.</p>
-          </div>
-        </div>
-      </footer>
+  <nav class="navbar navbar-expand-sm fixed-top site-nav">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"
+        aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="siteNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">about</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="play.html">play</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="research.html">research</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="media.html">media</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="blog.html">blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="projects.html">projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="papers/Current.pdf" target="_blank">cv</a>
+          </li>
+        </ul>
       </div>
-        <!-- Footer -->
-      
-      <!-- /.container -->
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    </div>
+  </nav>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+  <main>
+    <div class="page">
+      <h1 class="page-title"><span class="bold">Michael Cerny</span> Green</h1>
 
-    <!-- Dungeon Generator Scripts -->
-    <script src="js/level_generator/visualizer.js"></script>
-    <script src="js/level_generator/dungen_game.js"></script>
-    <script src="js/level_generator/digger_generator.js"></script>
-    <script src="js/level_generator/constrain_furnisher.js"></script>
-    <script src="js/search/astar_tree.js"></script>
-    <script src="js/search/astar_node.js"></script>
-    <script src="js/level_generator/generate_level.js"></script>
+      <div class="contact" style="margin-top: 12px; margin-bottom: 32px;">
+        <div class="contact-row">
+          <a href="papers/Current.pdf" target="_blank">cv</a>
+          <span class="contact-sep">/</span>
+          <a href="https://scholar.google.com/citations?user=kEfvzvIAAAAJ&hl=en" target="_blank">google scholar</a>
+          <span class="contact-sep">/</span>
+          <a href="https://github.com/mcgreentn" target="_blank">github</a>
+          <span class="contact-sep">/</span>
+          <a href="https://www.linkedin.com/in/michael-green-7739a781/" target="_blank">linkedin</a>
+        </div>
+      </div>
+
+      <div class="bio">
+        <!--
+          Profile photo: drop your headshot at images/profile.jpg and uncomment below.
+          <div class="profile-photo">
+            <img src="images/profile.jpg" alt="Michael Cerny Green">
+          </div>
+        -->
+
+        <p>
+          We often think of AI as something that plays chess, identifies faces, auto-completes search results, or drives
+          cars. AI is all around us — constantly studying patterns and using that knowledge to benefit us in some way.
+        </p>
+        <p>
+          We ask: <b>What is possible for this AI to learn?</b><br>
+          But rarely do we ask: <b>What can we learn from this AI?</b>
+        </p>
+        <p>
+          I hold a Ph.D. in Artificial Intelligence from New York University. My research uses video games as a domain
+          to study how AI systems can be applied to teaching. I love video games, coffee, code, dogs, and sailing.
+        </p>
+        <p>
+          <a href="https://mikecgreenblog.wordpress.com/2018/07/18/artificial-intelligence-game-design-and-education-how-it-all-fits/" target="_blank">Learn a little more.</a>
+          &nbsp;&middot;&nbsp;
+          <a href="papers/thesis.pdf" target="_blank">Learn a LOT more! (Read my thesis)</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 Michael Cerny Green
+  </footer>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -2,152 +2,257 @@
 <html lang="en">
 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Blog — Michael Cerny Green">
+  <title>Blog — Michael Cerny Green</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
 
-    <title>Mike C Green</title>
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54297010-6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-54297010-6');
+  </script>
 
-    <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
-    <link href="css/research.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c1017;
+      --text: #dde6f0;
+      --muted: #7a8fa3;
+      --link: #7ab8f5;
+      --link-hover: #b0d4ff;
+    }
 
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+    body {
+      font-family: 'Arvo', serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
 
+    /* ── Nav ── */
+    .site-nav {
+      background-color: var(--bg);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    .site-nav .container {
+      max-width: 760px;
+    }
 
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    .site-nav .navbar-brand {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text);
+    }
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54297010-6"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+    .site-nav .nav-link {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 0.4rem 0.75rem;
+      transition: color 150ms ease;
+    }
 
-        gtag('config', 'UA-54297010-6');
-    </script>
+    .site-nav .nav-link:hover,
+    .site-nav .nav-link.active {
+      color: var(--text);
+    }
 
+    /* ── Page ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
+    }
+
+    .page-title {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin: 0 0 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .page-meta {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 48px;
+    }
+
+    /* ── Post entries ── */
+    .post {
+      margin-bottom: 16px;
+    }
+
+    .post-title {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .post-date {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-right: 6px;
+    }
+
+    .post-byline {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .post-description {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 6px;
+    }
+
+    .post-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .post-link {
+      color: var(--link);
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+
+    .post-link:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+    }
+
+    .post-tags {
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.78rem;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    .post-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin: 0 0 24px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 24px;
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: rgba(122, 143, 163, 0.35);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      background-color: var(--bg);
+    }
+  </style>
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Michael Cerny Green</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="research.html" aria-current="page">Research</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="media.html">Media</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="blog.html" target="_blank">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="papers/Current.pdf" target="_blank">CV</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/mcgreentn" target="_blank">Github</a>
-                    </li>
-                </ul>
-                <span class="navbar-text">
-                    AI-Games-Learning
-                </span>
-            </div>
-        </div>
-    </nav>
-    <!-- <div class="span-12"> -->
+  <nav class="navbar navbar-expand-sm fixed-top site-nav">
     <div class="container">
-        <div class="col-md-12">
-            <div class="row">
-                <h2>Blog Posts</h2>
-            </div>
-            <div class="row">
-                <i><a id="post-count"></a> total posts</i>
-                <br /><br />
-            </div>
-            <div class="container" id="postcontainer">
-
-            </div>
-        </div>
+      <a class="navbar-brand" href="index.html">Michael Cerny Green</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"
+        aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="siteNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">about</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="play.html">play</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="research.html">research</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="media.html">media</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="blog.html">blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="projects.html">projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="papers/Current.pdf" target="_blank">cv</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <!-- </div> -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Michael Cerny Green 2023.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+  </nav>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+  <main>
+    <div class="page">
+      <h1 class="page-title">Blog</h1>
+      <p class="page-meta"><span id="post-count"></span> posts</p>
 
-    <script src="assets/blogs.js"></script>
+      <div id="postcontainer"></div>
+    </div>
+  </main>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var myResearch = data.posts;
-            var postContainer = $("#postcontainer");
-            let postCount = 0;
-            
-            $.each(myResearch, function (index, item) {
-                let itemTags = item.tags;
-                var post = '<div class="row top-buffer"><div class="col"><p><b>[' + item.date + '] ' + item.title + '</b>. <em>' + item.authors + '</em>. ' + item.publication + '</p></div></div>' +
-                '<div class="row top-squeeze"><div class="col"><p>' + item.description + '</p></div></div>' +  
-                '<div class=row top-squeeze><div class="col"><p>Tags: '
-                $.each(itemTags, function (index, tag) {
-                    post +=  tag;
-                    if (index < itemTags.length - 1) {
-                        post += ', ';
-                    }
-                });    
-                post += '</p></div></div>'  
-                post += '<div class="row top-squeeze"><div class="col"><a role="button" class="btn btn-primary lefty-button btn-sm" href="' + item.link + '" target="_blank">Link</a></div></div>';
-                postContainer.append(post);
-                postCount++;
-                
-            });
+  <footer>
+    &copy; 2026 Michael Cerny Green
+  </footer>
 
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="assets/blogs.js"></script>
+  <script>
+    $(document).ready(function () {
+      var posts = data.posts;
+      var postContainer = $('#postcontainer');
 
-            let blogItem = document.getElementById('post-count');
-            blogItem.innerHTML = postCount;
-        });    
-    </script>
+      $.each(posts, function (index, item) {
+        var tags = item.tags.join(', ');
+        var entry =
+          '<div class="post">' +
+            '<div class="post-title"><span class="post-date">[' + item.date + ']</span>' + item.title + '</div>' +
+            '<div class="post-byline">' + item.authors + ' &middot; ' + item.publication + '</div>' +
+            '<div class="post-description">' + item.description + '</div>' +
+            '<div class="post-footer">' +
+              '<a class="post-link" href="' + item.link + '" target="_blank">read &rarr;</a>' +
+              '<span class="post-tags">' + tags + '</span>' +
+            '</div>' +
+          '</div>' +
+          (index < posts.length - 1 ? '<hr class="post-divider">' : '');
+        postContainer.append(entry);
+      });
+
+      $('#post-count').text(posts.length);
+    });
+  </script>
 </body>
 
-<!-- researchContainer.append(
-          
-        ) -->
-
-<!-- '<div class="col"><div class="row"><p>' + item.authors + '. ' + '<a href="' + item.link + '" target="_blank">[' + item.year + '] '+ item.title + '</a>. '+ item.conference + '</p></div></div>' -->
+</html>
