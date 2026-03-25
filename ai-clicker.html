@@ -140,28 +140,46 @@
     #left-panel {
       flex: 1;
       min-width: 0;
-      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
       border-right: 1px solid var(--border);
-      padding: 14px 12px 20px;
+      overflow: hidden;
+    }
+    #actions-header {
+      flex-shrink: 0;
+      padding: 14px 12px 10px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    #actions-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 12px 20px;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,0.08) transparent;
     }
-    #left-panel::-webkit-scrollbar { width: 4px; }
-    #left-panel::-webkit-scrollbar-track { background: transparent; }
-    #left-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+    #actions-scroll::-webkit-scrollbar { width: 4px; }
+    #actions-scroll::-webkit-scrollbar-track { background: transparent; }
+    #actions-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
 
     /* ── Center panel ── */
     #center-panel {
       flex: 1;
       min-width: 0;
-      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
       border-right: 1px solid var(--border);
+      overflow: hidden;
+    }
+    #sys-content {
+      flex: 1;
+      overflow-y: auto;
       padding: 14px 16px;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,0.08) transparent;
     }
-    #center-panel::-webkit-scrollbar { width: 4px; }
-    #center-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+    #sys-content::-webkit-scrollbar { width: 4px; }
+    #sys-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
 
     /* ── Right panel ── */
     #right-panel {
@@ -273,6 +291,10 @@
     }
     .act-cost { font-size: 0.6rem; color: var(--comp-c); }
     .act-eff  { font-size: 0.6rem; color: var(--muted); text-align: right; }
+    .edge-delta { color: #f5e04a; font-weight: 600; }
+    .drain-warn { color: #f5c842; }
+    .drain-neg  { color: #f55050; font-weight: 600; }
+    .sys-edge-hdr { color: #f5e04a; font-size: 0.65rem; font-weight: 600; margin-left: 6px; }
 
     /* Upgrade style */
     .act-row.upgrade .act-btn {
@@ -398,7 +420,7 @@
     #mult-bar {
       display: flex;
       gap: 4px;
-      margin-bottom: 16px;
+      margin-top: 8px;
     }
     .mult-btn {
       flex: 1;
@@ -507,12 +529,13 @@
       }
 
       /* Left panel — actions */
-      #left-panel.tab-active {
-        padding: 14px 12px 0;
-      }
+      #left-panel.tab-active { padding: 0; }
+      #left-panel.tab-active #actions-header { padding: 14px 12px 10px; }
+      #left-panel.tab-active #actions-scroll { padding: 10px 12px 20px; }
 
       /* Center panel — systems */
-      #center-panel.tab-active { padding: 16px; }
+      #center-panel.tab-active { padding: 0; }
+      #center-panel.tab-active #sys-content { padding: 16px; }
 
       /* Right panel — log */
       #right-panel.tab-active  { padding: 14px 12px; }
@@ -530,7 +553,7 @@
         font-size: 0.95rem;
       }
 
-      #mult-bar { margin-bottom: 14px; }
+      #mult-bar { margin-top: 10px; }
       .mult-btn {
         min-height: 44px;
         padding: 10px 0;
@@ -601,6 +624,23 @@
     }
     .p2-divider { border: none; border-top: 1px solid rgba(255,210,60,0.12); margin: 14px 0; }
 
+    /* ── Market tick countdown ── */
+    #market-tick-wrap {
+      padding: 6px 16px 5px;
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    #market-tick-label {
+      font-size: 0.52rem;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+    }
+    #market-tick-label.tick-flash {
+      color: #ffd700;
+      text-shadow: 0 0 6px #ffd700;
+    }
+
     /* ── Phase 2 panel sections ── */
     .p2-section { margin-bottom: 14px; }
     .p2-hdr {
@@ -628,6 +668,9 @@
     .stock-price  { min-width: 52px; }
     .stock-up     { color: var(--ins-c); font-size: 0.6rem; min-width: 54px; }
     .stock-dn     { color: #f57a7a;    font-size: 0.6rem; min-width: 54px; }
+    .sig-bull     { color: var(--ins-c); font-size: 0.58rem; min-width: 48px; font-weight: 700; letter-spacing: 0.04em; }
+    .sig-bear     { color: #f57a7a;    font-size: 0.58rem; min-width: 48px; font-weight: 700; letter-spacing: 0.04em; }
+    .sig-none     { color: var(--muted); font-size: 0.58rem; min-width: 48px; }
     .stock-held   { color: var(--muted); font-size: 0.6rem; flex: 1; text-align: right; }
     .stock-btn {
       background: transparent;
@@ -657,9 +700,12 @@
     .val-r  { color: #f57a7a; }
 
     /* Strategy buttons */
-    .p2-strategies { display: flex; gap: 4px; margin-top: 8px; }
+    .p2-strategies { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+    .strat-wrap { display: flex; align-items: center; gap: 6px; }
+    .strat-cost { font-size: 0.52rem; color: var(--muted); white-space: nowrap; }
     .strat-btn {
-      flex: 1;
+      flex-shrink: 0;
+      min-width: 90px;
       background: transparent;
       border: 1px solid rgba(255,255,255,0.09);
       color: var(--muted);
@@ -804,17 +850,17 @@
 
     <!-- Resource bar -->
     <div id="res-bar">
-      <div class="res-grp">
+      <div class="res-grp" id="rg-data">
         <span class="rl">DATA</span>
         <span class="rv" id="rv-data">0</span>
         <span class="rr" id="rr-data">(+0/s)</span>
       </div>
-      <div class="res-grp">
+      <div class="res-grp" id="rg-ins">
         <span class="rl">INSIGHTS</span>
         <span class="rv" id="rv-ins">0</span>
         <span class="rr" id="rr-ins">(+0/s)</span>
       </div>
-      <div class="res-grp">
+      <div class="res-grp" id="rg-comp">
         <span class="rl">COMPUTE</span>
         <span class="rv" id="rv-comp">0/100</span>
         <span class="rr" id="rr-comp">[<span class="bar-g">░░░░░░░░░░</span>]</span>
@@ -834,6 +880,11 @@
         <span class="rv" id="rv-det">0%</span>
         <span class="rr" id="rr-det">UNDETECTED</span>
       </div>
+      <div class="res-grp" id="rg-networth" style="display:none">
+        <span class="rl">NET WORTH</span>
+        <span class="rv" id="rv-networth">$0</span>
+        <span class="rr" id="rr-networth">0% of global market</span>
+      </div>
     </div>
 
     <!-- Mobile tab bar (hidden on desktop via CSS) -->
@@ -848,27 +899,32 @@
 
       <!-- Left: actions -->
       <div id="left-panel" class="panel">
-        <button id="gen-btn" onclick="doClick()">
-          [ GENERATE DATA ]
-          <span id="gen-sub">+1 data per click</span>
-        </button>
-
-        <div id="mult-bar">
-          <button class="mult-btn active" id="mult-1"   onclick="setBuyMult(1)">×1</button>
-          <button class="mult-btn"        id="mult-10"  onclick="setBuyMult(10)">×10</button>
-          <button class="mult-btn"        id="mult-max" onclick="setBuyMult(0)">MAX</button>
+        <div id="actions-header">
+          <button id="gen-btn" onclick="doClick()">
+            [ GENERATE DATA ]
+            <span id="gen-sub">+1 data per click</span>
+          </button>
+          <div id="mult-bar">
+            <button class="mult-btn active" id="mult-1"   onclick="setBuyMult(1)">×1</button>
+            <button class="mult-btn"        id="mult-10"  onclick="setBuyMult(10)">×10</button>
+            <button class="mult-btn"        id="mult-max" onclick="setBuyMult(0)">MAX</button>
+          </div>
         </div>
-
-        <div id="sec-models"></div>
-        <div id="sec-auto" style="display:none"></div>
-        <div id="sec-hw" style="display:none"></div>
-        <div id="sec-upg" style="display:none"></div>
-        <div id="sec-prestige" style="display:none"></div>
+        <div id="actions-scroll">
+          <div id="sec-models"></div>
+          <div id="sec-auto" style="display:none"></div>
+          <div id="sec-hw" style="display:none"></div>
+          <div id="sec-upg" style="display:none"></div>
+          <div id="sec-prestige" style="display:none"></div>
+          <div id="sec-p2infra" style="display:none"></div>
+        </div>
       </div>
 
       <!-- Center: active systems -->
       <div id="center-panel" class="panel">
-        <div class="panel-hdr">// SYSTEMS</div>
+        <div id="market-tick-wrap" style="display:none">
+          <span id="market-tick-label">NEXT TICK IN 3.0s</span>
+        </div>
         <div id="sys-content">
           <div class="sys-empty">No active systems.<br><span class="muted">Train a model to begin.</span></div>
         </div>
@@ -881,6 +937,7 @@
         <div class="log-controls">
           <button id="save-btn" onclick="saveGame()">[ SAVE ]</button>
           <button onclick="resetGame()">[ RESET ]</button>
+          <button onclick="debugSkipToPhase2()" style="color:#f5a623">[ SKIP→P2 ]</button>
           <button onclick="window.location.href='play.html'">[ EXIT ]</button>
         </div>
       </div>
