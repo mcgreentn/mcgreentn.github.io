@@ -1,6 +1,15 @@
 data = {
     "posts": [
         {
+            "title": "Claude Coding a Clicker Game",
+            "authors": "Michael C Green",
+            "publication": "Substack - Professor Green",
+            "description": "Making a game with AI-assistance is just as much fun as playing it.",
+            "link": "https://professorgreen.substack.com/p/claude-coding-a-clicker-game",
+            "date": "March 26, 2026",
+            "tags": ["research", "personal"]
+        },
+        {
             "title": "Always Right or Mostly Right?",
             "authors": "Michael C Green",
             "publication": "Substack - Professor Green",
