@@ -91,15 +91,21 @@
 
     /* ── Cartridge shelf ── */
     .cart-shelf {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 40px;
       align-items: flex-start;
     }
 
+    @media (max-width: 540px) {
+      .cart-shelf {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ── Cartridge ── */
     .cartridge {
-      width: 190px;
+      width: 100%;
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
@@ -537,61 +543,7 @@
     <div class="page">
       <h1 class="page-title">Play</h1>
 
-      <div class="cart-shelf">
-
-        <!-- DunGen cartridge
-             To add a screenshot: replace the .cart-screenshot-placeholder div
-             with: <img class="cart-screenshot" src="images/dungen-preview.png" alt="DunGen screenshot"> -->
-        <div class="cartridge" onclick="bootGame('dungen.html', 'DUNGEN')" role="button" tabindex="0"
-             onkeydown="if(event.key==='Enter'||event.key===' ')bootGame('dungen.html','DUNGEN')">
-          <div class="cart-body">
-            <div class="cart-label">
-              <img class="cart-screenshot" src="images/previews/dungen.png" alt="DunGen screenshot">
-              <div class="cart-label-title">
-                <span class="cart-game-name">DunGen</span>
-                <span class="cart-game-sub">roguelike</span>
-              </div>
-            </div>
-          </div>
-          <div class="cart-connector">
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-          </div>
-        </div>
-
-        <!-- AI Clicker cartridge -->
-        <div class="cartridge" onclick="bootGame('ai-clicker.html', 'AI CLICKER')" role="button" tabindex="0"
-             onkeydown="if(event.key==='Enter'||event.key===' ')bootGame('ai-clicker.html','AI CLICKER')">
-          <div class="cart-body">
-            <div class="cart-label">
-              <img class="cart-screenshot" src="images/previews/aiclicker.png" alt="AI Clicker screenshot">
-              <div class="cart-label-title">
-                <span class="cart-game-name">AI Clicker</span>
-                <span class="cart-game-sub">idle</span>
-              </div>
-            </div>
-          </div>
-          <div class="cart-connector">
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-            <div class="cart-pin"></div>
-          </div>
-        </div>
-
-      </div><!-- /cart-shelf -->
+      <div class="cart-shelf"></div><!-- /cart-shelf -->
     </div><!-- /page -->
   </main>
 
@@ -600,18 +552,50 @@
   </footer>
 
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="assets/games.js"></script>
   <script>
     function bootGame(url, title) {
-      const overlay = document.getElementById('boot-overlay');
+      var overlay = document.getElementById('boot-overlay');
       document.getElementById('boot-title').textContent = title;
-
       overlay.classList.add('active');
-
-      // Navigate after the boot animation completes (~1.9s)
-      setTimeout(function() {
-        window.location.href = url;
-      }, 1900);
+      setTimeout(function() { window.location.href = url; }, 1900);
     }
+
+    $(function() {
+      var shelf = $('.cart-shelf');
+      var pins = '';
+      for (var p = 0; p < 9; p++) pins += '<div class="cart-pin"></div>';
+
+      $.each(data.games, function(i, game) {
+        var labelMedia = game.screenshot
+          ? '<img class="cart-screenshot" src="' + game.screenshot + '" alt="' + game.name + ' screenshot">'
+          : '<div class="cart-screenshot-placeholder' + (game.placeholderClass ? ' ' + game.placeholderClass : '') + '"></div>';
+
+        var $cart = $(
+          '<div class="cartridge" role="button" tabindex="0">' +
+            '<div class="cart-body">' +
+              '<div class="cart-label">' +
+                labelMedia +
+                '<div class="cart-label-title">' +
+                  '<span class="cart-game-name">' + game.name + '</span>' +
+                  '<span class="cart-game-sub">' + game.sub + '</span>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="cart-connector">' + pins + '</div>' +
+          '</div>'
+        );
+
+        var launch = game.newTab
+          ? function() { window.open(game.url, '_blank', 'noopener'); }
+          : function() { bootGame(game.url, game.bootTitle); };
+        $cart.on('click', launch);
+        $cart.on('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') launch(); });
+
+        shelf.append($cart);
+      });
+    });
   </script>
 </body>
 
