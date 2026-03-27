@@ -66,6 +66,21 @@
       color: var(--text);
     }
 
+    .site-nav .navbar-toggler {
+      border-color: var(--muted);
+      padding: 0.3rem 0.6rem;
+    }
+    .site-nav .navbar-toggler:focus { box-shadow: none; }
+    .site-nav .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(122,143,163,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      width: 1.2em;
+      height: 1.2em;
+    }
+    @media (max-width: 575.98px) {
+      .site-nav .navbar-toggler { display: flex; align-items: center; gap: 7px; }
+    }
+
+
     /* ── Page ── */
     .page {
       max-width: 760px;
