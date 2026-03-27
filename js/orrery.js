@@ -17,7 +17,7 @@
     width: '100%',
     height: '100%',
     zIndex: 0,
-    pointerEvents: 'auto',
+    pointerEvents: 'none',
   });
   document.body.prepend(canvas);
   const ctx = canvas.getContext('2d');
@@ -141,22 +141,23 @@
     p.angle = p.angle - p.speed * lastTime;
   }
 
-  canvas.addEventListener('mousemove', function (e) {
+  document.addEventListener('mousemove', function (e) {
+    if (bhPhase) return;
     var idx = findPlanetAt(e.clientX, e.clientY);
     if (idx !== hoveredIndex) {
       if (hoveredIndex !== -1) unfreezePlanet(planets[hoveredIndex]);
       hoveredIndex = idx;
       if (idx !== -1) freezePlanet(planets[idx]);
     }
-    canvas.style.cursor = idx !== -1 ? 'pointer' : 'default';
+    document.body.style.cursor = idx !== -1 ? 'pointer' : '';
   });
 
-  canvas.addEventListener('mouseleave', function () {
+  document.addEventListener('mouseleave', function () {
     if (hoveredIndex !== -1) {
       unfreezePlanet(planets[hoveredIndex]);
       hoveredIndex = -1;
     }
-    canvas.style.cursor = 'default';
+    document.body.style.cursor = '';
   });
 
   /* ── charge-up: hold to set speed, tap for slow ── */
@@ -164,20 +165,11 @@
   var chargeIndex   = -1;
   var chargeStart   = 0;
 
-  canvas.addEventListener('mousedown', function (e) {
-    if (!planets.length || !unit) return;
-    var idx = findPlanetAt(e.clientX, e.clientY);
-    if (idx === -1) return;
-    chargeIndex = idx;
-    chargeStart = performance.now();
-  });
-
-  canvas.addEventListener('mouseup', function () {
+  function applyCharge() {
     if (chargeIndex === -1) return;
     var p      = planets[chargeIndex];
     var held   = performance.now() - chargeStart;
     var charge = Math.min(held / CHARGE_MAX_MS, 1);
-    /* tap → very slow; full charge → ~5× the normal max */
     var newSpeed = (0.00003 + charge * 0.0047) * (Math.random() < 0.5 ? 1 : -1);
     var newColor = pick(PALETTE);
     p.color     = newColor;
@@ -187,7 +179,39 @@
     p.angle     = p.angle - p.speed * lastTime;
     triggerRipple(charge, '#ffe8a0');
     chargeIndex = -1;
+  }
+
+  document.addEventListener('mousedown', function (e) {
+    if (bhPhase || !planets.length || !unit) return;
+    var idx = findPlanetAt(e.clientX, e.clientY);
+    if (idx === -1) return;
+    chargeIndex = idx;
+    chargeStart = performance.now();
   });
+
+  document.addEventListener('mouseup', applyCharge);
+
+  /* ── touch support ── */
+  document.addEventListener('touchstart', function (e) {
+    if (bhPhase || !planets.length || !unit) return;
+    var t   = e.touches[0];
+    var idx = findPlanetAt(t.clientX, t.clientY);
+    if (idx === -1) return;
+    e.preventDefault();
+    chargeIndex  = idx;
+    chargeStart  = performance.now();
+    hoveredIndex = idx;
+    freezePlanet(planets[idx]);
+  }, {passive: false});
+
+  document.addEventListener('touchend', function (e) {
+    if (chargeIndex !== -1) e.preventDefault();
+    hoveredIndex = -1;
+    if (chargeIndex !== -1 && planets[chargeIndex]) {
+      unfreezePlanet(planets[chargeIndex]);
+    }
+    applyCharge();
+  }, {passive: false});
 
   /* ── trail constants ── */
   var TRAIL_THRESHOLD = 0.0005; /* min speed before trail appears */
